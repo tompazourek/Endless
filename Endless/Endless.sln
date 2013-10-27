@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Endless", "Endless.csproj", "{89FC4A3D-8737-49B6-8F92-ED40328AC679}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Endless.Tests", "..\Endless.Tests\Endless.Tests.csproj", "{3FBC22A8-D514-4245-8EFC-C7B85D704678}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{83F31DA7-320F-4C60-AE75-D8087D010D19}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{89FC4A3D-8737-49B6-8F92-ED40328AC679}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89FC4A3D-8737-49B6-8F92-ED40328AC679}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89FC4A3D-8737-49B6-8F92-ED40328AC679}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89FC4A3D-8737-49B6-8F92-ED40328AC679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FBC22A8-D514-4245-8EFC-C7B85D704678}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FBC22A8-D514-4245-8EFC-C7B85D704678}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FBC22A8-D514-4245-8EFC-C7B85D704678}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FBC22A8-D514-4245-8EFC-C7B85D704678}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
