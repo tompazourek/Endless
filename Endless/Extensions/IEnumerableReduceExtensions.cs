@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Endless
 {
-    // TODO: scanl, scanr, scanl1, scanr1
+    /// <summary>
+    /// Extensions to generic enumerables that follow the reduce paradigm
+    /// </summary>
     public static class IEnumerableReduceExtensions
     {
         public static T1 Foldl<T1, T2>(this IEnumerable<T2> list, Func<T1, T2, T1> func, T1 start)
