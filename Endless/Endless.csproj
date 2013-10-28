@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Enumerate.cs" />
+    <Compile Include="Extensions\IEnumerableScanExtensions.cs" />
     <Compile Include="Func\FuncExtensions.cs" />
     <Compile Include="Func\Identity.cs" />
     <Compile Include="Generate.cs" />
