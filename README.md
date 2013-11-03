@@ -56,4 +56,17 @@ Uses Endless extensions **Enumerate.From()** and **Tail()**.
 
 ---
 
+### Fibonacci sequence
+
+```csharp
+public IEnumerable<int> Fibonacci()
+{
+    return Tuple.Create(0, 1).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
+}
+```
+
+Uses Endless extension **Iterate()**.
+
+---
+
 *(more examples coming soon)*
