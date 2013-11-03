@@ -8,12 +8,12 @@ namespace Endless
 {
     public static class Natural
     {
-        public static IEnumerable<int> NonNegativeIntegers
+        public static IEnumerable<int> NumbersWithZero
         {
             get { return Enumerate.From(0); }
         }
 
-        public static IEnumerable<int> PositiveIntegers
+        public static IEnumerable<int> Numbers
         {
             get { return Enumerate.From(1); }
         }
