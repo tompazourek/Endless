@@ -38,7 +38,8 @@
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Enumerate.cs" />
     <Compile Include="Extensions\IEnumerableScanExtensions.cs" />
-    <Compile Include="Func\FuncExtensions.cs" />
+    <Compile Include="Func\Compose.cs" />
+    <Compile Include="Func\Function.cs" />
     <Compile Include="Func\Identity.cs" />
     <Compile Include="Generate.cs" />
     <Compile Include="Natural.cs" />

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Endless.Func
 {
-    public static class FuncExtensions
+    public static partial class Function
     {
         public static Func<T2, T1, TResult> Flip<T1, T2, TResult>(this Func<T1, T2, TResult> func)
         {

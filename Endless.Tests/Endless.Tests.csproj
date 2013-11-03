@@ -51,8 +51,10 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="FuncTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenerateTests.cs" />
+    <Compile Include="Samples.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Endless\Endless.csproj">
