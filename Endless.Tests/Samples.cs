@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using System.Text;
 using System.Linq;
 using System.Diagnostics;
@@ -53,6 +54,26 @@ namespace Endless.Tests
                 };
 
             Assert.AreEqual(new DateTime(2013, 12, 13), nextFridayThe13thSince(today));
+        }
+
+        [Test]
+        public void Sum1000Primes()
+        {
+            var primeNumbers = Sieve(Enumerate.From(2));
+            var sum = primeNumbers.Take(1000).Sum();
+
+            Assert.AreEqual(3682913, sum);
+        }
+
+        private IEnumerable<int> Sieve(IEnumerable<int> list)
+        {
+            int prime = list.First();
+            yield return prime;
+
+            foreach (var other in Sieve(list.Tail().Where(x => x % prime != 0)))
+            {
+                yield return other;
+            }
         }
     }
 }
