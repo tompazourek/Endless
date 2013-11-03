@@ -154,6 +154,42 @@ namespace Endless
         }
 
         /// <summary>
+        /// Bypasses elements in a sequence as long as they are not equal to given element, then returns the remaining elements.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, T item)
+        {
+            return source.SkipWhile(x => !Equals(x, item));
+        }
+
+        /// <summary>
+        /// Bypasses elements in a sequence until given predicate is true, then returns the remaining elements.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, Func<T, bool> predicate)
+        {
+            return source.SkipWhile(x => !predicate(x));
+        }
+
+        /// <summary>
+        /// Bypasses elements in a sequence until given predicate is true, then returns the remaining elements. The element's index is used in the logic of the predicate function.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, Func<T, int, bool> predicate)
+        {
+            return source.SkipWhile((x, index) => !predicate(x, index));
+        }
+
+        /// <summary>
         /// Splits the given sequence into pieces of given size and returns sequence of these pieces.
         /// </summary>
         /// <typeparam name="T"></typeparam>
