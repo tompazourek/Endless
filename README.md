@@ -21,7 +21,7 @@ Uses Endless extensions **Iterate()** and **TakeUntil()**.
 ### Next friday the 13th
 
 ```csharp
-private DateTime NextFridayThe13th()
+DateTime NextFridayThe13th()
 {
     var future = DateTime.Today.Iterate(x => x.AddDays(1));
     return future.First(x => x.Day == 13 && x.DayOfWeek == DayOfWeek.Friday);
@@ -35,12 +35,12 @@ Uses Endless extension **Iterate()**.
 ### Prime numbers (simple)
 
 ```csharp
-private IEnumerable<int> GetPrimes()
+IEnumerable<int> GetPrimes()
 {
     return Sieve(Enumerate.From(2));
 }
 
-private IEnumerable<int> Sieve(IEnumerable<int> list)
+IEnumerable<int> Sieve(IEnumerable<int> list)
 {
     int prime = list.First();
     yield return prime;
@@ -59,7 +59,7 @@ Uses Endless extensions **Enumerate.From()** and **Tail()**.
 ### Fibonacci sequence
 
 ```csharp
-public IEnumerable<int> Fibonacci()
+IEnumerable<int> Fibonacci()
 {
     return Tuple.Create(0, 1).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
 }
