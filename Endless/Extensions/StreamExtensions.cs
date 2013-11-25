@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Endless
 {
+    /// <summary>
+    /// Extensions to <see cref="Stream"/>
+    /// </summary>
     public static class StreamExtensions
     {
         private const int DefaultBufferSize = 8 * 1024;
@@ -39,7 +42,7 @@ namespace Endless
 
         public static void Write(this Stream stream, IEnumerable<byte> bytes)
         {
-            foreach (var b in bytes)
+            foreach (byte b in bytes)
             {
                 stream.WriteByte(b);
             }
@@ -47,11 +50,11 @@ namespace Endless
 
         public static void WriteBuffered(this Stream stream, IEnumerable<byte> bytes, int bufferSize = DefaultBufferSize)
         {
-            var chunked = bytes.Chunk(bufferSize).ToList();
+            List<IEnumerable<byte>> chunked = bytes.Chunk(bufferSize).ToList();
             for (int index = 0; index < chunked.Count; index++)
             {
-                var chunk = chunked[index];
-                var buffer = chunk.ToArray();
+                IEnumerable<byte> chunk = chunked[index];
+                byte[] buffer = chunk.ToArray();
                 stream.Write(buffer, 0, buffer.Count());
             }
         }

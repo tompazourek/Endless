@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Endless
 {
     /// <summary>
-    ///  Extensions to <see cref="Random"/>
+    /// Extensions to <see cref="Random"/>
     /// </summary>
     public static class RandomExtensions
     {
@@ -19,7 +19,7 @@ namespace Endless
         /// <returns></returns>
         public static byte NextByte(this Random random)
         {
-            var result = (byte)random.Next(byte.MinValue, byte.MaxValue + 1);
+            var result = (byte) random.Next(byte.MinValue, byte.MaxValue + 1);
             return result;
         }
 
@@ -30,7 +30,7 @@ namespace Endless
         /// <returns></returns>
         public static char NextChar(this Random random)
         {
-            var result = (char)random.Next(char.MinValue, char.MaxValue + 1);
+            var result = (char) random.Next(char.MinValue, char.MaxValue + 1);
             return result;
         }
     }

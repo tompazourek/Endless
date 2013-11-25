@@ -1,9 +1,9 @@
-using System.Threading.Tasks;
-using System.Text;
-using System.Diagnostics;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Endless
 {
@@ -15,8 +15,6 @@ namespace Endless
         /// <summary>
         /// Creates new string out of given chars.
         /// </summary>
-        /// <param name="chars"></param>
-        /// <returns></returns>
         public static string BuildString(this IEnumerable<char> chars)
         {
             return new string(chars.ToArray());
@@ -25,23 +23,18 @@ namespace Endless
         /// <summary>
         /// Concatenates given strings.
         /// </summary>
-        /// <param name="strings"></param>
-        /// <returns></returns>
         public static string JoinStrings(this IEnumerable<string> strings)
         {
-            var result = string.Concat(strings);
+            string result = string.Concat(strings);
             return result;
         }
 
         /// <summary>
         /// Concatenates given strings with given separator.
         /// </summary>
-        /// <param name="strings"></param>
-        /// <param name="separator"></param>
-        /// <returns></returns>
         public static string JoinStrings(this IEnumerable<string> strings, string separator)
         {
-            var result = string.Join(separator, strings);
+            string result = string.Join(separator, strings);
             return result;
         }
     }

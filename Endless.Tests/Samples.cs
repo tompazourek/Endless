@@ -5,7 +5,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Collections.Generic;
 using System;
-using Endless.Func;
+using Endless.Functional;
 using NUnit.Framework;
 
 namespace Endless.Tests

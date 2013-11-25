@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System;
 
-namespace Endless.Func
+namespace Endless
 {
     /// <summary>
     /// Static class containing identity function

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Endless.Func;
+using Endless.Functional;
 using NUnit.Framework;
 
 namespace Endless.Tests

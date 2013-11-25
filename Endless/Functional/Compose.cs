@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System;
 
-namespace Endless.Func
+namespace Endless.Functional
 {
     public static partial class Function
     {
@@ -14,7 +14,6 @@ namespace Endless.Func
         /// </summary>
         /// <param name="second">Function that is applied second (outer)</param>
         /// <param name="first">Function that is applied first (inner)</param>
-        /// <returns></returns>
         public static Func<T1, T3> Compose<T1, T2, T3>(Func<T2, T3> second, Func<T1, T2> first)
         {
             var result = new Func<T1, T3>(x => second(first(x)));
