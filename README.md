@@ -124,3 +124,8 @@ Uses Endless extension **Iterate()**.
 **Random extensions**
 
 - NextByte, NextChar
+
+**Functional features (experimental)**
+
+- Curryfication
+- Functional composition
