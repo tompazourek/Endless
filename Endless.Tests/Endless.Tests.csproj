@@ -52,6 +52,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BigIntegerAggregationsTests.cs" />
     <Compile Include="EnumerateFromThenToTests.cs" />
     <Compile Include="EnumerateFromThenTests.cs" />
     <Compile Include="EnumerateFromToTests.cs" />

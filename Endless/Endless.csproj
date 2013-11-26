@@ -46,6 +46,7 @@
     <Compile Include="Enumerate\EnumerateInt.cs" />
     <Compile Include="Enumerate\EnumerateLong.cs" />
     <Compile Include="Extensions\Advanced\FoldExtensions.cs" />
+    <Compile Include="Extensions\BigIntegerAggregations.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\Advanced\ScanExtensions.cs" />
     <Compile Include="Functional\Compose.cs" />
