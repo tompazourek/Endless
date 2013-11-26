@@ -180,7 +180,7 @@ namespace Endless
         /// <summary>
         /// Sorts the elements of the sequence in ascending order
         /// </summary>
-        public static IEnumerable<T> Order<T>(this IEnumerable<T> source)
+        public static IEnumerable<T> Sort<T>(this IEnumerable<T> source)
         {
             return source.OrderBy(Identity<T>.Func);
         }
@@ -188,7 +188,7 @@ namespace Endless
         /// <summary>
         /// Sorts the elements of the sequence in descending order
         /// </summary>
-        public static IEnumerable<T> OrderDescending<T>(this IEnumerable<T> source)
+        public static IEnumerable<T> SortDescending<T>(this IEnumerable<T> source)
         {
             return source.OrderByDescending(Identity<T>.Func);
         }
