@@ -22,7 +22,7 @@ namespace Endless.Advanced
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
 
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 yield break;
 
             T2 x = sequence.First();
@@ -42,7 +42,7 @@ namespace Endless.Advanced
         public static IEnumerable<T> Scanl1<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
 
             return Scanl(sequence.Tail(), func, sequence.First());
@@ -58,7 +58,7 @@ namespace Endless.Advanced
         public static IEnumerable<T2> Scanr<T1, T2>(this IEnumerable<T1> sequence, Func<T1, T2, T2> func, T2 seed)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
             {
                 yield return seed;
                 yield break;
@@ -86,13 +86,13 @@ namespace Endless.Advanced
         public static IEnumerable<T> Scanr1<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 yield break;
 
             T x = sequence.First();
             IEnumerable<T> xs = sequence.Tail();
 
-            if (xs.Empty())
+            if (xs.IsEmpty())
             {
                 yield return x;
                 yield break;

@@ -101,7 +101,7 @@ Uses Endless extension **Iterate()**.
 
 **Existing enumerable extensions variations**
 - Init (everything except the last) & Tail (everything except the first)
-- Empty (just opposite of Any)
+- IsEmpty (just opposite of Any)
 - Concat (with lazy second sequence)
 - TakeUntil (predicate or element)
 - SkipUntil (predicate or element)

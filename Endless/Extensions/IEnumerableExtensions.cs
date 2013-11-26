@@ -53,7 +53,7 @@ namespace Endless
         /// <summary>
         /// Returns true if the given sequence is empty.
         /// </summary>
-        public static bool Empty<T>(this IEnumerable<T> sequence)
+        public static bool IsEmpty<T>(this IEnumerable<T> sequence)
         {
             return !sequence.Any();
         }

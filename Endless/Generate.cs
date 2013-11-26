@@ -72,7 +72,7 @@ namespace Endless
             // ReSharper disable PossibleMultipleEnumeration
             while (true)
             {
-                if (values.Empty())
+                if (values.IsEmpty())
                     yield break;
 
                 foreach (T item in values)

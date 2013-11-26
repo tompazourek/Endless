@@ -18,7 +18,7 @@ namespace Endless
         public static bool And(this IEnumerable<bool> sequence)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 return true;
 
             bool head = sequence.First();
@@ -36,7 +36,7 @@ namespace Endless
         public static bool And(this IEnumerable<Func<bool>> sequence)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 return true;
 
             bool head = sequence.First()();
@@ -54,7 +54,7 @@ namespace Endless
         public static bool Or(this IEnumerable<bool> sequence)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 return true;
 
             bool head = sequence.First();
@@ -72,7 +72,7 @@ namespace Endless
         public static bool Or(this IEnumerable<Func<bool>> sequence)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.Empty())
+            if (sequence.IsEmpty())
                 return true;
 
             bool head = sequence.First()();
