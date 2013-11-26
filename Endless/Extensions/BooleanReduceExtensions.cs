@@ -17,17 +17,7 @@ namespace Endless
         /// </summary>
         public static bool And(this IEnumerable<bool> sequence)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-                return true;
-
-            bool head = sequence.First();
-
-            if (head)
-                return And(sequence.Tail());
-
-            return false;
-            // ReSharper restore PossibleMultipleEnumeration
+            return sequence.All(Identity<bool>.Func);
         }
 
         /// <summary>
@@ -35,17 +25,7 @@ namespace Endless
         /// </summary>
         public static bool And(this IEnumerable<Func<bool>> sequence)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-                return true;
-
-            bool head = sequence.First()();
-
-            if (head)
-                return And(sequence.Tail());
-
-            return false;
-            // ReSharper restore PossibleMultipleEnumeration
+            return sequence.All(x => x());
         }
 
         /// <summary>
@@ -53,17 +33,7 @@ namespace Endless
         /// </summary>
         public static bool Or(this IEnumerable<bool> sequence)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-                return true;
-
-            bool head = sequence.First();
-
-            if (!head)
-                return Or(sequence.Tail());
-
-            return true;
-            // ReSharper restore PossibleMultipleEnumeration
+            return sequence.Any(Identity<bool>.Func);
         }
 
         /// <summary>
@@ -71,17 +41,7 @@ namespace Endless
         /// </summary>
         public static bool Or(this IEnumerable<Func<bool>> sequence)
         {
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-                return true;
-
-            bool head = sequence.First()();
-
-            if (!head)
-                return Or(sequence.Tail());
-
-            return true;
-            // ReSharper restore PossibleMultipleEnumeration
+            return sequence.Any(x => x());
         }
     }
 }

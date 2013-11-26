@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="BigIntegerAggregationsTests.cs" />
+    <Compile Include="BooleanReduceTests.cs" />
     <Compile Include="EnumerateFromThenToTests.cs" />
     <Compile Include="EnumerateFromThenTests.cs" />
     <Compile Include="EnumerateFromToTests.cs" />
