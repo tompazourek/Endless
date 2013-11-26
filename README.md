@@ -111,6 +111,7 @@ Uses Endless extension **Iterate()**.
 - Order (just overload with default item ordering)
 - OrderByDescending (just overload with default item ordering)
 - Except (just overload with single item parameter)
+- Sum, Min and Max for `IEnumerable<BigInteger>` and `IEnumerable<BigInteger?>`
 
 **Stream extensions**
 
@@ -129,3 +130,4 @@ Uses Endless extension **Iterate()**.
 
 - Curryfication
 - Functional composition
+- Generic identity function
