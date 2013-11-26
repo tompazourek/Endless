@@ -94,20 +94,23 @@ Uses Endless extension **Iterate()**.
 - Fold reductions (Foldl, Foldl1, Foldr, Foldr1)
 - Scan reductions (Scanl, Scanl1, Scanr, Scanr1)
 
-**Enumerable extensions**
-
-- Init & Tail
-- SelectMany (overload without selector function)
-- Empty (just opposite of Any)
+**Enumerable custom extensions**
 - Random (random element of the sequence)
 - Shuffle (order sequence randomly)
-- Except (just overload with single item parameter)
+- Chunk (split sequence into chunks of same size)
+
+**Existing enumerable extensions variations**
+- Init (everything except the last) & Tail (everything except the first)
+- Empty (just opposite of Any)
 - Concat (with lazy second sequence)
 - TakeUntil (predicate or element)
 - SkipUntil (predicate or element)
-- Chunk (split sequence into chunks of same size)
+
+**Existing enumerable extensions overloads**
+- SelectMany (overload without selector function)
 - Order (just overload with default item ordering)
 - OrderByDescending (just overload with default item ordering)
+- Except (just overload with single item parameter)
 
 **Stream extensions**
 
