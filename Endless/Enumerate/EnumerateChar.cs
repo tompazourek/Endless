@@ -15,7 +15,10 @@ namespace Endless
         /// <returns>(n0, n0 + 1, n0 + 2, n0 + 3, ...)</returns>
         public static IEnumerable<char> From(char n0)
         {
-            return n0.Iterate(x => ++x);
+            unchecked
+            {
+                return n0.Iterate(x => ++x);
+            }
         }
 
         /// <summary>
