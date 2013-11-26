@@ -52,6 +52,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="EnumerateFromToTests.cs" />
+    <Compile Include="EnumerateFromTests.cs" />
     <Compile Include="NaturalTests.cs" />
     <Compile Include="FuncTests.cs" />
     <Compile Include="ProjectEulerTests.cs" />
