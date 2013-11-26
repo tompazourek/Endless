@@ -114,12 +114,12 @@ Uses Endless extension **Iterate()**.
 
 **Stream extensions**
 
-- working with streams and IEnumerable<byte> in harmony
+- working with streams and `IEnumerable<byte>` in harmony
 
 **String extensions**
 
-- JoinStrings (string.Join() rewritten as extension method)
-- BuildString (new string out of IEnumerable<char>)
+- JoinStrings (`string.Join()` rewritten as extension method)
+- BuildString (new string out of `IEnumerable<char>`)
 
 **Random extensions**
 
