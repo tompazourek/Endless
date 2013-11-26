@@ -52,6 +52,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="EnumerateFromThenToTests.cs" />
+    <Compile Include="EnumerateFromThenTests.cs" />
     <Compile Include="EnumerateFromToTests.cs" />
     <Compile Include="EnumerateFromTests.cs" />
     <Compile Include="NaturalTests.cs" />
