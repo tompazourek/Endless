@@ -33,6 +33,32 @@ Uses Endless extension **Iterate()**.
 
 ---
 
+### Fizz buzz
+
+```csharp
+IEnumerable<string> FizzBuzz()
+{
+    var fizzBuzz = Natural.Numbers.Select(x =>
+                {
+                    if (x % 15 == 0) return "Fizz Buzz";
+                    if (x % 3 == 0) return "Fizz";
+                    if (x % 5 == 0) return "Buzz";
+                    return x.ToString();
+                });
+    return fizzBuzz; // endless Fizz buzz collection
+}
+```
+
+Uses Endless **Natural.Numbers**.
+
+```csharp
+FizzBuzz().Take(15).JoinStrings(", "); // "1, 2, Fizz, 4, Buzz, Fizz, 7, 8, Fizz, Buzz, 11, Fizz, 13, 14, Fizz Buzz"
+```
+
+Uses Endless extension **JoinStrings()**.
+
+---
+
 ### Prime numbers (simple)
 
 ```csharp
