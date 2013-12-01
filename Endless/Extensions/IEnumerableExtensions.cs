@@ -108,7 +108,7 @@ namespace Endless
         }
 
         /// <summary>
-        /// Returns all elements of the sequence from the begining until given element.
+        /// Returns all elements of the sequence from the begining until given element. The given element will not be part of the collection.
         /// </summary>
         public static IEnumerable<T> TakeUntil<T>(this IEnumerable<T> source, T item)
         {
