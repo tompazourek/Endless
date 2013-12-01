@@ -14,6 +14,30 @@ namespace Endless.Tests
     [TestFixture]
     public class Samples
     {
+        /// <summary>
+        /// Five weekends
+        /// The month of October in 2010 has five Fridays, five Saturdays, and five Sundays. 
+        /// 
+        /// Task:
+        /// Write a program to show all months that have this same characteristic of five full weekends from the year 1900 through 2100 (Gregorian calendar). 
+        /// Show the number of months with this property (there should be 201).
+        /// </summary>
+        /// <remarks>http://rosettacode.org/wiki/Five_weekends</remarks>
+        [Test]
+        public void FiveWeekends_RosettaCode()
+        {
+            const int startYear = 1900, endYear = 2100;
+
+            var days = new DateTime(startYear, 1, 1).Iterate(x => x.AddDays(1)).TakeWhile(x => x.Year <= endYear);
+            var months = days.GroupBy(x => new { x.Year, x.Month });
+            var fiveWeekendMonths = months.Where(x =>
+                x.Count(y => y.DayOfWeek == DayOfWeek.Friday) == 5 &&
+                x.Count(y => y.DayOfWeek == DayOfWeek.Saturday) == 5 &&
+                x.Count(y => y.DayOfWeek == DayOfWeek.Sunday) == 5);
+
+            Assert.AreEqual(201, fiveWeekendMonths.Count());
+        }
+
         [Test]
         public void FizzBuzz_Sample()
         {
