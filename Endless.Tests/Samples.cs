@@ -56,6 +56,7 @@ namespace Endless.Tests
             Assert.AreEqual(new DateTime(2013, 12, 13), nextFridayThe13thSince(today));
         }
 
+        [Ignore]
         [Test]
         public void Sum1000Primes()
         {

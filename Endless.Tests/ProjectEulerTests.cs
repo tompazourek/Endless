@@ -34,7 +34,7 @@ namespace Endless.Tests
         {
             IEnumerable<BigInteger> fibonacci = Tuple.Create(new BigInteger(0), new BigInteger(1)).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
             IEnumerable<BigInteger> sequence = fibonacci.TakeWhile(x => x < 4 * 1000 * 1000).Where(x => x % 2 == 0);
-            BigInteger sum = FoldExtensions.Foldl1(sequence, (x, y) => x + y);
+            BigInteger sum = sequence.Foldl1((x, y) => x + y);
 
             Assert.AreEqual(new BigInteger(4613732), sum);
         }
@@ -57,7 +57,7 @@ namespace Endless.Tests
             int upperDigitCount = Enumerate.From(2).First(x => x * factorial(9) < Math.Pow(10, x));
             var upperBound = (int) (upperDigitCount * factorial(9));
 
-            long numbersSum = Enumerate.FromTo(lowerBound, upperBound).AsParallel()
+            long numbersSum = Enumerate.From(lowerBound).To(upperBound).AsParallel()
                                        .Where(x => digits(x).Sum(factorial) == x) // sum+equals could be optimized
                                        .Sum();
 

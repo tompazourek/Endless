@@ -16,7 +16,7 @@ namespace Endless
         /// <summary>
         /// Sequence of natural numbers with zero (0, 1, 2, 3, ...)
         /// </summary>
-        public static IEnumerable<BigInteger> NumbersWithZero
+        public static IFromEnumerable<BigInteger> NumbersWithZero
         {
             get { return Enumerate.From(new BigInteger(0)); }
         }
@@ -24,7 +24,7 @@ namespace Endless
         /// <summary>
         /// Sequence of natural numbers (1, 2, 3, ...)
         /// </summary>
-        public static IEnumerable<BigInteger> Numbers
+        public static IFromEnumerable<BigInteger> Numbers
         {
             get { return Enumerate.From(new BigInteger(1)); }
         }

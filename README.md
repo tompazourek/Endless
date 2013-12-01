@@ -86,7 +86,7 @@ Uses Endless extension **Iterate()**.
 **Enumerate**
 
 - Natural numbers (int or BigInteger) sequence
-- From (1..), FromThen (1,2,..), FromTo (1..10), FromThenTo (1,3..15)
+- From (1..), From.Then (1,2,..), From.To (1..10), From.Then.To (1,3..15)
 
 **Reduce**
 

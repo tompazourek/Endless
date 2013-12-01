@@ -22,7 +22,7 @@ namespace Endless.Tests
         public void EnumerateBigInteger_FromThenTo()
         {
             // act
-            IEnumerable<BigInteger> numbers = Enumerate.FromThenTo(new BigInteger(1), 3, 9);
+            IEnumerable<BigInteger> numbers = Enumerate.From(new BigInteger(1)).Then(3).To(9);
 
             // assert
             CollectionAssert.AreEqual(new BigInteger[] { 1, 3, 5, 7, 9 }, numbers);
@@ -32,7 +32,7 @@ namespace Endless.Tests
         public void EnumerateByte_FromThenTo()
         {
             // act
-            IEnumerable<byte> numbers = Enumerate.FromThenTo((byte) 1, (byte) 3, (byte) 9);
+            IEnumerable<byte> numbers = Enumerate.From((byte) 1).Then(3).To(9);
 
             // assert
             CollectionAssert.AreEqual(new byte[] { 1, 3, 5, 7, 9 }, numbers);
@@ -42,7 +42,7 @@ namespace Endless.Tests
         public void EnumerateByte_FromThenTo_Empty()
         {
             // act
-            IEnumerable<byte> numbers = Enumerate.FromThenTo((byte) 253, (byte) 254, (byte) 3);
+            IEnumerable<byte> numbers = Enumerate.From((byte) 253).Then(254).To(3);
 
             // assert
             CollectionAssert.IsEmpty(numbers);
@@ -52,7 +52,7 @@ namespace Endless.Tests
         public void EnumerateChar_FromThenTo()
         {
             // act
-            IEnumerable<char> numbers = Enumerate.FromThenTo('a', 'b', 'f');
+            IEnumerable<char> numbers = Enumerate.From('a').Then('b').To('f');
 
             // assert
             CollectionAssert.AreEqual(new[] { 'a', 'b', 'c', 'd', 'e', 'f' }, numbers);
@@ -62,7 +62,7 @@ namespace Endless.Tests
         public void EnumerateDecimal_FromThenTo()
         {
             // act
-            IEnumerable<decimal> numbers = Enumerate.FromThenTo(1, 1.1M, 2M);
+            IEnumerable<decimal> numbers = Enumerate.From((decimal) 1).Then(1.1M).To(2M);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 1.1M, 1.2M, 1.3M, 1.4M, 1.5M, 1.6M, 1.7M, 1.8M, 1.9M, 2M }, numbers);
@@ -72,7 +72,7 @@ namespace Endless.Tests
         public void EnumerateDouble_FromThenTo()
         {
             // act
-            IEnumerable<double> numbers = Enumerate.FromThenTo(1, 0.5, -1);
+            IEnumerable<double> numbers = Enumerate.From((double) 1).Then(0.5).To(-1);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 0.5, 0, -0.5, -1 }, numbers);
@@ -82,7 +82,7 @@ namespace Endless.Tests
         public void EnumerateFloat_FromThenTo()
         {
             // act
-            IEnumerable<float> numbers = Enumerate.FromThenTo(1, 10f, 40);
+            IEnumerable<float> numbers = Enumerate.From((float) 1).Then(10f).To(40);
 
             // assert
             CollectionAssert.AreEqual(new float[] { 1, 10, 19, 28, 37 }, numbers);
@@ -92,7 +92,7 @@ namespace Endless.Tests
         public void EnumerateInt_FromThenTo()
         {
             // act
-            IEnumerable<int> numbers = Enumerate.FromThenTo(1, -1, -10);
+            IEnumerable<int> numbers = Enumerate.From(1).Then(-1).To(-10);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, -1, -3, -5, -7, -9 }, numbers);
@@ -102,7 +102,7 @@ namespace Endless.Tests
         public void EnumerateLong_FromThenTo()
         {
             // act
-            IEnumerable<long> numbers = Enumerate.FromThenTo(1L, 1, 1);
+            IEnumerable<long> numbers = Enumerate.From(1L).Then(1).To(1);
 
             // assert
             CollectionAssert.AreEqual(new long[] { 1 }, numbers);
