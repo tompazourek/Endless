@@ -105,44 +105,44 @@ Uses Endless extension **Iterate()**.
 **Generate**
 
 - [Yield](https://github.com/tompazourek/Endless/wiki/Generators#yield)
-- [Iterate](https://github.com/tompazourek/Endless/wiki/_preview#iterate)
+- [Iterate](https://github.com/tompazourek/Endless/wiki/Generators#iterate)
 - Cycle
 - Repeat
 
 **Enumerate**
 
-- Natural numbers (int or BigInteger) sequence
-- From (1..), From.Then (1,2,..), From.To (1..10), From.Then.To (1,3..15)
+- [Natural](https://github.com/tompazourek/Endless/blob/master/Endless/Enumerate/Natural.cs) numbers (int or BigInteger) sequence
+- [From](https://github.com/tompazourek/Endless/blob/master/Endless/Enumerate/Enumerate.cs) (1..), From.Then (1,2,..), From.To (1..10), From.Then.To (1,3..15)
 
 **Reduce**
 
-- Boolean reductions (And, Or)
-- Fold reductions (Foldl, Foldl1, Foldr, Foldr1)
-- Scan reductions (Scanl, Scanl1, Scanr, Scanr1)
+- [Boolean reductions](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/BooleanReduceExtensions.cs) (And, Or)
+- [Fold reductions](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/Advanced/FoldExtensions.cs) (Foldl, Foldl1, Foldr, Foldr1)
+- [Scan reductions](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/Advanced/ScanExtensions.cs) (Scanl, Scanl1, Scanr, Scanr1)
 
-**Enumerable custom extensions**
+[**Enumerable custom extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
 - Random (random element of the sequence)
 - Shuffle (order sequence randomly)
 - Chunk (split sequence into chunks of same size)
 
-**Existing enumerable extensions variations**
+[**Existing enumerable extensions variations**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
 - Init (everything except the last) & Tail (everything except the first)
 - IsEmpty (just opposite of Any)
 - Concat (with lazy second sequence)
 - TakeUntil (predicate or element)
 - SkipUntil (predicate or element)
 
-**Existing enumerable extensions overloads**
+[**Existing enumerable extensions overloads**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
 - SelectMany (overload without selector function)
 - Sort, SortDescending (just like Sort on `List<T>` - default item ordering)
 - Except (just overload with single item parameter)
 - Sum, Min and Max for `IEnumerable<BigInteger>` and `IEnumerable<BigInteger?>`
 
-**Stream extensions**
+[**Stream extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/StreamExtensions.cs)
 
 - working with streams and `IEnumerable<byte>` in harmony
 
-**String extensions**
+[**String extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/StringExtensions.cs)
 
 - JoinStrings (`string.Join()` rewritten as extension method)
 - BuildString (new string out of `IEnumerable<char>`)
