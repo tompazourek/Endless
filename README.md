@@ -134,7 +134,7 @@ Uses Endless extension **Iterate()**.
 
 **Existing enumerable extensions overloads**
 - SelectMany (overload without selector function)
-- Sort, SortByDescending (just like Sort on `List<T>` - default item ordering)
+- Sort, SortDescending (just like Sort on `List<T>` - default item ordering)
 - Except (just overload with single item parameter)
 - Sum, Min and Max for `IEnumerable<BigInteger>` and `IEnumerable<BigInteger?>`
 
