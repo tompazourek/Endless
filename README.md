@@ -104,10 +104,10 @@ Uses Endless extension **Iterate()**.
 
 **Generate**
 
-- [Yield](https://github.com/tompazourek/Endless/wiki/Generators#yield)
-- [Iterate](https://github.com/tompazourek/Endless/wiki/Generators#iterate)
-- Cycle
-- Repeat
+- [Yield](https://github.com/tompazourek/Endless/wiki/Generators#wiki-yield)
+- [Iterate](https://github.com/tompazourek/Endless/wiki/Generators#wiki-iterate)
+- [Repeat] (https://github.com/tompazourek/Endless/wiki/Generators#wiki-repeat)
+- [Cycle] (https://github.com/tompazourek/Endless/wiki/Generators#wiki-cycle)
 
 **Enumerate**
 
