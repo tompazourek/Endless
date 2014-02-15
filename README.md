@@ -111,8 +111,8 @@ Uses Endless extension **Iterate()**.
 
 **Enumerate**
 
-- [Natural](https://github.com/tompazourek/Endless/blob/master/Endless/Enumerate/Natural.cs) numbers (int or BigInteger) sequence
-- [From](https://github.com/tompazourek/Endless/blob/master/Endless/Enumerate/Enumerate.cs) (1..), From.Then (1,2,..), From.To (1..10), From.Then.To (1,3..15)
+- [Natural numbers](https://github.com/tompazourek/Endless/wiki/Enumerate#wiki-natural-numbers)
+- [Enumerate.From().Then().To()](https://github.com/tompazourek/Endless/wiki/Enumerate#wiki-from-then-to)
 
 **Reduce**
 
