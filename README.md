@@ -2,6 +2,8 @@
 
 Extensions that support the C# functional paradigm.
 
+- [Samples](https://github.com/tompazourek/Endless#samples)
+- [Features](https://github.com/tompazourek/Endless#features)
 
 ## Samples
 
@@ -100,7 +102,6 @@ Uses Endless extension **Iterate()**.
 
 ## Features
 
-*(more detailed descriptions in wiki comming soon)*
 
 **Generate**
 
