@@ -20,9 +20,9 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 
 **Reduce**
 
-- [Boolean reductions](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/BooleanReduceExtensions.cs) (And, Or)
-- [Fold reductions](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/Advanced/FoldExtensions.cs) (Foldl, Foldl1, Foldr, Foldr1)
-- [Scan reductions](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/Advanced/ScanExtensions.cs) (Scanl, Scanl1, Scanr, Scanr1)
+- [Boolean reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-boolean-reductions) (And, Or)
+- [Fold reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-folds) (Foldl, Foldl1, Foldr, Foldr1)
+- [Scan reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-scans) (Scanl, Scanl1, Scanr, Scanr1)
 
 [**Enumerable custom extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
 - Random (random element of the sequence)
