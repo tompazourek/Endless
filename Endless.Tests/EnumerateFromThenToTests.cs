@@ -72,7 +72,7 @@ namespace Endless.Tests
         public void EnumerateDouble_FromThenTo()
         {
             // act
-            IEnumerable<double> numbers = Enumerate.From((double) 1).Then(0.5).To(-1);
+            IEnumerable<double> numbers = Enumerate.From(1d).Then(0.5).To(-1);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 0.5, 0, -0.5, -1 }, numbers);
@@ -82,7 +82,7 @@ namespace Endless.Tests
         public void EnumerateFloat_FromThenTo()
         {
             // act
-            IEnumerable<float> numbers = Enumerate.From((float) 1).Then(10f).To(40);
+            IEnumerable<float> numbers = Enumerate.From(1f).Then(10).To(40);
 
             // assert
             CollectionAssert.AreEqual(new float[] { 1, 10, 19, 28, 37 }, numbers);

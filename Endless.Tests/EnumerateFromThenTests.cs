@@ -72,7 +72,7 @@ namespace Endless.Tests
         public void EnumerateDouble_FromThen()
         {
             // act
-            IEnumerable<double> numbers = Enumerate.From(1d).Then(0.9d).Take(5);
+            IEnumerable<double> numbers = Enumerate.From(1d).Then(0.9).Take(5);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 0.9d, 0.8d, 0.7d, 0.6d }, numbers);

@@ -36,7 +36,7 @@ namespace Endless.Advanced
         public static TSource Foldl1<TSource>(this IEnumerable<TSource> sequence, Func<TSource, TSource, TSource> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
-            return sequence.Tail().Aggregate(sequence.First(), func);
+            return sequence.Tail().Aggregate(func);
             // ReSharper restore PossibleMultipleEnumeration
         }
 

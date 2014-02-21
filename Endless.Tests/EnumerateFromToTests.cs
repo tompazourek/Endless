@@ -83,6 +83,16 @@ namespace Endless.Tests
         }
 
         [Test]
+        public void EnumerateDecimal_FromTo_Unmet()
+        {
+            // act
+            IEnumerable<decimal> numbers = Enumerate.From(1M).To(5.5M);
+
+            // assert
+            CollectionAssert.AreEqual(new decimal[] { 1, 2, 3, 4, 5 }, numbers);
+        }
+
+        [Test]
         public void EnumerateDecimal_FromTo_Empty()
         {
             // act

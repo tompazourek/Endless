@@ -50,6 +50,14 @@ namespace Endless.Tests
         }
 
         [Test]
+        public void Repeat_Func_Random()
+        {
+            var random = new Random(934280932);
+            IEnumerable<int> enumerable = new Func<int>(random.Next).Repeat().Take(10);
+            Assert.IsTrue(new[] { 359186384, 699044660, 2079248503, 1448139207, 2016071806, 1844770146, 1970954637, 1876823647, 310023636, 976922116 }.SequenceEqual(enumerable));
+        }
+
+        [Test]
         public void Repeat_Func_CalledRepeatedly()
         {
             int calledCount = 0;
