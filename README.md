@@ -24,10 +24,10 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 - [Fold reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-folds) (Foldl, Foldl1, Foldr, Foldr1)
 - [Scan reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-scans) (Scanl, Scanl1, Scanr, Scanr1)
 
-[**Enumerable custom extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
-- Random (random element of the sequence)
-- Shuffle (order sequence randomly)
-- Chunk (split sequence into chunks of same size)
+**Enumerable custom extensions**
+- [Random](https://github.com/tompazourek/Endless/wiki/Enumerable-custom-extensions#wiki-random) (random element of the sequence)
+- [Shuffle](https://github.com/tompazourek/Endless/wiki/Enumerable-custom-extensions#wiki-shuffle) (order sequence randomly)
+- [Chunk](https://github.com/tompazourek/Endless/wiki/Enumerable-custom-extensions#wiki-chunk) (split sequence into chunks of same size)
 
 [**Existing enumerable extensions variations**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
 - Init (everything except the last) & Tail (everything except the first)
