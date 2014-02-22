@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Endless.Advanced
 {
     /// <summary>
-    /// Scan paradigm functions. Similar to fold reductions (<seealso cref="FoldExtensions"/>), but instead of returning a final value it returns a list of all the intermediate values.
+    /// Scan paradigm functions. Similar to fold reductions (<seealso cref="AggregateRightExtensions"/>), but instead of returning a final value it returns a list of all the intermediate values.
     /// </summary>
     public static class ScanExtensions
     {
@@ -17,7 +17,7 @@ namespace Endless.Advanced
         /// </summary>
         /// <typeparam name="T1">Seed item type, result sequence item type</typeparam>
         /// <typeparam name="T2">Sequence item type</typeparam>
-        public static IEnumerable<T1> Scanl<T1, T2>(this IEnumerable<T2> sequence, Func<T1, T2, T1> func, T1 seed)
+        public static IEnumerable<T1> Scan<T1, T2>(this IEnumerable<T2> sequence, Func<T1, T2, T1> func, T1 seed)
         {
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
@@ -27,7 +27,7 @@ namespace Endless.Advanced
 
             T2 x = sequence.First();
             IEnumerable<T2> xs = sequence.Tail();
-            IEnumerable<T1> result = Scanl(xs, func, func(seed, x));
+            IEnumerable<T1> result = Scan(xs, func, func(seed, x));
             foreach (T1 item in result)
             {
                 yield return item;
@@ -39,23 +39,23 @@ namespace Endless.Advanced
         /// Returns sequence containing: x0, func(x0, x1), func(func(x0, x1), x2), func(func(func(x0, x1), x2), x3), ... 
         /// </summary>
         /// <typeparam name="T">Sequence item type</typeparam>
-        public static IEnumerable<T> Scanl1<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
+        public static IEnumerable<T> Scan<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
 
-            return Scanl(sequence.Tail(), func, sequence.First());
+            return Scan(sequence.Tail(), func, sequence.First());
             // ReSharper restore PossibleMultipleEnumeration
         }
 
         /// <summary>
-        /// Right-to-Left equivalent of <see cref="Scanl{T1,T2}"/>.
+        /// Right-to-Left equivalent of <see cref="Scan{T1,T2}"/>.
         /// Returns sequence containing: ..., func(xn-1, func(xn, seed)), func(xn, seed), seed
         /// </summary>
         /// <typeparam name="T1">Sequence item type</typeparam>
         /// <typeparam name="T2">Seed item type, result sequence item type</typeparam>
-        public static IEnumerable<T2> Scanr<T1, T2>(this IEnumerable<T1> sequence, Func<T1, T2, T2> func, T2 seed)
+        public static IEnumerable<T2> ScanRight<T1, T2>(this IEnumerable<T1> sequence, Func<T1, T2, T2> func, T2 seed)
         {
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
@@ -67,7 +67,7 @@ namespace Endless.Advanced
             T1 x = sequence.First();
             IEnumerable<T1> xs = sequence.Tail();
 
-            IEnumerable<T2> qs = Scanr(xs, func, seed);
+            IEnumerable<T2> qs = ScanRight(xs, func, seed);
             T2 q = qs.First();
 
             yield return func(x, q);
@@ -79,11 +79,11 @@ namespace Endless.Advanced
         }
 
         /// <summary>
-        /// Right-to-Left equivalent of <see cref="Scanl1{T}"/>.
+        /// Right-to-Left equivalent of <see cref="Scan{T}"/>.
         /// Returns sequence containing: ..., func(xn-2, func(xn-1, xn)), func(xn-1, xn)
         /// </summary>
         /// <typeparam name="T">Sequence item type</typeparam>
-        public static IEnumerable<T> Scanr1<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
+        public static IEnumerable<T> ScanRight<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
@@ -98,7 +98,7 @@ namespace Endless.Advanced
                 yield break;
             }
 
-            IEnumerable<T> qs = Scanr1(xs, func);
+            IEnumerable<T> qs = ScanRight(xs, func);
             T q = qs.First();
 
             yield return func(x, q);

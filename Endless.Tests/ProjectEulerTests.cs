@@ -34,7 +34,7 @@ namespace Endless.Tests
         {
             IEnumerable<BigInteger> fibonacci = Tuple.Create(new BigInteger(0), new BigInteger(1)).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
             IEnumerable<BigInteger> sequence = fibonacci.TakeWhile(x => x < 4 * 1000 * 1000).Where(x => x % 2 == 0);
-            BigInteger sum = sequence.Foldl1((x, y) => x + y);
+            BigInteger sum = sequence.Aggregate((x, y) => x + y);
 
             Assert.AreEqual(new BigInteger(4613732), sum);
         }
@@ -48,7 +48,7 @@ namespace Endless.Tests
         public void Problem34_DigitFactorials()
         {
             Func<int, long> factorial = n => 1.Yield().Concat(
-                Natural.Numbers.Scanl1((x, y) => x * y))
+                Natural.Numbers.Scan((x, y) => x * y))
                                               .ElementAt(n);
 
             Func<int, IEnumerable<int>> digits = n => n.Iterate(x => x / 10).TakeUntil(0).Select(x => x % 10);

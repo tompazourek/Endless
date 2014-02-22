@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="BigIntegerAggregationsTests.cs" />
     <Compile Include="BooleanReduceTests.cs" />
+    <Compile Include="AggregateRightTests.cs" />
     <Compile Include="EnumerableCustomTest.cs" />
     <Compile Include="EnumerateFromThenToTests.cs" />
     <Compile Include="EnumerateFromThenTests.cs" />
