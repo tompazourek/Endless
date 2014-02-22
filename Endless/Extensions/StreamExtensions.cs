@@ -55,13 +55,17 @@ namespace Endless
         /// Writes sequence of bytes to the stream, byte by byte.
         /// </summary>
         /// <param name="stream">The destination stream</param>
-        ///  <param name="bytes">Sequence of bytes</param>
-        public static void Write(this Stream stream, IEnumerable<byte> bytes)
+        /// <param name="bytes">Sequence of bytes</param>
+        /// <returns>The number of bytes written to the stream</returns>
+        public static long Write(this Stream stream, IEnumerable<byte> bytes)
         {
+            long writtenCount = 0;
             foreach (byte b in bytes)
             {
                 stream.WriteByte(b);
+                writtenCount++;
             }
+            return writtenCount;
         }
 
         /// <summary>
@@ -70,15 +74,18 @@ namespace Endless
         /// <param name="stream">The destination stream</param>
         /// <param name="bytes">Sequence of bytes</param>
         /// <param name="bufferSize">Size of block, default is 8 KB</param>
-        public static void WriteBuffered(this Stream stream, IEnumerable<byte> bytes, int bufferSize = DefaultBufferSize)
+        /// <returns>The number of bytes written to the stream</returns>
+        public static long WriteBuffered(this Stream stream, IEnumerable<byte> bytes, int bufferSize = DefaultBufferSize)
         {
+            long writtenCount = 0;
             List<IEnumerable<byte>> chunked = bytes.Chunk(bufferSize).ToList();
-            for (int index = 0; index < chunked.Count; index++)
+            foreach (IEnumerable<byte> chunk in chunked)
             {
-                IEnumerable<byte> chunk = chunked[index];
                 byte[] buffer = chunk.ToArray();
-                stream.Write(buffer, 0, buffer.Count());
+                stream.Write(buffer, 0, buffer.Length);
+                writtenCount += buffer.Length;
             }
+            return writtenCount;
         }
 
         private static void SeekToBeginning(Stream stream)
@@ -87,6 +94,17 @@ namespace Endless
                 throw new NotSupportedException("Stream doesn't support seek.");
 
             stream.Seek(0, SeekOrigin.Begin);
+        }
+
+        /// <summary>
+        /// Provides stream interface to given sequence of bytes. The underlying stream is <see cref="MemoryStream"/>,
+        /// but the bytes are only written to memory when needed. This allows for infinite sequences.
+        /// </summary>
+        /// <param name="bytes">Sequence of bytes</param>
+        /// <returns>Read-only stream</returns>
+        public static Stream ToStream(this IEnumerable<byte> bytes)
+        {
+            return new LazyEnumerableStream(bytes);
         }
     }
 }

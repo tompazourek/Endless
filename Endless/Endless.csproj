@@ -46,6 +46,7 @@
     <Compile Include="Enumerate\IFromThenToEnumerator.cs" />
     <Compile Include="Extensions\Advanced\AggregateRightExtensions.cs" />
     <Compile Include="Extensions\BigIntegerAggregations.cs" />
+    <Compile Include="Extensions\LazyEnumerableStream.cs" />
     <Compile Include="Extensions\IEnumerableCustomExtensions.cs" />
     <Compile Include="Extensions\IEnumerableOverloadsExtensions.cs" />
     <Compile Include="Extensions\Advanced\ScanExtensions.cs" />
