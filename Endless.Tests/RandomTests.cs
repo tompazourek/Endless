@@ -33,11 +33,11 @@ namespace Endless.Tests
         }
 
         [Test]
-        public void NextChar_1000000()
+        public void NextChar_500000()
         {
             // action
-            var values = new List<char>(1000000);
-            for (int i = 0; i < 1000000; i++)
+            var values = new List<char>(500000);
+            for (int i = 0; i < 500000; i++)
             {
                 values.Add(_random.NextChar());
             }
