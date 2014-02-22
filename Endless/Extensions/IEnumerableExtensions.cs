@@ -160,6 +160,9 @@ namespace Endless
         /// </summary>
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
         {
+            if (chunkSize <= 0)
+                throw new ArgumentException(string.Format("Chunk size must be greater than zero, {0} given.", chunkSize));
+
             using (IEnumerator<T> enumerator = source.GetEnumerator())
             {
                 while (enumerator.MoveNext())
