@@ -21,7 +21,7 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 **Reduce**
 
 - [Boolean reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-boolean-reductions) (And, Or)
-- [Aggregate reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-folds) (AggregateRight)
+- [Right aggregation](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-right-aggregation) (AggregateRight)
 - [Scan reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-scans) (Scan, ScanRight)
 
 **Enumerable custom extensions**
