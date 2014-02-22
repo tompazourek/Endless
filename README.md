@@ -29,17 +29,17 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 - [Shuffle](https://github.com/tompazourek/Endless/wiki/Enumerable-custom-extensions#wiki-shuffle) (order sequence randomly)
 - [Chunk](https://github.com/tompazourek/Endless/wiki/Enumerable-custom-extensions#wiki-chunk) (split sequence into chunks of same size)
 
-[**Existing enumerable extensions variations**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
+**Existing enumerable extensions variations**
 - Init (everything except the last) & Tail (everything except the first)
 - IsEmpty (just opposite of Any)
-- Concat (with lazy second sequence)
 - TakeUntil (predicate or element)
 - SkipUntil (predicate or element)
-
-[**Existing enumerable extensions overloads**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/IEnumerableExtensions.cs)
-- SelectMany (overload without selector function)
 - Sort, SortDescending (just like Sort on `List<T>` - default item ordering)
+
+**Existing enumerable extensions overloads**
+- SelectMany (overload without selector function)
 - Except (just overload with single item parameter)
+- Concat (with lazy second sequence)
 - Sum, Min and Max for `IEnumerable<BigInteger>` and `IEnumerable<BigInteger?>`
 
 [**Stream extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/StreamExtensions.cs)
