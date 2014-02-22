@@ -66,6 +66,7 @@
     <Compile Include="RandomTests.cs" />
     <Compile Include="Samples.cs" />
     <Compile Include="ScanTests.cs" />
+    <Compile Include="StringTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Endless\Endless.csproj">
