@@ -17,6 +17,7 @@ namespace Endless
         /// </summary>
         public static bool And(this IEnumerable<bool> sequence)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
             return sequence.All(Identity<bool>.Func);
         }
 
@@ -25,6 +26,7 @@ namespace Endless
         /// </summary>
         public static bool And(this IEnumerable<Func<bool>> sequence)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
             return sequence.All(x => x());
         }
 
@@ -33,6 +35,7 @@ namespace Endless
         /// </summary>
         public static bool Or(this IEnumerable<bool> sequence)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
             return sequence.Any(Identity<bool>.Func);
         }
 
@@ -41,6 +44,7 @@ namespace Endless
         /// </summary>
         public static bool Or(this IEnumerable<Func<bool>> sequence)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
             return sequence.Any(x => x());
         }
     }

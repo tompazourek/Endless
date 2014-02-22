@@ -19,6 +19,7 @@ namespace Endless
         /// <returns></returns>
         public static byte NextByte(this Random random)
         {
+            if (random == null) throw new ArgumentNullException("random");
             var result = (byte) random.Next(byte.MinValue, byte.MaxValue + 1);
             return result;
         }
@@ -30,6 +31,7 @@ namespace Endless
         /// <returns></returns>
         public static char NextChar(this Random random)
         {
+            if (random == null) throw new ArgumentNullException("random");
             var result = (char) random.Next(char.MinValue, char.MaxValue + 1);
             return result;
         }

@@ -136,6 +136,7 @@ namespace Endless
 
         public LazyEnumerableStream(IEnumerable<byte> bytes)
         {
+            if (bytes == null) throw new ArgumentNullException("bytes");
             _enumerator = bytes.GetEnumerator();
             _memoryStream = new MemoryStream();
         }

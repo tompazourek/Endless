@@ -58,6 +58,8 @@ namespace Endless
         /// <returns>IEnumerable of: func(), func(), func(), func(), ...</returns>
         public static IEnumerable<T> Repeat<T>(this Func<T> func)
         {
+            if (func == null) throw new ArgumentNullException("func");
+
             while (true)
                 yield return func();
         }
@@ -69,6 +71,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Cycle<T>(this IEnumerable<T> values)
         {
+            if (values == null) throw new ArgumentNullException("values");
+
             // ReSharper disable PossibleMultipleEnumeration
             while (true)
             {

@@ -17,6 +17,7 @@ namespace Endless
         /// </summary>
         public static T Random<T>(this IEnumerable<T> source)
         {
+            if (source == null) throw new ArgumentNullException("source");
             return source.Shuffle().First();
         }
 
@@ -25,6 +26,8 @@ namespace Endless
         /// </summary>
         public static T Random<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
+            if (source == null) throw new ArgumentNullException("source");
+            if (predicate == null) throw new ArgumentNullException("predicate");
             return source.Shuffle().First(predicate);
         }
 
@@ -33,6 +36,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
         {
+            if (source == null) throw new ArgumentNullException("source");
             return source.OrderBy(_ => Guid.NewGuid());
         }
 
@@ -41,6 +45,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
         {
+            if (source == null) throw new ArgumentNullException("source");
+
             if (chunkSize <= 0)
                 throw new ArgumentException(String.Format("Chunk size must be greater than zero, {0} given.", chunkSize));
 

@@ -17,6 +17,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> SelectMany<T>(this IEnumerable<IEnumerable<T>> source)
         {
+            if (source == null) throw new ArgumentNullException("source");
             return source.SelectMany(Identity<IEnumerable<T>>.Func);
         }
 
@@ -25,6 +26,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
         {
+            if (source == null) throw new ArgumentNullException("source");
             return source.Except(item.Yield());
         }
 
@@ -38,6 +40,9 @@ namespace Endless
         /// </returns>
         public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, Func<IEnumerable<TSource>> second)
         {
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
+
             foreach (TSource source in first)
                 yield return source;
 

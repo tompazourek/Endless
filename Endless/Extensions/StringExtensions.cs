@@ -17,6 +17,7 @@ namespace Endless
         /// </summary>
         public static string BuildString(this IEnumerable<char> chars)
         {
+            if (chars == null) throw new ArgumentNullException("chars");
             return new string(chars.ToArray());
         }
 
@@ -25,6 +26,7 @@ namespace Endless
         /// </summary>
         public static string JoinStrings(this IEnumerable<string> strings)
         {
+            if (strings == null) throw new ArgumentNullException("strings");
             string result = string.Concat(strings);
             return result;
         }
@@ -34,6 +36,7 @@ namespace Endless
         /// </summary>
         public static string JoinStrings(this IEnumerable<string> strings, string separator)
         {
+            if (strings == null) throw new ArgumentNullException("strings");
             string result = string.Join(separator, strings);
             return result;
         }

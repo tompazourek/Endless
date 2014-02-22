@@ -24,6 +24,9 @@ namespace Endless.Advanced
         /// <returns>The final accumulator value.</returns>
         public static TAccumulate AggregateRight<TSource, TAccumulate>(this IEnumerable<TSource> sequence, TAccumulate end, Func<TSource, TAccumulate, TAccumulate> func)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (func == null) throw new ArgumentNullException("func");
+
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
                 return end;
@@ -45,6 +48,9 @@ namespace Endless.Advanced
         /// <returns>The final accumulator value.</returns>
         public static TSource AggregateRight<TSource>(this IEnumerable<TSource> sequence, Func<TSource, TSource, TSource> func)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (func == null) throw new ArgumentNullException("func");
+
             // ReSharper disable PossibleMultipleEnumeration
             return sequence.Tail().Any()
                 ? func(sequence.First(), AggregateRight(sequence.Tail(), func))

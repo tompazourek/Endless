@@ -19,6 +19,9 @@ namespace Endless.Advanced
         /// <typeparam name="T2">Sequence item type</typeparam>
         public static IEnumerable<T1> Scan<T1, T2>(this IEnumerable<T2> sequence, T1 seed, Func<T1, T2, T1> func)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (func == null) throw new ArgumentNullException("func");
+
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
 
@@ -41,6 +44,9 @@ namespace Endless.Advanced
         /// <typeparam name="T">Sequence item type</typeparam>
         public static IEnumerable<T> Scan<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (func == null) throw new ArgumentNullException("func");
+
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
@@ -57,6 +63,9 @@ namespace Endless.Advanced
         /// <typeparam name="T2">Seed item type, result sequence item type</typeparam>
         public static IEnumerable<T2> ScanRight<T1, T2>(this IEnumerable<T1> sequence, T2 seed, Func<T1, T2, T2> func)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (func == null) throw new ArgumentNullException("func");
+
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
             {
@@ -85,6 +94,9 @@ namespace Endless.Advanced
         /// <typeparam name="T">Sequence item type</typeparam>
         public static IEnumerable<T> ScanRight<T>(this IEnumerable<T> sequence, Func<T, T, T> func)
         {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (func == null) throw new ArgumentNullException("func");
+
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
                 yield break;
