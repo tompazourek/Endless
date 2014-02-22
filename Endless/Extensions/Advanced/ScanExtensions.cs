@@ -17,7 +17,7 @@ namespace Endless.Advanced
         /// </summary>
         /// <typeparam name="T1">Seed item type, result sequence item type</typeparam>
         /// <typeparam name="T2">Sequence item type</typeparam>
-        public static IEnumerable<T1> Scan<T1, T2>(this IEnumerable<T2> sequence, Func<T1, T2, T1> func, T1 seed)
+        public static IEnumerable<T1> Scan<T1, T2>(this IEnumerable<T2> sequence, T1 seed, Func<T1, T2, T1> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
@@ -27,7 +27,7 @@ namespace Endless.Advanced
 
             T2 x = sequence.First();
             IEnumerable<T2> xs = sequence.Tail();
-            IEnumerable<T1> result = Scan(xs, func, func(seed, x));
+            IEnumerable<T1> result = Scan(xs, func(seed, x), func);
             foreach (T1 item in result)
             {
                 yield return item;
@@ -45,7 +45,7 @@ namespace Endless.Advanced
             if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
 
-            return Scan(sequence.Tail(), func, sequence.First());
+            return Scan(sequence.Tail(), sequence.First(), func);
             // ReSharper restore PossibleMultipleEnumeration
         }
 
@@ -55,7 +55,7 @@ namespace Endless.Advanced
         /// </summary>
         /// <typeparam name="T1">Sequence item type</typeparam>
         /// <typeparam name="T2">Seed item type, result sequence item type</typeparam>
-        public static IEnumerable<T2> ScanRight<T1, T2>(this IEnumerable<T1> sequence, Func<T1, T2, T2> func, T2 seed)
+        public static IEnumerable<T2> ScanRight<T1, T2>(this IEnumerable<T1> sequence, T2 seed, Func<T1, T2, T2> func)
         {
             // ReSharper disable PossibleMultipleEnumeration
             if (sequence.IsEmpty())
@@ -67,7 +67,7 @@ namespace Endless.Advanced
             T1 x = sequence.First();
             IEnumerable<T1> xs = sequence.Tail();
 
-            IEnumerable<T2> qs = ScanRight(xs, func, seed);
+            IEnumerable<T2> qs = ScanRight(xs, seed, func);
             T2 q = qs.First();
 
             yield return func(x, q);

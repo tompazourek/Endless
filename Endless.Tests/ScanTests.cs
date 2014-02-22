@@ -77,7 +77,7 @@ namespace Endless.Tests
             const int seed = 64;
 
             // action
-            List<float> result = list.Scan(f, seed).ToList();
+            List<float> result = list.Scan(seed, f).ToList();
 
             // assert
             CollectionAssert.AreEqual(new List<float> { 64, 16, 8, 2 }, result);
@@ -92,7 +92,7 @@ namespace Endless.Tests
             const int seed = 3;
 
             // action
-            List<float> result = list.Scan(f, seed).ToList();
+            List<float> result = list.Scan(seed, f).ToList();
 
             // assert
             CollectionAssert.AreEqual(new List<float> { 3 }, result);
@@ -163,7 +163,7 @@ namespace Endless.Tests
             const int seed = 5;
 
             // action
-            List<int> result = list.ScanRight(f, seed).ToList();
+            List<int> result = list.ScanRight(seed, f).ToList();
 
             // assert
             CollectionAssert.AreEqual(new List<int> { 15, 14, 12, 9, 5 }, result);
@@ -178,7 +178,7 @@ namespace Endless.Tests
             const float seed = 2f;
 
             // action
-            List<float> result = list.ScanRight(f, seed).ToList();
+            List<float> result = list.ScanRight(seed, f).ToList();
 
             // assert
             CollectionAssert.AreEqual(new List<float> { 8f, 1f, 12f, 2f, 2f }, result);
@@ -193,7 +193,7 @@ namespace Endless.Tests
             const float seed = 2f;
 
             // action
-            List<float> result = list.ScanRight(f, seed).ToList();
+            List<float> result = list.ScanRight(seed, f).ToList();
 
             // assert
             CollectionAssert.AreEqual(new List<float> { 2f }, result);
