@@ -63,6 +63,7 @@
     <Compile Include="ProjectEulerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GenerateTests.cs" />
+    <Compile Include="RandomTests.cs" />
     <Compile Include="Samples.cs" />
     <Compile Include="ScanTests.cs" />
   </ItemGroup>
