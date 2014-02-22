@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 namespace Endless
 {
     /// <summary>
-    /// Extensions to generic enumerables
+    /// Existing enumerable extensions variations
     /// </summary>
-    public static class IEnumerableExtensions
+    public static class IEnumerableVariationsExtensions
     {
         /// <summary>
         /// All elements in the sequence except the last one
@@ -35,14 +35,6 @@ namespace Endless
         }
 
         /// <summary>
-        /// Enumerable select many without the projection function. Used to flatten sequence by one level.
-        /// </summary>
-        public static IEnumerable<T> SelectMany<T>(this IEnumerable<IEnumerable<T>> source)
-        {
-            return source.SelectMany(Identity<IEnumerable<T>>.Func);
-        }
-
-        /// <summary>
         /// All elements except the first one
         /// </summary>
         public static IEnumerable<T> Tail<T>(this IEnumerable<T> sequence)
@@ -56,55 +48,6 @@ namespace Endless
         public static bool IsEmpty<T>(this IEnumerable<T> sequence)
         {
             return !sequence.Any();
-        }
-
-        /// <summary>
-        /// Returns random element out of given sequence.
-        /// </summary>
-        public static T Random<T>(this IEnumerable<T> source)
-        {
-            return source.Shuffle().First();
-        }
-
-        /// <summary>
-        /// Returns first random element that satisfies the predicate.
-        /// </summary>
-        public static T Random<T>(this IEnumerable<T> source, Func<T, bool> predicate)
-        {
-            return source.Shuffle().First(predicate);
-        }
-
-        /// <summary>
-        /// Orders the sequence randomly.
-        /// </summary>
-        public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
-        {
-            return source.OrderBy(_ => Guid.NewGuid());
-        }
-
-        /// <summary>
-        /// Sequence without given item. Overload of Enumerable.Except for single item.
-        /// </summary>
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
-        {
-            return source.Except(item.Yield());
-        }
-
-        /// <summary>
-        /// Concatenates two sequences with lazy second sequence.
-        /// </summary>
-        /// <param name="first">The first sequence to concatenate.</param>
-        /// <param name="second">The sequence to concatenate to the first sequence.</param>
-        /// <returns>
-        /// An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains the concatenated elements of the two input sequences.
-        /// </returns>
-        public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, Func<IEnumerable<TSource>> second)
-        {
-            foreach (TSource source in first)
-                yield return source;
-
-            foreach (TSource source in second())
-                yield return source;
         }
 
         /// <summary>
@@ -153,31 +96,6 @@ namespace Endless
         public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, Func<T, int, bool> predicate)
         {
             return source.SkipWhile((x, index) => !predicate(x, index));
-        }
-
-        /// <summary>
-        /// Splits the given sequence into pieces of given size and returns sequence of these pieces.
-        /// </summary>
-        public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
-        {
-            if (chunkSize <= 0)
-                throw new ArgumentException(string.Format("Chunk size must be greater than zero, {0} given.", chunkSize));
-
-            using (IEnumerator<T> enumerator = source.GetEnumerator())
-            {
-                while (enumerator.MoveNext())
-                {
-                    yield return GetChunk(enumerator, chunkSize).ToList();
-                }
-            }
-        }
-
-        private static IEnumerable<T> GetChunk<T>(IEnumerator<T> enumerator, int chunkSize)
-        {
-            do
-            {
-                yield return enumerator.Current;
-            } while (--chunkSize > 0 && enumerator.MoveNext());
         }
 
         /// <summary>

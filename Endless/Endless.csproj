@@ -46,8 +46,10 @@
     <Compile Include="Enumerate\IFromThenToEnumerator.cs" />
     <Compile Include="Extensions\Advanced\FoldExtensions.cs" />
     <Compile Include="Extensions\BigIntegerAggregations.cs" />
-    <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableCustomExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableOverloadsExtensions.cs" />
     <Compile Include="Extensions\Advanced\ScanExtensions.cs" />
+    <Compile Include="Extensions\IEnumerableVariationsExtensions.cs" />
     <Compile Include="Functional\Compose.cs" />
     <Compile Include="Functional\Curry.cs" />
     <Compile Include="Functional\Function.cs" />
