@@ -21,8 +21,8 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 **Reduce**
 
 - [Boolean reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-boolean-reductions) (And, Or)
-- [Fold reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-folds) (Foldl, Foldl1, Foldr, Foldr1)
-- [Scan reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-scans) (Scanl, Scanl1, Scanr, Scanr1)
+- [Aggregate reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-folds) (AggregateRight)
+- [Scan reductions](https://github.com/tompazourek/Endless/wiki/Reductions#wiki-scans) (Scan, ScanRight)
 
 **Enumerable custom extensions**
 - [Random](https://github.com/tompazourek/Endless/wiki/Enumerable-custom-extensions#wiki-random) (random element of the sequence)
