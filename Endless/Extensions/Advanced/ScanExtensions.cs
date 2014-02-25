@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Endless.Functional;
 
 namespace Endless.Advanced
 {
@@ -25,16 +26,12 @@ namespace Endless.Advanced
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
 
-            if (sequence.IsEmpty())
-                yield break;
-
-            T2 x = sequence.First();
-            IEnumerable<T2> xs = sequence.Tail();
-            IEnumerable<T1> result = Scan(xs, func(seed, x), func);
-            foreach (T1 item in result)
-            {
-                yield return item;
-            }
+			var current = seed;
+			foreach (var item in sequence)
+			{
+				current = func(current, item);
+				yield return current;
+			}
             // ReSharper restore PossibleMultipleEnumeration
         }
 
@@ -51,7 +48,8 @@ namespace Endless.Advanced
             if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
 
-            return Scan(sequence.Tail(), sequence.First(), func);
+			var result = Scan(sequence.Tail(), sequence.First(), func);
+			return result;
             // ReSharper restore PossibleMultipleEnumeration
         }
 
@@ -66,25 +64,8 @@ namespace Endless.Advanced
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-            {
-                yield return seed;
-                yield break;
-            }
-
-            T1 x = sequence.First();
-            IEnumerable<T1> xs = sequence.Tail();
-
-            IEnumerable<T2> qs = ScanRight(xs, seed, func);
-            T2 q = qs.First();
-
-            yield return func(x, q);
-            foreach (T2 item in qs)
-            {
-                yield return item;
-            }
-            // ReSharper restore PossibleMultipleEnumeration
+			var result = sequence.Reverse().Scan(seed, func.Flip()).Reverse();
+			return result;
         }
 
         /// <summary>
@@ -97,28 +78,8 @@ namespace Endless.Advanced
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-                yield break;
-
-            T x = sequence.First();
-            IEnumerable<T> xs = sequence.Tail();
-
-            if (xs.IsEmpty())
-            {
-                yield return x;
-                yield break;
-            }
-
-            IEnumerable<T> qs = ScanRight(xs, func);
-            T q = qs.First();
-
-            yield return func(x, q);
-            foreach (T item in qs)
-            {
-                yield return item;
-            }
-            // ReSharper restore PossibleMultipleEnumeration
+			var result = sequence.Reverse().Scan(func.Flip()).Reverse();
+			return result;
         }
     }
 }

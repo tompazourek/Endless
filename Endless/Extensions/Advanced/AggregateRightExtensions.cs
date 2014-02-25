@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Endless.Functional;
 
 namespace Endless.Advanced
 {
@@ -27,15 +28,8 @@ namespace Endless.Advanced
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            // ReSharper disable PossibleMultipleEnumeration
-            if (sequence.IsEmpty())
-                return end;
-
-            return func(sequence.First(),
-                        sequence.Tail().Any()
-                            ? AggregateRight(sequence.Tail(), end, func)
-                            : end);
-            // ReSharper restore PossibleMultipleEnumeration
+            var result = sequence.Reverse().Aggregate(end, func.Flip());
+            return result;
         }
 
         /// <summary>
@@ -51,11 +45,8 @@ namespace Endless.Advanced
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            // ReSharper disable PossibleMultipleEnumeration
-            return sequence.Tail().Any()
-                ? func(sequence.First(), AggregateRight(sequence.Tail(), func))
-                : sequence.First();
-            // ReSharper restore PossibleMultipleEnumeration
+            var result = sequence.Reverse().Aggregate(func.Flip());
+            return result;
         }
     }
 }
