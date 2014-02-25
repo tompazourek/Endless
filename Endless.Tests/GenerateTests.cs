@@ -34,6 +34,13 @@ namespace Endless.Tests
             Assert.IsTrue(new[] { 2, 4, 16, 256, 65536 }.SequenceEqual(enumerable));
         }
 
+		[Test]
+		public void Iterate2()
+		{
+			IEnumerable<int> enumerable = Generate.Iterate(0, 1, (a, b) => a + b).Take(10);
+			Assert.IsTrue(new[] { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34 }.SequenceEqual(enumerable));
+		}
+		
         [Test]
         public void Repeat()
         {
