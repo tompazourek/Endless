@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Endless.Functional;
 
-namespace Endless.Advanced
+namespace Endless
 {
     /// <summary>
     /// Fold reductions (<see cref="Enumerable.Aggregate{TSource}"/> variations)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
-using Endless.Advanced;
+using Endless;
 using NUnit.Framework;
 
 namespace Endless.Tests

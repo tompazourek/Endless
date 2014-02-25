@@ -44,12 +44,12 @@
     <Compile Include="Enumerate\IFromEnumerable.cs" />
     <Compile Include="Enumerate\IFromThenEnumerable.cs" />
     <Compile Include="Enumerate\IFromThenToEnumerator.cs" />
-    <Compile Include="Extensions\Advanced\AggregateRightExtensions.cs" />
+    <Compile Include="Extensions\AggregateRightExtensions.cs" />
     <Compile Include="Extensions\BigIntegerAggregations.cs" />
     <Compile Include="Extensions\LazyEnumerableStream.cs" />
     <Compile Include="Extensions\IEnumerableCustomExtensions.cs" />
     <Compile Include="Extensions\IEnumerableOverloadsExtensions.cs" />
-    <Compile Include="Extensions\Advanced\ScanExtensions.cs" />
+    <Compile Include="Extensions\ScanExtensions.cs" />
     <Compile Include="Extensions\IEnumerableVariationsExtensions.cs" />
     <Compile Include="Functional\Compose.cs" />
     <Compile Include="Functional\Curry.cs" />

@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Endless.Functional;
 
-namespace Endless.Advanced
+namespace Endless
 {
     /// <summary>
     /// Scan paradigm functions. Similar to fold reductions (<seealso cref="AggregateRightExtensions"/>), but instead of returning a final value it returns a list of all the intermediate values.
