@@ -26,12 +26,12 @@ namespace Endless.Advanced
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
 
-			var current = seed;
-			foreach (var item in sequence)
-			{
-				current = func(current, item);
-				yield return current;
-			}
+            var current = seed;
+            foreach (var item in sequence)
+            {
+                current = func(current, item);
+                yield return current;
+            }
             // ReSharper restore PossibleMultipleEnumeration
         }
 
@@ -48,8 +48,8 @@ namespace Endless.Advanced
             if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
 
-			var result = Scan(sequence.Tail(), sequence.First(), func);
-			return result;
+            var result = Scan(sequence.Tail(), sequence.First(), func);
+            return result;
             // ReSharper restore PossibleMultipleEnumeration
         }
 
@@ -64,8 +64,8 @@ namespace Endless.Advanced
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-			var result = sequence.Reverse().Scan(seed, func.Flip()).Reverse();
-			return result;
+            var result = sequence.Reverse().Scan(seed, func.Flip()).Reverse();
+            return result;
         }
 
         /// <summary>
@@ -78,8 +78,8 @@ namespace Endless.Advanced
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-			var result = sequence.Reverse().Scan(func.Flip()).Reverse();
-			return result;
+            var result = sequence.Reverse().Scan(func.Flip()).Reverse();
+            return result;
         }
     }
 }
