@@ -115,5 +115,23 @@ namespace Endless.Tests
                 yield return other;
             }
         }
+
+        [Test]
+        public void Rot13()
+        {
+            const string input = @"How can you tell an extrovert from an introvert at NSA? Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.";
+            const string output = @"Ubj pna lbh gryy na rkgebireg sebz na vagebireg ng AFN? In the elevators, the extrovert looks at the OTHER guy's shoes.";
+
+            var alphabet = Enumerate.From('a').To('z');
+            var shiftedAlphabet = alphabet.Cycle().Skip(13).Take(26);
+
+            var transformation = alphabet.Zip(shiftedAlphabet).Concat(
+                                 alphabet.Select(char.ToUpper).Zip(shiftedAlphabet.Select(char.ToUpper)))
+                                 .ToDictionary();
+
+            var rot13 = new Func<string, string>(src => src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString());
+            Assert.AreEqual(output, rot13(input));
+            Assert.AreEqual(input, rot13(output));
+        }
     }
 }
