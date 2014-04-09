@@ -50,24 +50,24 @@ namespace Endless
                 yield return source;
         }
 
-		/// <summary>
-		/// Merges two sequences in a sequence of tuples
-		/// </summary>
-		public static IEnumerable<Tuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
-		{
-			if (first == null) throw new ArgumentNullException("first");
-			if (second == null) throw new ArgumentNullException("second");
-			return first.Zip(second, (x, y) => Tuple.Create(x, y));
-		}
+        /// <summary>
+        /// Merges two sequences in a sequence of tuples
+        /// </summary>
+        public static IEnumerable<Tuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
+        {
+            if (first == null) throw new ArgumentNullException("first");
+            if (second == null) throw new ArgumentNullException("second");
+            return first.Zip(second, (x, y) => Tuple.Create(x, y));
+        }
 
-		/// <summary>
-		/// Converts sequence of tuples to dictionary
-		/// </summary>
-		public static IDictionary<T1, T2> ToDictionary<T1, T2>(this IEnumerable<Tuple<T1, T2>> sequence)
-		{
-			if (sequence == null) throw new ArgumentNullException("sequence");
-			return sequence.ToDictionary(x => x.Item1, x => x.Item2);
-		}
+        /// <summary>
+        /// Converts sequence of tuples to dictionary
+        /// </summary>
+        public static IDictionary<T1, T2> ToDictionary<T1, T2>(this IEnumerable<Tuple<T1, T2>> sequence)
+        {
+            if (sequence == null) throw new ArgumentNullException("sequence");
+            return sequence.ToDictionary(x => x.Item1, x => x.Item2);
+        }
 
     }
 }
