@@ -122,14 +122,21 @@ namespace Endless.Tests
             const string input = @"How can you tell an extrovert from an introvert at NSA? Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.";
             const string output = @"Ubj pna lbh gryy na rkgebireg sebz na vagebireg ng AFN? In the elevators, the extrovert looks at the OTHER guy's shoes.";
 
-            var alphabet = Enumerate.From('a').To('z');
-            var shiftedAlphabet = alphabet.Cycle().Skip(13).Take(26);
+            var rot = new Func<int, string, string>((degree, src) =>
+            {
+                var alphabet = Enumerate.From('a').To('z');
+                var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(26);
 
-            var transformation = alphabet.Zip(shiftedAlphabet).Concat(
-                                 alphabet.Select(char.ToUpper).Zip(shiftedAlphabet.Select(char.ToUpper)))
-                                 .ToDictionary();
+                var repeatWithUpperCase = new Func<IEnumerable<char>, IEnumerable<char>>(x => x.Concat(x.Select(char.ToUpper)));
+                var transformation = alphabet.Pipe(repeatWithUpperCase)
+                                    .Zip(shiftedAlphabet.Pipe(repeatWithUpperCase))
+                                    .ToDictionary();
 
-            var rot13 = new Func<string, string>(src => src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString());
+                var result = src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
+                return result;
+            });
+            var rot13 = rot.Curry()(13);
+            
             Assert.AreEqual(output, rot13(input));
             Assert.AreEqual(input, rot13(output));
         }
