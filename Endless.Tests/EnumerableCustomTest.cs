@@ -258,5 +258,55 @@ namespace Endless.Tests
             // assert
             Assert.IsFalse(result);
         }
+
+        [Test]
+        public void Cached_Without()
+        {
+            // arrange
+            var random = new Random(666);
+            var uncached = new Func<int>(random.Next).Repeat();
+
+            // action
+            var sequence1 = uncached.Take(10).ToList();
+            var sequence2 = uncached.Take(10).ToList();
+
+            // assert
+            CollectionAssert.AreNotEqual(sequence1, sequence2);
+        }
+
+        [Test]
+        public void Cached()
+        {
+            // arrange
+            var random = new Random(666);
+            using (var cached = new Func<int>(random.Next).Repeat().Cached())
+            {
+                // action
+                var sequence1 = cached.Take(10).ToList();
+                var sequence2 = cached.Take(10).ToList();
+
+                // assert
+                CollectionAssert.AreEqual(sequence1, sequence2);
+            }
+        }
+
+        [Test]
+        public void Cached_TakeMore()
+        {
+            // arrange
+            var random1 = new Random(666);
+            var random2 = new Random(666);
+            var uncached = new Func<int>(random2.Next).Repeat();
+            using (var cached = new Func<int>(random1.Next).Repeat().Cached())
+            {
+                // action
+                var sequence1 = cached.Take(10).ToList();
+                var sequence2 = cached.Take(15).ToList();
+                var sequence3 = uncached.Take(15).ToList();
+
+                // assert
+                CollectionAssert.AreEqual(sequence3, sequence2);
+            }
+        }
     }
 }
