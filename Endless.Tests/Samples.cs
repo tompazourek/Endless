@@ -140,5 +140,27 @@ namespace Endless.Tests
             Assert.AreEqual(output, rot13(input));
             Assert.AreEqual(input, rot13(output));
         }
+
+        /// <summary>
+        /// Detects UTF-8 BOM of the file
+        /// </summary>
+        [Test]
+        public void UTF8ByteOrderMark()
+        {
+            // arrange
+            var filename = Path.GetFullPath(Path.Combine("..", "..", "Samples.cs"));
+
+            // action
+            var hasBom = FileHasUTF8ByteOrderMark(filename);
+            
+            // assert
+            Assert.IsTrue(hasBom);
+        }
+
+        private static bool FileHasUTF8ByteOrderMark(string filename)
+        {
+            using (var stream = File.OpenRead(filename))
+                return stream.EnumerateBuffered(3).StartsWith<byte>(0xEF, 0xBB, 0xBF);
+        }
     }
 }

@@ -188,5 +188,75 @@ namespace Endless.Tests
             // assert
             CollectionAssert.IsEmpty(shuffled);
         }
+
+        [Test]
+        public void StartsWith_Empty1()
+        {
+            // arrange
+            IEnumerable<int> collection = new[] { 1, 2, 3, 4, 5 };
+            IEnumerable<int> subsequence = Enumerable.Empty<int>();
+
+            // action
+            var result = collection.StartsWith(subsequence);
+
+            // assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void StartsWith_Empty2()
+        {
+            // arrange
+            IEnumerable<int> collection = Enumerable.Empty<int>();
+            IEnumerable<int> subsequence = new[] { 1, 2, 3, 4, 5 };
+
+            // action
+            var result = collection.StartsWith(subsequence);
+
+            // assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void StartsWith_True()
+        {
+            // arrange
+            IEnumerable<int> collection = new[] { 1, 2, 3, 4, 5 };
+            IEnumerable<int> subsequence = new[] { 1, 2 };
+
+            // action
+            var result = collection.StartsWith(subsequence);
+
+            // assert
+            Assert.IsTrue(result);
+        }
+
+        [Test]
+        public void StartsWith_False()
+        {
+            // arrange
+            IEnumerable<int> collection = new[] { 1, 2, 3, 4, 5 };
+            IEnumerable<int> subsequence = new[] { 1, 3 };
+
+            // action
+            var result = collection.StartsWith(subsequence);
+
+            // assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void StartsWith_Longer()
+        {
+            // arrange
+            IEnumerable<int> collection = new[] { 1, 2, 3, 4, 5 };
+            IEnumerable<int> subsequence = new[] { 1, 2, 3, 4, 5, 6 };
+
+            // action
+            var result = collection.StartsWith(subsequence);
+
+            // assert
+            Assert.IsFalse(result);
+        }
     }
 }

@@ -66,5 +66,36 @@ namespace Endless
                 yield return enumerator.Current;
             } while (--chunkSize > 0 && enumerator.MoveNext());
         }
+
+        /// <summary>
+        /// Returns true if this sequence starts with given subsequence
+        /// </summary>
+        public static bool StartsWith<T>(this IEnumerable<T> source, IEnumerable<T> subsequence)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            if (subsequence == null) throw new ArgumentNullException("subsequence");
+
+            using (IEnumerator<T> subsequenceIterator = subsequence.GetEnumerator())
+            using (IEnumerator<T> sourceIterator = source.GetEnumerator())
+            {
+                while (subsequenceIterator.MoveNext())
+                {
+                    if (!sourceIterator.MoveNext())
+                        return false;
+
+                    if (!subsequenceIterator.Current.Equals(sourceIterator.Current))
+                        return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Returns true if this sequence starts with given subsequence
+        /// </summary>
+        public static bool StartsWith<T>(this IEnumerable<T> source, params T[] sequence)
+        {
+            return StartsWith(source, sequence.AsEnumerable());
+        }
     }
 }
