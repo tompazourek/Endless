@@ -162,5 +162,20 @@ namespace Endless.Tests
             using (var stream = File.OpenRead(filename))
                 return stream.EnumerateBuffered(3).StartsWith<byte>(0xEF, 0xBB, 0xBF);
         }
+
+        /// <summary>
+        /// Detects non-ASCII characters in the file
+        /// </summary>
+        [Test]
+        public void NotAsciiCharacters()
+        {
+            var filename = Path.GetFullPath(Path.Combine("..", "..", "Samples.cs"));
+            using (var stream = File.OpenRead(filename))
+            {
+                var nonAsciiCharacters = stream.EnumerateBuffered().Where(x => x > 127).DynamicCast<char>();
+
+                CollectionAssert.AreEqual(new[] { (char)0xEF, (char)0xBB, (char)0xBF }, nonAsciiCharacters);
+            }
+        }
     }
 }

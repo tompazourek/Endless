@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -96,6 +97,14 @@ namespace Endless
         public static bool StartsWith<T>(this IEnumerable<T> source, params T[] sequence)
         {
             return StartsWith(source, sequence.AsEnumerable());
+        }
+
+        /// <summary>
+        /// Casts dynamically. Alternative to original Cast<> LINQ method, which does not make the use of conversion operators.
+        /// </summary>
+        public static IEnumerable<TResult> DynamicCast<TResult>(this IEnumerable source)
+        {
+            return source.Cast<dynamic>().Select(result => (TResult) result);
         }
     }
 }
