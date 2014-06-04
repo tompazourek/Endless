@@ -53,7 +53,7 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 
 **Random extensions**
 
-- NextByte, NextChar
+- [NextByte, NextChar](https://github.com/tompazourek/Endless/wiki/Random-extensions)
 
 **Functional features (experimental)**
 
