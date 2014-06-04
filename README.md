@@ -1,6 +1,8 @@
 # Endless .NET
 
-Extensions that support the C# functional paradigm.
+*Extensions that support the C# functional paradigm.*
+
+[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o)](https://ci.appveyor.com/project/tompazourek/endless)
 
 ## Samples
 
