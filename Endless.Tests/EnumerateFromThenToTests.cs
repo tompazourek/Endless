@@ -107,5 +107,43 @@ namespace Endless.Tests
             // assert
             CollectionAssert.AreEqual(new long[] { 1 }, numbers);
         }
+
+        [Test]
+        public void EnumerateDateTime_FromThenTo1()
+        {
+            // act
+            IEnumerable<DateTime> numbers = Enumerate
+                .From(new DateTime(1990, 7, 5, 12, 00, 00))
+                .Then(new DateTime(1990, 7, 5, 12, 15, 00))
+                .To(new DateTime(1990, 7, 5, 13, 00, 00));
+
+            // assert
+            CollectionAssert.AreEqual(new DateTime[] {
+                new DateTime(1990, 7, 5, 12, 00, 00),
+                new DateTime(1990, 7, 5, 12, 15, 00),
+                new DateTime(1990, 7, 5, 12, 30, 00),
+                new DateTime(1990, 7, 5, 12, 45, 00),
+                new DateTime(1990, 7, 5, 13, 00, 00)
+            }, numbers);
+        }
+
+        [Test]
+        public void EnumerateDateTime_FromThenTo2()
+        {
+            // act
+            IEnumerable<DateTime> times = Enumerate
+                .From(new DateTime(1990, 7, 5, 12, 00, 00))
+                .Then(new DateTime(1990, 7, 5, 12, 15, 00))
+                .To(new DateTime(1990, 7, 5, 13, 04, 00));
+
+            // assert
+            CollectionAssert.AreEqual(new DateTime[] {
+                new DateTime(1990, 7, 5, 12, 00, 00),
+                new DateTime(1990, 7, 5, 12, 15, 00),
+                new DateTime(1990, 7, 5, 12, 30, 00),
+                new DateTime(1990, 7, 5, 12, 45, 00),
+                new DateTime(1990, 7, 5, 13, 00, 00)
+            }, times);
+        }
     }
 }

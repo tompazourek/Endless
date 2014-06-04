@@ -12,9 +12,13 @@ namespace Endless
     {
         private readonly IFromThenToEnumerator<T> _enumerator;
 
-        public FromEnumerable(T from)
+        public FromEnumerable(T from) : this(new DynamicFromThenToEnumerator<T>(from))
         {
-            _enumerator = new DynamicFromThenToEnumerator<T>(from);
+        }
+
+        public FromEnumerable(IFromThenToEnumerator<T> enumerator)
+        {
+            _enumerator = enumerator;
         }
         
         public IEnumerable<T> To(T toNumber)

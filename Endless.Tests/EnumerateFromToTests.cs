@@ -181,5 +181,36 @@ namespace Endless.Tests
             // assert
             CollectionAssert.IsEmpty(numbers);
         }
+
+        [Test]
+        public void EnumerateDateTime_FromTo()
+        {
+            // act
+            IEnumerable<DateTime> times = Enumerate
+                .From(new DateTime(1990, 7, 5, 12, 00, 00))
+                .To(new DateTime(1990, 7, 10, 13, 00, 00));
+
+            // assert
+            CollectionAssert.AreEqual(new DateTime[] {
+                new DateTime(1990, 7, 5, 12, 00, 00),
+                new DateTime(1990, 7, 6, 12, 00, 00),
+                new DateTime(1990, 7, 7, 12, 00, 00),
+                new DateTime(1990, 7, 8, 12, 00, 00),
+                new DateTime(1990, 7, 9, 12, 00, 00),
+                new DateTime(1990, 7, 10, 12, 00, 00)
+            }, times);
+        }
+
+        [Test]
+        public void EnumerateDateTime_FromTo_Empty()
+        {
+            // act
+            IEnumerable<DateTime> times = Enumerate
+                .From(new DateTime(1990, 7, 5, 12, 00, 00))
+                .To(new DateTime(1990, 7, 4, 12, 00, 00));
+
+            // assert
+            CollectionAssert.IsEmpty(times);
+        }
     }
 }

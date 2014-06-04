@@ -18,6 +18,16 @@ namespace Endless
         {
             return new FromEnumerable<T>(n0);
         }
+
+		/// <summary>
+		/// Endless collection of times incremented by one day.
+		/// </summary>
+		/// <returns>(t0, t0 + 1, t0 + 2, t0 + 3, ...)</returns>
+		public static IFromEnumerable<DateTime> From(DateTime t0)
+		{
+			return new FromEnumerable<DateTime>(new DateTimeFromThenToEnumerator(t0));
+		}
+
         /// <summary>
         /// Endless collection of numbers incremented by one.
         /// </summary>

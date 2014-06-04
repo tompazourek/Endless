@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Enumerate\BigNatural.cs" />
+    <Compile Include="Enumerate\DateTimeFromThenToEnumerator.cs" />
     <Compile Include="Enumerate\DynamicFromThenToEnumerator.cs" />
     <Compile Include="Enumerate\Enumerate.cs" />
     <Compile Include="Enumerate\FromEnumerable.cs" />
