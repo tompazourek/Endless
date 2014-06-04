@@ -2,7 +2,11 @@
 
 Extensions that support the C# functional paradigm.
 
+## Samples
+
 See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/wiki/Samples).
+
+For other samples, visit [this test file](https://github.com/tompazourek/Endless/blob/master/Endless.Tests/Samples.cs).
 
 ## Features
 
