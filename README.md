@@ -46,10 +46,11 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 
 - working with streams and `IEnumerable<byte>` in harmony
 
-[**String extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/StringExtensions.cs)
+**String extensions**
 
-- JoinStrings (`string.Join()` rewritten as extension method)
-- BuildString (new string out of `IEnumerable<char>`)
+- [BuildString](https://github.com/tompazourek/Endless/wiki/String-extensions#buildstring)
+- [JoinStrings](https://github.com/tompazourek/Endless/wiki/String-extensions#joinstrings)
+
 
 **Random extensions**
 
