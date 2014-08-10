@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Endless.Functional;
 
 namespace Endless
 {
@@ -66,6 +67,88 @@ namespace Endless
             {
                 yield return enumerator.Current;
             } while (--chunkSize > 0 && enumerator.MoveNext());
+        }
+
+        /// <summary>
+        /// Groups results by contiguous values
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source)
+        {
+            return source.ChunkBy(EqualityComparer<T>.Default);
+        }
+
+        /// <summary>
+        /// Groups results by contiguous values
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
+        {
+            return source.ChunkBy(Identity<T>.Func, comparer);
+        }
+
+        /// <summary>
+        /// Groups results by contiguous keys
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="keySelector"></param>
+        /// <returns></returns>
+        public static IEnumerable<IGrouping<TKey, TSource>> ChunkBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
+        {
+            return source.ChunkBy(keySelector, EqualityComparer<TKey>.Default);
+        }
+
+        /// <summary>
+        /// Groups results by contiguous keys
+        /// </summary>
+        /// <typeparam name="TSource"></typeparam>
+        /// <typeparam name="TKey"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="keySelector"></param>
+        /// <param name="comparer"></param>
+        /// <returns></returns>
+        public static IEnumerable<IGrouping<TKey, TSource>> ChunkBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
+        {
+            if (source == null) throw new ArgumentNullException("source");
+            if (keySelector == null) throw new ArgumentNullException("keySelector");
+            if (comparer == null) throw new ArgumentNullException("comparer");
+
+            using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+            {
+                var movedNext = false;
+                while (movedNext || enumerator.MoveNext())
+                {
+                    yield return GetChunkByGrouping(enumerator, keySelector, comparer, out movedNext);
+                }
+            }
+        }
+
+        private static IGrouping<TKey, TSource> GetChunkByGrouping<TKey, TSource>(IEnumerator<TSource> enumerator, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer, out bool movedNext)
+        {
+            var currentKey = keySelector(enumerator.Current);
+            var items = new List<TSource>();
+            var grouping = new TrivialGrouping<TKey, TSource>(currentKey, items);
+            do
+            {
+                items.Add(enumerator.Current);
+                if (!enumerator.MoveNext())
+                {
+                    movedNext = false;
+                    break;
+                }
+                if (!comparer.Equals(keySelector(enumerator.Current), currentKey))
+                {
+                    movedNext = true;
+                    break;
+                }
+            } while (true);
+            return grouping;
         }
 
         /// <summary>

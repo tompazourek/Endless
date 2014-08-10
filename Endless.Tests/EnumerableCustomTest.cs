@@ -308,5 +308,59 @@ namespace Endless.Tests
                 CollectionAssert.AreEqual(sequence3, sequence2);
             }
         }
+
+        [Test]
+        public void ChunkBy()
+        {
+            // arrange
+            var list = new[]
+                {
+                    new { Key = "A", Value = "We" },
+                    new { Key = "A", Value = "Think" },
+                    new { Key = "A", Value = "That" },
+                    new { Key = "B", Value = "Linq" },
+                    new { Key = "C", Value = "Is" },
+                    new { Key = "A", Value = "Really" },
+                    new { Key = "B", Value = "Cool" },
+                    new { Key = "B", Value = "!" }
+                };
+            
+            // action
+            var chunked = list.ChunkBy(p => p.Key).ToList();
+
+            // assert
+            CollectionAssert.AreEqual(new[] { "A", "B", "C", "A", "B" }, chunked.Select(x => x.Key));
+            CollectionAssert.AreEqual(new[] { "We", "Think", "That" }, chunked.ElementAt(0).Select(x => x.Value));
+            CollectionAssert.AreEqual(new[] { "Linq" }, chunked.ElementAt(1).Select(x => x.Value));
+            CollectionAssert.AreEqual(new[] { "Is" }, chunked.ElementAt(2).Select(x => x.Value));
+            CollectionAssert.AreEqual(new[] { "Really" }, chunked.ElementAt(3).Select(x => x.Value));
+            CollectionAssert.AreEqual(new[] { "Cool", "!" }, chunked.ElementAt(4).Select(x => x.Value));
+        }
+
+        [Test]
+        public void ChunkBy_Empty()
+        {
+            // arrange
+            var list = new int[] { };
+
+            // action
+            var chunked = list.ChunkBy().ToList();
+
+            // assert
+            CollectionAssert.IsEmpty(chunked);
+        }
+
+        [Test]
+        public void ChunkBy_Simple()
+        {
+            // arrange
+            var list = new byte[] { 0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1 };
+
+            // action
+            var chunked = list.ChunkBy().ToList();
+
+            // assert
+            Assert.AreEqual(6, chunked.Count);
+        }
     }
 }
