@@ -42,17 +42,15 @@ namespace Endless
             return GetEnumerator();
         }
 
-        // ReSharper disable CSharpWarnings::CS0693
-        private class CachedEnumerator<T> : IEnumerator<T>
-            // ReSharper restore CSharpWarnings::CS0693
+        private class CachedEnumerator<TT> : IEnumerator<TT>
         {
-            private readonly IEnumerator<T> _first;
-            private readonly CachedEnumerable<T> _parent;
-            private readonly IEnumerator<T> _second;
-            private T _current;
+            private readonly IEnumerator<TT> _first;
+            private readonly CachedEnumerable<TT> _parent;
+            private readonly IEnumerator<TT> _second;
+            private TT _current;
             private bool _switched; // switched from first to second
 
-            public CachedEnumerator(IEnumerator<T> firstEnumerator, IEnumerator<T> secondEnumerator, CachedEnumerable<T> parent)
+            public CachedEnumerator(IEnumerator<TT> firstEnumerator, IEnumerator<TT> secondEnumerator, CachedEnumerable<TT> parent)
             {
                 _first = firstEnumerator;
                 _second = secondEnumerator;
@@ -87,7 +85,7 @@ namespace Endless
                 _first.Reset();
             }
 
-            public T Current
+            public TT Current
             {
                 get { return _current; }
             }
