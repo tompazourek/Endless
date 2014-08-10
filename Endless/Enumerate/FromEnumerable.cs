@@ -1,53 +1,49 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+using System.Threading.Tasks;
 using System.Text;
+using System.Linq;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System;
 
 namespace Endless
 {
     internal class FromEnumerable<T> : IFromEnumerable<T> where T : struct
     {
-        private readonly T _from;
+        private readonly IFromThenToEnumerator<T> _enumerator;
 
-        public FromEnumerable(T from)
+        public FromEnumerable(T from) : this(new DynamicFromThenToEnumerator<T>(from))
         {
-            _from = from;
         }
 
+        public FromEnumerable(IFromThenToEnumerator<T> enumerator)
+        {
+            _enumerator = enumerator;
+        }
+        
         public IEnumerable<T> To(T toNumber)
         {
-            using (IFromThenToEnumerator<T> enumerator = GetDynamicEnumerator().CloneWithToRestriction(toNumber))
+            IFromThenToEnumerator<T> enumerator = _enumerator.CloneWithToRestriction(toNumber);
+            while (enumerator.MoveNext())
             {
-                while (enumerator.MoveNext())
-                {
-                    yield return enumerator.Current;
-                }
+                yield return enumerator.Current;
             }
         }
 
         public IFromThenEnumerable<T> Then(T thenNumber)
         {
-            using (IFromThenToEnumerator<T> enumerator = GetDynamicEnumerator().CloneWithThenRestriction(thenNumber))
-            {
-                return new FromThenEnumerable<T>(enumerator);
-            }
+            IFromThenToEnumerator<T> enumerator = _enumerator.CloneWithThenRestriction(thenNumber);
+            return new FromThenEnumerable<T>(enumerator);
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return GetDynamicEnumerator();
+            return _enumerator.Clone();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        private IFromThenToEnumerator<T> GetDynamicEnumerator()
-        {
-            return new DynamicFromThenToEnumerator<T>(_from);
         }
     }
 }

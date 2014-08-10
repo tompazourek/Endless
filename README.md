@@ -1,8 +1,14 @@
 # Endless .NET
 
-Extensions that support the C# functional paradigm.
+*Extensions that support the C# functional paradigm.*
+
+[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o)](https://ci.appveyor.com/project/tompazourek/endless)
+
+## Samples
 
 See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/wiki/Samples).
+
+For other samples, visit [this test file](https://github.com/tompazourek/Endless/blob/master/Endless.Tests/Samples.cs).
 
 ## Features
 
@@ -46,14 +52,15 @@ See the wiki for [some samples of usage](https://github.com/tompazourek/Endless/
 
 - working with streams and `IEnumerable<byte>` in harmony
 
-[**String extensions**](https://github.com/tompazourek/Endless/blob/master/Endless/Extensions/StringExtensions.cs)
+**String extensions**
 
-- JoinStrings (`string.Join()` rewritten as extension method)
-- BuildString (new string out of `IEnumerable<char>`)
+- [BuildString](https://github.com/tompazourek/Endless/wiki/String-extensions#buildstring)
+- [JoinStrings](https://github.com/tompazourek/Endless/wiki/String-extensions#joinstrings)
+
 
 **Random extensions**
 
-- NextByte, NextChar
+- [NextByte, NextChar](https://github.com/tompazourek/Endless/wiki/Random-extensions)
 
 **Functional features (experimental)**
 

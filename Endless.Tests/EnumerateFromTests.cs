@@ -101,5 +101,15 @@ namespace Endless.Tests
             // assert
             CollectionAssert.AreEqual(new long[] { 1, 2, 3, 4, 5 }, numbers);
         }
+
+        [Test]
+        public void EnumerateDateTime_From()
+        {
+            // act
+            IEnumerable<DateTime> numbers = Enumerate.From(new DateTime(1990, 7, 5)).Take(5);
+
+            // assert
+            CollectionAssert.AreEqual(new DateTime[] { new DateTime(1990, 7, 5), new DateTime(1990, 7, 6), new DateTime(1990, 7, 7), new DateTime(1990, 7, 8), new DateTime(1990, 7, 9) }, numbers);
+        }
     }
 }

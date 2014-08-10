@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using Microsoft.CSharp.RuntimeBinder;
+using System.Numerics;
 
 namespace Endless.Tests
 {
@@ -361,6 +363,54 @@ namespace Endless.Tests
 
             // assert
             Assert.AreEqual(6, chunked.Count);
+        }
+
+        [Test]
+        public void DynamicCast_WithoutIt()
+        {
+            // arrange
+            var input = new[] { (byte)'h', (byte)'e', (byte)'l', (byte)'l', (byte)'o' };
+
+            // act
+            Assert.Throws<InvalidCastException>(() => input.Cast<char>().ToArray());
+        }
+
+        [Test]
+        public void DynamicCast()
+        {
+            // arrange
+            var input = new[] { (byte)'h', (byte)'e', (byte)'l', (byte)'l', (byte)'o' };
+            var expectedOutput = new[] { 'h', 'e', 'l', 'l', 'o' };
+
+            // act
+            var output = input.DynamicCast<char>().ToArray();
+
+            // assert
+            CollectionAssert.AreEqual(expectedOutput, output);
+        }
+
+        [Test]
+        public void DynamicCast_Invalid()
+        {
+            // arrange
+            var input = new[] { "Hello", "world" };
+
+            // act
+            Assert.Throws<RuntimeBinderException>(() => input.DynamicCast<char>().ToArray());
+        }
+
+        [Test]
+        public void DynamicCast_MultiType()
+        {
+            // arrange
+            var input = new object[] { 'h', 1.5d, new BigInteger(5)};
+            var expectedOutput = new[] { 104, 1, 5 };
+
+            // act
+            var output = input.DynamicCast<int>().ToArray();
+
+            // assert
+            CollectionAssert.AreEqual(expectedOutput, output);
         }
     }
 }
