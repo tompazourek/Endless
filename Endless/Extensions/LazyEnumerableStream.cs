@@ -1,10 +1,19 @@
-﻿using System;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Endless
 {
@@ -32,6 +41,11 @@ namespace Endless
         private readonly MemoryStream _memoryStream;
 
         /// <summary>
+        /// True if all the bytes have been enumerated
+        /// </summary>
+        private bool _enumeratedAllBytes;
+
+        /// <summary>
         /// The total length of bytes
         /// </summary>
         private long? _length;
@@ -40,11 +54,6 @@ namespace Endless
         /// How many bytes were already loaded to the memory stream
         /// </summary>
         private long _loadedBytes;
-
-        /// <summary>
-        /// True if all the bytes have been enumerated
-        /// </summary>
-        private bool _enumeratedAllBytes;
 
         /// <summary>
         /// Ensures that the number of bytes is loaded in tne memory stream
@@ -124,7 +133,7 @@ namespace Endless
         /// <returns></returns>
         private long WriteToStream(IEnumerable<byte> data)
         {
-            var position = _memoryStream.Position;
+            long position = _memoryStream.Position;
             long writtenBytes = _memoryStream.WriteBuffered(data);
             _memoryStream.Seek(position, SeekOrigin.Begin);
             return writtenBytes;

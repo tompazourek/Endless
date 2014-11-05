@@ -1,11 +1,19 @@
-﻿using System;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Endless.Functional;
 
 namespace Endless
 {
@@ -121,7 +129,7 @@ namespace Endless
 
             using (IEnumerator<TSource> enumerator = source.GetEnumerator())
             {
-                var movedNext = false;
+                bool movedNext = false;
                 while (movedNext || enumerator.MoveNext())
                 {
                     yield return GetChunkByGrouping(enumerator, keySelector, comparer, out movedNext);
@@ -131,7 +139,7 @@ namespace Endless
 
         private static IGrouping<TKey, TSource> GetChunkByGrouping<TKey, TSource>(IEnumerator<TSource> enumerator, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer, out bool movedNext)
         {
-            var currentKey = keySelector(enumerator.Current);
+            TKey currentKey = keySelector(enumerator.Current);
             var items = new List<TSource>();
             var grouping = new TrivialGrouping<TKey, TSource>(currentKey, items);
             do

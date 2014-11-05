@@ -1,10 +1,19 @@
-﻿using System;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -191,14 +200,15 @@ namespace Endless.Tests
                 .To(new DateTime(1990, 7, 10, 13, 00, 00));
 
             // assert
-            CollectionAssert.AreEqual(new DateTime[] {
-                new DateTime(1990, 7, 5, 12, 00, 00),
-                new DateTime(1990, 7, 6, 12, 00, 00),
-                new DateTime(1990, 7, 7, 12, 00, 00),
-                new DateTime(1990, 7, 8, 12, 00, 00),
-                new DateTime(1990, 7, 9, 12, 00, 00),
-                new DateTime(1990, 7, 10, 12, 00, 00)
-            }, times);
+            CollectionAssert.AreEqual(new DateTime[]
+                {
+                    new DateTime(1990, 7, 5, 12, 00, 00),
+                    new DateTime(1990, 7, 6, 12, 00, 00),
+                    new DateTime(1990, 7, 7, 12, 00, 00),
+                    new DateTime(1990, 7, 8, 12, 00, 00),
+                    new DateTime(1990, 7, 9, 12, 00, 00),
+                    new DateTime(1990, 7, 10, 12, 00, 00)
+                }, times);
         }
 
         [Test]

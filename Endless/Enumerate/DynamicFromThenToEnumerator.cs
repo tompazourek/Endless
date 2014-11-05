@@ -1,10 +1,19 @@
+#region License
+
+// Copyright (C) Tomáš Paourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Endless
 {
@@ -40,6 +49,16 @@ namespace Endless
         }
 
         public T? To { get; private set; }
+
+        private static dynamic One
+        {
+            get
+            {
+                dynamic zero = default(T);
+                dynamic one = ++zero;
+                return one;
+            }
+        }
 
         public void Dispose()
         {
@@ -116,13 +135,13 @@ namespace Endless
 
         private dynamic Add(dynamic x, dynamic y)
         {
-            dynamic result = (T)(x + y);
+            dynamic result = (T) (x + y);
             return result;
         }
 
         private dynamic Subtract(dynamic x, dynamic y)
         {
-            dynamic result = (T)(x - y);
+            dynamic result = (T) (x - y);
             return result;
         }
 
@@ -142,16 +161,6 @@ namespace Endless
         {
             bool result = x > y;
             return result;
-        }
-
-        private static dynamic One
-        {
-            get
-            {
-                dynamic zero = default(T);
-                var one = ++zero;
-                return one;
-            }
         }
     }
 }

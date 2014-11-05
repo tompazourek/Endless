@@ -1,12 +1,21 @@
-﻿using System;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Microsoft.CSharp.RuntimeBinder;
 using System.Numerics;
+using System.Text;
+using Microsoft.CSharp.RuntimeBinder;
+using NUnit.Framework;
 
 namespace Endless.Tests
 {
@@ -326,7 +335,7 @@ namespace Endless.Tests
                     new { Key = "B", Value = "Cool" },
                     new { Key = "B", Value = "!" }
                 };
-            
+
             // action
             var chunked = list.ChunkBy(p => p.Key).ToList();
 
@@ -369,7 +378,7 @@ namespace Endless.Tests
         public void DynamicCast_WithoutIt()
         {
             // arrange
-            var input = new[] { (byte)'h', (byte)'e', (byte)'l', (byte)'l', (byte)'o' };
+            var input = new[] { (byte) 'h', (byte) 'e', (byte) 'l', (byte) 'l', (byte) 'o' };
 
             // act
             Assert.Throws<InvalidCastException>(() => input.Cast<char>().ToArray());
@@ -379,7 +388,7 @@ namespace Endless.Tests
         public void DynamicCast()
         {
             // arrange
-            var input = new[] { (byte)'h', (byte)'e', (byte)'l', (byte)'l', (byte)'o' };
+            var input = new[] { (byte) 'h', (byte) 'e', (byte) 'l', (byte) 'l', (byte) 'o' };
             var expectedOutput = new[] { 'h', 'e', 'l', 'l', 'o' };
 
             // act
@@ -403,7 +412,7 @@ namespace Endless.Tests
         public void DynamicCast_MultiType()
         {
             // arrange
-            var input = new object[] { 'h', 1.5d, new BigInteger(5)};
+            var input = new object[] { 'h', 1.5d, new BigInteger(5) };
             var expectedOutput = new[] { 104, 1, 5 };
 
             // act

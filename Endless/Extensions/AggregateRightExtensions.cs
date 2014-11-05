@@ -1,9 +1,18 @@
+#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Endless.Functional;
 
 namespace Endless
@@ -28,7 +37,7 @@ namespace Endless
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            var result = sequence.Reverse().Aggregate(end, func.Flip());
+            TAccumulate result = sequence.Reverse().Aggregate(end, func.Flip());
             return result;
         }
 
@@ -45,7 +54,7 @@ namespace Endless
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            var result = sequence.Reverse().Aggregate(func.Flip());
+            TSource result = sequence.Reverse().Aggregate(func.Flip());
             return result;
         }
     }

@@ -1,11 +1,19 @@
-﻿using System.Globalization;
-using System.IO;
-using System.Threading.Tasks;
-using System.Text;
-using System.Linq;
-using System.Diagnostics;
-using System.Collections.Generic;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
 using Endless.Functional;
 using NUnit.Framework;
 
@@ -31,9 +39,9 @@ namespace Endless.Tests
             var days = new DateTime(startYear, 1, 1).Iterate(x => x.AddDays(1)).TakeWhile(x => x.Year <= endYear);
             var months = days.GroupBy(x => new { x.Year, x.Month });
             var fiveWeekendMonths = months.Where(x =>
-                x.Count(y => y.DayOfWeek == DayOfWeek.Friday) == 5 &&
-                x.Count(y => y.DayOfWeek == DayOfWeek.Saturday) == 5 &&
-                x.Count(y => y.DayOfWeek == DayOfWeek.Sunday) == 5);
+                                                     x.Count(y => y.DayOfWeek == DayOfWeek.Friday) == 5 &&
+                                                         x.Count(y => y.DayOfWeek == DayOfWeek.Saturday) == 5 &&
+                                                         x.Count(y => y.DayOfWeek == DayOfWeek.Sunday) == 5);
 
             Assert.AreEqual(201, fiveWeekendMonths.Count());
         }
@@ -123,20 +131,20 @@ namespace Endless.Tests
             const string output = @"Ubj pna lbh gryy na rkgebireg sebz na vagebireg ng AFN? In the elevators, the extrovert looks at the OTHER guy's shoes.";
 
             var rot = new Func<int, string, string>((degree, src) =>
-            {
-                var alphabet = Enumerate.From('a').To('z');
-                var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(26);
+                {
+                    var alphabet = Enumerate.From('a').To('z');
+                    var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(26);
 
-                var repeatWithUpperCase = new Func<IEnumerable<char>, IEnumerable<char>>(x => x.Concat(x.Select(char.ToUpper)));
-                var transformation = alphabet.Pipe(repeatWithUpperCase)
-                                    .Zip(shiftedAlphabet.Pipe(repeatWithUpperCase))
-                                    .ToDictionary();
+                    var repeatWithUpperCase = new Func<IEnumerable<char>, IEnumerable<char>>(x => x.Concat(x.Select(char.ToUpper)));
+                    var transformation = alphabet.Pipe(repeatWithUpperCase)
+                                                 .Zip(shiftedAlphabet.Pipe(repeatWithUpperCase))
+                                                 .ToDictionary();
 
-                var result = src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
-                return result;
-            });
+                    var result = src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
+                    return result;
+                });
             var rot13 = rot.Curry()(13);
-            
+
             Assert.AreEqual(output, rot13(input));
             Assert.AreEqual(input, rot13(output));
         }
@@ -152,7 +160,7 @@ namespace Endless.Tests
 
             // action
             var hasBom = FileHasUTF8ByteOrderMark(filename);
-            
+
             // assert
             Assert.IsTrue(hasBom);
         }
@@ -174,7 +182,7 @@ namespace Endless.Tests
             {
                 var nonAsciiCharacters = stream.EnumerateBuffered().Where(x => x > 127).DynamicCast<char>();
 
-                CollectionAssert.AreEqual(new[] { (char)0xEF, (char)0xBB, (char)0xBF }, nonAsciiCharacters);
+                CollectionAssert.AreEqual(new[] { (char) 0xEF, (char) 0xBB, (char) 0xBF }, nonAsciiCharacters.Take(3));
             }
         }
     }

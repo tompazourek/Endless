@@ -1,9 +1,18 @@
+#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Endless
 {
@@ -36,29 +45,29 @@ namespace Endless
             }
         }
 
-		/// <summary>
-		/// Creates an infinite list where the first two items are given,
-		/// and the next item is generated from current and previous item using given function.
-		/// </summary>
-		/// <returns>IEnumerable of: seed1, seed2, func(seed1, seed2), func(seed2, func(seed1, seed2)), ...</returns>
-		public static IEnumerable<T> Iterate<T>(T seed1, T seed2, Func<T, T, T> func)
-		{
-			if (func == null) throw new ArgumentNullException("func");
+        /// <summary>
+        /// Creates an infinite list where the first two items are given,
+        /// and the next item is generated from current and previous item using given function.
+        /// </summary>
+        /// <returns>IEnumerable of: seed1, seed2, func(seed1, seed2), func(seed2, func(seed1, seed2)), ...</returns>
+        public static IEnumerable<T> Iterate<T>(T seed1, T seed2, Func<T, T, T> func)
+        {
+            if (func == null) throw new ArgumentNullException("func");
 
-			var previous = seed1;
-			var current = seed2;
+            T previous = seed1;
+            T current = seed2;
 
-			yield return previous;
-			yield return current;
-			while (true)
-			{
-				var next = func(previous, current);
-				yield return next;
+            yield return previous;
+            yield return current;
+            while (true)
+            {
+                T next = func(previous, current);
+                yield return next;
 
-				previous = current;
-				current = next;
-			}
-		}
+                previous = current;
+                current = next;
+            }
+        }
 
         // ReSharper disable FunctionNeverReturns
 

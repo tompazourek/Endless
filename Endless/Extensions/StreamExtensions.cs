@@ -1,10 +1,19 @@
-﻿using System;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Endless
 {
@@ -89,7 +98,7 @@ namespace Endless
 
             long writtenCount = 0;
             List<IEnumerable<byte>> chunked = bytes.Chunk(bufferSize).ToList();
-            foreach (IEnumerable<byte> chunk in chunked)
+            foreach (var chunk in chunked)
             {
                 byte[] buffer = chunk.ToArray();
                 stream.Write(buffer, 0, buffer.Length);

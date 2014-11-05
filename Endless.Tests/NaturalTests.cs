@@ -1,9 +1,19 @@
-﻿using System;
+﻿#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
-using System.Threading.Tasks;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -18,7 +28,7 @@ namespace Endless.Tests
             var numbers = Natural.Numbers.Take(10);
 
             // assert
-            CollectionAssert.AreEqual(new [] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, numbers);
+            CollectionAssert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, numbers);
         }
 
         [Test]

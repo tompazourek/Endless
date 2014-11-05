@@ -1,9 +1,18 @@
+#region License
+
+// Copyright (C) Tomáš Pažourek, 2014
+// All rights reserved.
+// 
+// Distributed under MIT license as a part of project Endless.
+// https://github.com/tompazourek/Endless
+
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Endless.Functional;
 
 namespace Endless
@@ -26,8 +35,8 @@ namespace Endless
             // ReSharper disable PossibleMultipleEnumeration
             yield return seed;
 
-            var current = seed;
-            foreach (var item in sequence)
+            T1 current = seed;
+            foreach (T2 item in sequence)
             {
                 current = func(current, item);
                 yield return current;
@@ -48,7 +57,7 @@ namespace Endless
             if (sequence.IsEmpty())
                 return Enumerable.Empty<T>();
 
-            var result = Scan(sequence.Tail(), sequence.First(), func);
+            IEnumerable<T> result = Scan(sequence.Tail(), sequence.First(), func);
             return result;
             // ReSharper restore PossibleMultipleEnumeration
         }
@@ -64,7 +73,7 @@ namespace Endless
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            var result = sequence.Reverse().Scan(seed, func.Flip()).Reverse();
+            IEnumerable<T2> result = sequence.Reverse().Scan(seed, func.Flip()).Reverse();
             return result;
         }
 
@@ -78,7 +87,7 @@ namespace Endless
             if (sequence == null) throw new ArgumentNullException("sequence");
             if (func == null) throw new ArgumentNullException("func");
 
-            var result = sequence.Reverse().Scan(func.Flip()).Reverse();
+            IEnumerable<T> result = sequence.Reverse().Scan(func.Flip()).Reverse();
             return result;
         }
     }
