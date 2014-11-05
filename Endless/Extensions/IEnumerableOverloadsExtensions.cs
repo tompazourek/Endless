@@ -66,7 +66,7 @@ namespace Endless
         {
             if (first == null) throw new ArgumentNullException("first");
             if (second == null) throw new ArgumentNullException("second");
-            return first.Zip(second, (x, y) => Tuple.Create(x, y));
+            return first.Zip(second, Tuple.Create);
         }
 
         /// <summary>

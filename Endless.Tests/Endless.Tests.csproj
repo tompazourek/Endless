@@ -62,6 +62,7 @@
     <Compile Include="EnumerateFromThenTests.cs" />
     <Compile Include="EnumerateFromToTests.cs" />
     <Compile Include="EnumerateFromTests.cs" />
+    <Compile Include="IEnumerableOverloadsExtensionsTest.cs" />
     <Compile Include="NaturalTests.cs" />
     <Compile Include="FuncTests.cs" />
     <Compile Include="ProjectEulerTests.cs" />
