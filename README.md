@@ -21,7 +21,7 @@
 
 ### Iterate
 
-The basic of endless collections. Can be widely used in algorithms that are based on any kind of iteration.
+The basic function for creating infinite sequences. Can be widely used in algorithms that are based on any kind of iteration.
 
 Creates an infinite list where the first item is calculated by applying the function on the second argument, the second item by applying the function on the previous result and so on.
 
@@ -64,7 +64,7 @@ IEnumerable<int> enumerable = new Func<int>(random.Next).Repeat().Take(10); // y
 
 ### Cycle
 
-Creates an infinite list by repeating the given collection.
+Creates an infinite list by repeating the given sequence.
 
 **Sample usage:**
 
@@ -89,7 +89,7 @@ IEnumerable<int> GetNumbers()
     if (some condition)
         return 0.Yield();
     
-    return someOtherCollection;
+    return someOtherSequence;
 }
 ```
 
@@ -101,7 +101,7 @@ IEnumerable<int> GetNumbers()
     if (some condition)
         return new [] { 0 };
     
-    return someOtherCollection;
+    return someOtherSequence;
 }
 ```
 
@@ -111,7 +111,7 @@ IEnumerable<int> GetNumbers()
     if (some condition)
         yield return 0;
     
-    foreach(var item in someOtherCollection)
+    foreach(var item in someOtherSequence)
     {
         yield return item;
     }
@@ -124,7 +124,7 @@ Enumerate extensions allow more functionality than the standard library function
 
 ### Natural numbers
 
-Simple sequences to generate endless sequence of natural numbers:
+Simple sequences to generate infinite sequence of natural numbers:
 
 ```csharp
 IEnumerable<int> numbers1 = Natural.Numbers; // yields 1, 2, 3, ...
@@ -142,7 +142,7 @@ int sum = Natural.Numbers.TakeUntil(1000).Where(x => x % 3 == 0 || x % 5 == 0).S
 
 ### From, Then, To
 
-Set of generic enumerators to create useful finite or infinite collections. The argument is **implemented dynamically**, it is tested with `BigInteger`, `byte`, `char`, `decimal`, `double`, `float`, `int`, `long`, but should **work with other types too** (even custom ones that can be added/subtracted and compared). Also there is a support for `DateTime`.
+Set of generic enumerators to create useful finite or infinite sequences. The argument is **implemented dynamically**, it is tested with `BigInteger`, `byte`, `char`, `decimal`, `double`, `float`, `int`, `long`, but should **work with other types too** (even custom ones that can be added/subtracted and compared). Also there is a support for `DateTime`.
 
 #### From
 
@@ -167,7 +167,7 @@ Enumerate.From(new DateTime(1990, 7, 5, 12, 0, 0)).Then(new DateTime(1990, 7, 5,
 
 #### From + To
 
-The collection is bounded by the high value.
+The sequence is bounded by the high value.
 
 ```csharp
 Enumerate.From('a').To('e'); // yields 'a', 'b', 'c', 'd', 'e'
@@ -178,7 +178,7 @@ Enumerate.From(new DateTime(2014, 1, 1)).To(new DateTime(2014, 31, 1)); // yield
 
 #### From + Then + To
 
-Combines both principles above. The collection is bounded by the highest/lowest value depending on the increasing/decreasing collection.
+Combines both principles above. The sequence is bounded by the highest/lowest value depending on the increasing/decreasing sequence.
 
 ```csharp
 Enumerate.From(1d).Then(0.5).To(-1); // yields 1, 0.5, 0, -0.5, -1
@@ -370,11 +370,11 @@ new object[] { 'h', 1.5d, new BigInteger(5) }.DynamicCast<int>(); // yields ints
 
 ### Cached IEnumerable
 
-Endless library provides IEnumerable extension method called `Cached`. This method ensures that no item in the enumerable will be evaluated twice. Once an item is evaluated, it is stored in the internal memory of the enumerable.
+The library provides IEnumerable extension method called `Cached`. This method ensures that no item in the enumerable will be evaluated twice. Once an item is evaluated, it is stored in the internal memory of the enumerable.
 
 This is similar to methods like `.ToList()` or `.ToArray()`, but there is an important difference. As opposed to these methods, calling `.Cached()` on an enumerable does not evaluate any items yet. The items are evaluated on first access of certain item, then they are stored in the internal list.
 
-This makes it possible to use `.Cached()` on infinite collections. Extensions `.ToList()` or `.ToArray()` cannot be called on infinite collections, because they try to evaluate the whole collection immediately. The `Cached` extension makes sure that the values are evaluated lazily, but ensures that no item in the collection will be evaluated twice. Once it is evaluated, the result is stored.
+This makes it possible to use `.Cached()` on infinite sequences. Extensions `.ToList()` or `.ToArray()` cannot be called on infinite sequences, because they try to evaluate the whole sequence immediately. The `Cached` extension makes sure that the values are evaluated lazily, but ensures that no item in the sequence will be evaluated twice. Once it is evaluated, the result is stored.
 
 Example of not using the `Cached` extension:
 
@@ -383,7 +383,7 @@ var sequence1 = expensiveToEnumerate.Take(10).ToList();
 var sequence2 = expensiveToEnumerate.Take(15).ToList();
 ```
 
-Note that the collection is enumerated twice, which means that we need to do the expensive evaluation 25 times.
+Note that the sequence is enumerated twice, which means that we need to do the expensive evaluation 25 times.
 
 Example of using the `Cached` extension:
 
@@ -397,7 +397,7 @@ using (var cached = expensiveToEnumerate.Cached())
 
 Now while computing `sequence1`, we do expensive evaluation of 10 items, but the result is stored in internal list. So when we compute `sequence2`, we take the 10 items from the internal list, then do expensive evaluation of other 5 items which were not cached yet.
 
-Note that the `Cached` example is used with the `using` block. That is because it holds reference to the `IEnumerator` of the sequence with current position, which itself is `IDisposable`. When using the `foreach` statements or LINQ methods, we don't need the using statements because they are automatically implemented inside when handling the `IEnumerator` of the collection. Here we might need to dispose the enumerator after we are done working with the collection, thus the `using` statement is recommended. Disposing the cached enumerable calls `Dispose` on the enumerator of the cached collection.
+Note that the `Cached` example is used with the `using` block. That is because it holds reference to the `IEnumerator` of the sequence with current position, which itself is `IDisposable`. When using the `foreach` statements or LINQ methods, we don't need the using statements because they are automatically implemented inside when handling the `IEnumerator` of the sequence. Here we might need to dispose the enumerator after we are done working with the sequence, thus the `using` statement is recommended. Disposing the cached enumerable calls `Dispose` on the enumerator of the cached sequence.
 
 ### StartsWith
 
@@ -451,7 +451,7 @@ new [] { 1, 2, 3, 4, 5 }.Init(); // returns { 2, 3, 4, 5 }
 `TakeUntil` is the complement to `TakeWhile`. It has three different overloads:
 
 - `(this IEnumerable<T> source, T item)`
-    - Returns all elements of the sequence from the begining until given element. The given element will not be part of the collection.
+    - Returns all elements of the sequence from the begining until given element. The given element will not be part of the sequence.
     - Sample: `new [] { 1, 2, 3 }.TakeUntil(3)` returns `{ 1, 2 }`
 - `(this IEnumerable<T> source, Func<T, bool> predicate)`
     - Returns elements from a sequence until given predicate is true.
@@ -508,7 +508,7 @@ new [] { 1, 2, 3 }.Except(3); // returns { 1, 2 }
 ```
 ### Concat
 
-The library provides overload to [`Concat`](http://msdn.microsoft.com/en-us/library/vstudio/bb302894(v=vs.110).aspx) method on `IEnumerable` with lazy second collection.
+The library provides overload to [`Concat`](http://msdn.microsoft.com/en-us/library/vstudio/bb302894(v=vs.110).aspx) method on `IEnumerable` with lazy second sequence.
 
 As opposed to the standard type signature:
 
@@ -522,19 +522,19 @@ The overload has signature:
 IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, Func<IEnumerable<TSource>> second)
 ```
 
-That allows to pass in function that will create the second collection. That function will be called only when items at that position need to be evaluated (i.e. all the items of first collections were already enumerated). Otherwise the function will not be called at all.
+That allows to pass in function that will create the second sequence. That function will be called only when items at that position need to be evaluated (i.e. all the items of first sequences were already enumerated). Otherwise the function will not be called at all.
 
 **Sample usage:**
 
 ```csharp
-var combined = new { 1, 2, 3 }.Concat(GetSecondCollection);
-var result1 = combined.Take(3).ToList(); // GetSecondCollection is not called
-var result2 = combined.Take(5).ToList(); // GetSecondCollection is called
+var combined = new { 1, 2, 3 }.Concat(GetSecondSequence);
+var result1 = combined.Take(3).ToList(); // GetSecondSequence is not called
+var result2 = combined.Take(5).ToList(); // GetSecondSequence is called
 ```
 
 ### Zip
 
-The library provides overload to [`Zip`](http://msdn.microsoft.com/en-us/library/vstudio/dd267698(v=vs.110).aspx) extension without the `resultSelector` parameter. Without specifying the result, the collections will be zipped to collection of tuples.
+The library provides overload to [`Zip`](http://msdn.microsoft.com/en-us/library/vstudio/dd267698(v=vs.110).aspx) extension without the `resultSelector` parameter. Without specifying the result, the sequences will be zipped to sequence of tuples.
 
 Calling  `first.Zip(second)`is equivalent to calling `first.Zip(second, Tuple.Create)`.
 
@@ -606,7 +606,7 @@ Extensions for `System.Random`.
 
 ### NextByte, NextChar
 
-Endless adds `NextByte` and `NextChar` in addition to existing `Next` and `NextDouble` methods.
+The library adds `NextByte` and `NextChar` in addition to existing `Next` and `NextDouble` methods.
 
 ```csharp
 var random = new Random();
@@ -677,7 +677,7 @@ IEnumerable<string> FizzBuzz()
                     if (x % 5 == 0) return "Buzz";
                     return x.ToString();
                 });
-    return fizzBuzz; // endless Fizz buzz collection
+    return fizzBuzz; // infinite Fizz buzz sequence
 }
 ```
 
@@ -734,6 +734,8 @@ var rot = new Func<int, string, string>((degree, input) =>
 var rot13 = rot.Curry()(13);
 ```
 
+Uses Endless methods **Enumerate.From()** and **.To()**, **Cycle()**, **Pipe()**, overloads of **Zip()** and **ToDictionary()**, **BuildString()** and **Curry**.
+
 ---
 
 ### Estimation of &pi; using Monte Carlo method
@@ -763,6 +765,8 @@ var piSequence = randomPoints.Scan(
         ) / (previous.n + 1)
     }).Select(t => t.piQuarter * 4);
 ```
+
+Uses Endless methods **Repeat()** and **Scan()**.
 
 ---
 
