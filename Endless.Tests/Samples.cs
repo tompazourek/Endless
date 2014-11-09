@@ -185,5 +185,36 @@ namespace Endless.Tests
                 CollectionAssert.AreEqual(new[] { (char) 0xEF, (char) 0xBB, (char) 0xBF }, nonAsciiCharacters.Take(3));
             }
         }
+
+        [Test]
+        public void MonteCarloPi()
+        {
+            var randomGenerator = new Random(666);
+
+            // infinite sequence of random numbers
+            var randomNumbers = new Func<double>(randomGenerator.NextDouble).Repeat();
+
+            // infinite sequence of random points
+            var randomPoints = randomNumbers.Zip(randomNumbers, (x, y) => new { x, y });
+
+            // infinite sequence of pi estimates with increasing precision
+            var piSequence = randomPoints.Scan(
+                // n is the number of points used
+                // piQuarter is the current estimate for pi/4
+                new { n = 0, piQuarter = 0d }, (previous, point) => new {
+                    n = previous.n + 1,
+                    piQuarter =
+                    (
+                        previous.piQuarter * previous.n +
+
+                        // if the new point falls into the circle, we add 1, otherwise we add 0
+                        (Math.Sqrt(point.x * point.x + point.y * point.y) < 1 ? 1 : 0)
+
+                    ) / (previous.n + 1)
+                }).Select(t => t.piQuarter * 4);
+
+            var result = piSequence.ElementAt(10 * 1000 * 1000);
+            Assert.IsTrue(Math.Abs(Math.PI - result) < 0.0001);
+        }
     }
 }

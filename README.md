@@ -615,16 +615,52 @@ Uses Endless extensions **Enumerate.From()** and **Tail()**.
 
 ---
 
-### Fibonacci sequence
+### ROT13 Cipher
 
 ```csharp
-IEnumerable<int> Fibonacci()
-{
-    return Tuple.Create(0, 1).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
-}
+var rot = new Func<int, string, string>((degree, src) =>
+    {
+        var alphabet = Enumerate.From('a').To('z');
+        var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(26);
+
+        var repeatWithUpperCase = new Func<IEnumerable<char>, IEnumerable<char>>(x => x.Concat(x.Select(char.ToUpper)));
+        var transformation = alphabet.Pipe(repeatWithUpperCase)
+                                     .Zip(shiftedAlphabet.Pipe(repeatWithUpperCase))
+                                     .ToDictionary();
+
+        var result = src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
+        return result;
+    });
+var rot13 = rot.Curry()(13);
 ```
 
-Uses Endless extension **Iterate()**.
+### Estimation of Pi using Monte Carlo method
+
+```csharp
+var randomGenerator = new Random(666);
+
+// infinite sequence of random numbers
+var randomNumbers = new Func<double>(randomGenerator.NextDouble).Repeat();
+
+// infinite sequence of random points
+var randomPoints = randomNumbers.Zip(randomNumbers, (x, y) => new { x, y });
+
+// infinite sequence of pi estimates with increasing precision
+var piSequence = randomPoints.Scan(
+    // n is the number of points used
+    // piQuarter is the current estimate for pi/4
+    new { n = 0, piQuarter = 0d }, (previous, point) => new {
+        n = previous.n + 1,
+        piQuarter =
+        (
+            previous.piQuarter * previous.n +
+
+            // if the new point falls into the circle, we add 1, otherwise we add 0
+            (Math.Sqrt(point.x * point.x + point.y * point.y) < 1 ? 1 : 0)
+
+        ) / (previous.n + 1)
+    }).Select(t => t.piQuarter * 4);
+```
 
 ---
 
