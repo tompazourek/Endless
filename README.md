@@ -38,6 +38,14 @@ DateTime NextFridayThe13th()
 IEnumerable<int> enumerable = 2.Iterate(x => x * x).Take(5); // yields 2, 4, 16, 256, 65536
 ```
 
+There is also overload for `Iterate`, which uses binary function taking two seeds and generating new value using two previous values.
+
+**Sample usage:**
+
+```csharp
+Generate.Iterate(0, 1, (a, b) => a + b); // 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ... (Fibonacci sequence)
+```
+
 ### Repeat
 
 Creates an infinite list where all items are the first argument.
