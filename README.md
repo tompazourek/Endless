@@ -375,22 +375,21 @@ Example of not using the `Cached` extension:
 ```csharp
 var sequence1 = expensiveToEnumerate.Take(10).ToList();
 var sequence2 = expensiveToEnumerate.Take(15).ToList();
-
-// Note that the collection is enumerated twice, which means that we need to do the expensive evaluation 25 times
 ```
+
+Note that the collection is enumerated twice, which means that we need to do the expensive evaluation 25 times.
 
 Example of using the `Cached` extension:
 
 ```csharp
 using (var cached = expensiveToEnumerate.Cached())
 {
-    var sequence1 = expensiveToEnumerate.Take(10).ToList();
-    var sequence2 = expensiveToEnumerate.Take(15).ToList();
-    
-    // Now while computing sequence1, we do expensive evaluation of 10 items, but the result is stored in internal list
-    // So when we compute sequence2, we take the 10 items from the internal list, then do expensive evaluation of other 5 items which were not cached yet
+    var sequence1 = cached.Take(10).ToList();
+    var sequence2 = cached.Take(15).ToList();
 }
 ```
+
+Now while computing `sequence1`, we do expensive evaluation of 10 items, but the result is stored in internal list. So when we compute `sequence2`, we take the 10 items from the internal list, then do expensive evaluation of other 5 items which were not cached yet.
 
 Note that the `Cached` example is used with the `using` block. That is because it holds reference to the `IEnumerator` of the sequence with current position, which itself is `IDisposable`. When using the `foreach` statements or LINQ methods, we don't need the using statements because they are automatically implemented inside when handling the `IEnumerator` of the collection. Here we might need to dispose the enumerator after we are done working with the collection, thus the `using` statement is recommended. Disposing the cached enumerable calls `Dispose` on the enumerator of the cached collection.
 
