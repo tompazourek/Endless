@@ -362,6 +362,12 @@ var helloAsBytes = new byte[] { 104, 101, 108, 108, 111 };
 var helloAsChars = helloAsBytes.DynamicCast<char>().ToArray(); // equal to { 'h', 'e', 'l', 'l', 'o' }
 ```
 
+Another example might be:
+
+```csharp
+new object[] { 'h', 1.5d, new BigInteger(5) }.DynamicCast<int>(); // yields ints 104, 1, 5
+```s
+
 ### Cached IEnumerable
 
 Endless library provides IEnumerable extension method called `Cached`. This method ensures that no item in the enumerable will be evaluated twice. Once an item is evaluated, it is stored in the internal memory of the enumerable.
@@ -410,31 +416,65 @@ bytes.StartsWith<byte>(0xEF, 0xBB, 0xBF); // bytes sequence starts with UTF8 BOM
 
 ### Init
 
-*(documentation TBD)*
+`Init` returns everything from the sequence except the last element.
+
+**Sample usage:**
+
+```csharp
+new [] { 1, 2, 3, 4, 5 }.Init(); // returns { 1, 2, 3, 4 }
+```
 
 ### Tail
 
-*(documentation TBD)*
+`Tail` returns everything from the sequence except the first element.
+
+**Sample usage:**
+
+```csharp
+new [] { 1, 2, 3, 4, 5 }.Init(); // returns { 2, 3, 4, 5 }
+```
 
 ### IsEmpty
 
-*(documentation TBD)*
+`IsEmpty` is the opposite of `Any`, it returns true if the given sequence is empty.
+
+**Sample usage:**
+```csharp
+    new int[] { 1, 2, 3 }.IsEmpty(); // returns false
+    new int[] { }.IsEmpty(); // returns true
+```
 
 ### TakeUntil
 
-*(documentation TBD)*
+`TakeUntil` is the complement to `TakeWhile`. It has three different overloads:
+
+- `(this IEnumerable<T> source, T item)`
+    - Returns all elements of the sequence from the begining until given element. The given element will not be part of the collection.
+    - Sample: `new [] { 1, 2, 3 }.TakeUntil(3)` returns `{ 1, 2 }`
+- `(this IEnumerable<T> source, Func<T, bool> predicate)`
+    - Returns elements from a sequence until given predicate is true.
+    - Sample: `new [] { 1, 2, 3 }.TakeUntil(x => x > 2)` returns `{ 1, 2 }`
+- `(this IEnumerable<T> source, Func<T, int, bool> predicate)`
+    - Same as the previous, only element index can be used in the predicate as well.
 
 ### SkipUntil
 
-*(documentation TBD)*
+`SkipUntil` is the complement to `SkipWhile` and very similar to `TakeUntil`. It has three different overloads:
 
-### Sort
+- `(this IEnumerable<T> source, T item)`
+    - Bypasses elements in a sequence as long as they are not equal to given element, then returns the remaining elements.
+    - Sample: `new [] { 1, 2, 3 }.SkipUntil(3)` returns `{ 3 }`
+- `(this IEnumerable<T> source, Func<T, bool> predicate)`
+    - Bypasses elements in a sequence until given predicate is true, then returns the remaining elements.
+    - Sample: `new [] { 1, 2, 3 }.SkipUntil(x => x > 2)` returns `{ 3 }`
+- `(this IEnumerable<T> source, Func<T, int, bool> predicate)`
+    - Same as the previous, only element index can be used in the predicate as well.
 
-*(documentation TBD)*
+### Sort, SortDescending
 
-### SortDescending
+`Sort` and `SortDescending` functions sorts the sequence using default comparer.
 
-*(documentation TBD)*
+Equivalent to `.OrderBy(x => x)` and `.OrderByDescending(x => x)`.
 
 ## Existing IEnumerable extensions overloads
 
@@ -618,7 +658,7 @@ Uses Endless extensions **Enumerate.From()** and **Tail()**.
 ### ROT13 Cipher
 
 ```csharp
-var rot = new Func<int, string, string>((degree, src) =>
+var rot = new Func<int, string, string>((degree, input) =>
     {
         var alphabet = Enumerate.From('a').To('z');
         var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(26);
@@ -628,13 +668,15 @@ var rot = new Func<int, string, string>((degree, src) =>
                                      .Zip(shiftedAlphabet.Pipe(repeatWithUpperCase))
                                      .ToDictionary();
 
-        var result = src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
+        var result = input.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
         return result;
     });
 var rot13 = rot.Curry()(13);
 ```
 
-### Estimation of Pi using Monte Carlo method
+---
+
+### Estimation of &pi; using Monte Carlo method
 
 ```csharp
 var randomGenerator = new Random(666);
