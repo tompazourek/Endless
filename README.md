@@ -366,7 +366,7 @@ Another example might be:
 
 ```csharp
 new object[] { 'h', 1.5d, new BigInteger(5) }.DynamicCast<int>(); // yields ints 104, 1, 5
-```s
+```
 
 ### Cached IEnumerable
 
@@ -413,6 +413,8 @@ bytes.StartsWith<byte>(0xEF, 0xBB, 0xBF); // bytes sequence starts with UTF8 BOM
 ```
 
 ## Existing IEnumerable extensions variations
+
+Extensions similar to the [`IEnumerable` extensions](http://msdn.microsoft.com/en-us/library/9eekhta0(v=vs.110).aspx) that already exist.
 
 ### Init
 
@@ -478,29 +480,87 @@ Equivalent to `.OrderBy(x => x)` and `.OrderByDescending(x => x)`.
 
 ## Existing IEnumerable extensions overloads
 
+Extensions overloading the [existing `IEnumerable` extensions](http://msdn.microsoft.com/en-us/library/9eekhta0(v=vs.110).aspx).
+
 ### SelectMany
 
-*(documentation TBD)*
+The library provides parameterless overload to [`SelectMany`](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.selectmany(v=vs.110).ASPx).
+
+Calling `sequence.SelectMany()` is equivalent to calling `sequence.SelectMany(x => x)`.
+
+**Sample usage:**
+
+```csharp
+var numbers = new [] { new [] { 1, 2, 3 }, new [] { 4, 5, 6 }, new [] { 7, 8, 9 };
+numbers.SelectMany(); // returns { 1, 2, 3, 4, 5, 6, 7, 8, 9 }
+```
 
 ### Except
 
-*(documentation TBD)*
+The library provides overload to [`Except`](http://msdn.microsoft.com/en-us/library/vstudio/system.linq.enumerable.except(v=vs.110).aspx) accepting single item (not only sequence).
 
+Calling `sequence.Except(item)` is equivalent to calling `sequence.Except(new [] { item })`.
+
+**Sample usage:**
+
+```csharp
+new [] { 1, 2, 3 }.Except(3); // returns { 1, 2 }
+```
 ### Concat
 
-*(documentation TBD)*
+The library provides overload to [`Concat`](http://msdn.microsoft.com/en-us/library/vstudio/bb302894(v=vs.110).aspx) method on `IEnumerable` with lazy second collection.
+
+As opposed to the standard type signature:
+
+```csharp
+IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, IEnumerable<TSource> second)
+```
+
+The overload has signature:
+
+```csharp
+IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, Func<IEnumerable<TSource>> second)
+```
+
+That allows to pass in function that will create the second collection. That function will be called only when items at that position need to be evaluated (i.e. all the items of first collections were already enumerated). Otherwise the function will not be called at all.
+
+**Sample usage:**
+
+```csharp
+var combined = new { 1, 2, 3 }.Concat(GetSecondCollection);
+var result1 = combined.Take(3).ToList(); // GetSecondCollection is not called
+var result2 = combined.Take(5).ToList(); // GetSecondCollection is called
+```
 
 ### Zip
 
-*(documentation TBD)*
+The library provides overload to [`Zip`](http://msdn.microsoft.com/en-us/library/vstudio/dd267698(v=vs.110).aspx) extension without the `resultSelector` parameter. Without specifying the result, the collections will be zipped to collection of tuples.
+
+Calling  `first.Zip(second)`is equivalent to calling `first.Zip(second, Tuple.Create)`.
+
+**Sample usage:**
+
+```csharp
+var example = Natural.Numbers.Zip(Enumerate.From('a').To('c'));
+// returns (1, 'a'), (2, 'b'), (3, 'c')
+```
 
 ### ToDictionary
 
-*(documentation TBD)*
+The library provides overload to [`ToDictionary`](http://msdn.microsoft.com/en-us/library/system.linq.enumerable.todictionary(v=vs.110).aspx) extension for sequence of binary tuples (as produced in the `Zip` overload above).
+
+It takes the first item of the tuple as key and the second item as value, which makes calling `sequence.ToDictionary()` equivalent to calling `sequence.ToDictionary(x => x.Item1, x => x.Item2)` assuming that the sequence has type `IEnumerable<Tuple<T1, T2>>`.
+
+**Sample usage:**
+
+```csharp
+var example = Natural.Numbers.Zip(Enumerate.From('a').To('c')).ToDictionary();
+// returns { 1 => 'a', 2 => 'b', 3 => 'c' }
+```
 
 ### BigInteger aggregations
 
-*(documentation TBD)*
+The library provides overloads of `Sum`, `Min` and `Max` for using with `BigInteger`. The functions behave the same as the corresponding LINQ extensions, only they accept `IEnumerable<BigInteger>` as well.
 
 ## Stream extensions
 
