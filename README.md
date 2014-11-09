@@ -395,7 +395,16 @@ Note that the `Cached` example is used with the `using` block. That is because i
 
 ### StartsWith
 
-*(documentation TBD)*
+Returns true if this sequence starts with given subsequence.
+
+**Sample usage:**
+
+```csharp
+new[] { 1, 2, 3, 4, 5 }.StartsWith(new [] { 1, 2 }); // returns true
+
+bytes.StartsWith<byte>(0xEF, 0xBB, 0xBF); // bytes sequence starts with UTF8 BOM
+
+```
 
 ## Existing IEnumerable extensions variations
 
