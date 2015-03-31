@@ -31,12 +31,12 @@ namespace Endless
         }
 
         /// <summary>
-        /// Sequence without given item. Overload of Enumerable.Except for single item.
+        /// Sequence without given items. Overload of Enumerable.Except for items given in params.
         /// </summary>
-        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, T item)
+        public static IEnumerable<T> Except<T>(this IEnumerable<T> source, params T[] items)
         {
             if (source == null) throw new ArgumentNullException("source");
-            return source.Except(item.Yield());
+            return source.Except((IEnumerable<T>)items);
         }
 
         /// <summary>

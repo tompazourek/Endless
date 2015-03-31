@@ -497,7 +497,7 @@ numbers.SelectMany(); // returns { 1, 2, 3, 4, 5, 6, 7, 8, 9 }
 
 ### Except
 
-The library provides overload to [`Except`](http://msdn.microsoft.com/en-us/library/vstudio/system.linq.enumerable.except(v=vs.110).aspx) accepting single item (not only sequence).
+The library provides overload to [`Except`](http://msdn.microsoft.com/en-us/library/vstudio/system.linq.enumerable.except(v=vs.110).aspx) accepting items as params.
 
 Calling `sequence.Except(item)` is equivalent to calling `sequence.Except(new [] { item })`.
 
@@ -505,7 +505,9 @@ Calling `sequence.Except(item)` is equivalent to calling `sequence.Except(new []
 
 ```csharp
 new [] { 1, 2, 3 }.Except(3); // returns { 1, 2 }
+"abc".Except('a', 'b'); // returns { 'c' }
 ```
+
 ### Concat
 
 The library provides overload to [`Concat`](http://msdn.microsoft.com/en-us/library/vstudio/bb302894(v=vs.110).aspx) method on `IEnumerable` with lazy second sequence.

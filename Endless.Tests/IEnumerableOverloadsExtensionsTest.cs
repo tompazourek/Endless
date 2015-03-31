@@ -34,6 +34,7 @@ namespace Endless.Tests
         }
 
         [Test]
+        [ExpectedException(typeof(ArgumentNullException))]
         public void Except2()
         {
             // arrange
@@ -41,9 +42,32 @@ namespace Endless.Tests
 
             // action
             IEnumerable<string> result = sequence.Except(null);
+        }
+        
+        [Test]
+        public void Except3()
+        {
+            // arrange
+            var sequence = new[] { "I", "am", "a", "dog" };
+
+            // action
+            IEnumerable<string> result = sequence.Except();
 
             // assert
             CollectionAssert.AreEqual(new[] { "I", "am", "a", "dog" }, result);
+        }
+
+        [Test]
+        public void Except4()
+        {
+            // arrange
+            var sequence = new[] { "I", "am", "a", "dog" };
+
+            // action
+            IEnumerable<string> result = sequence.Except("am", "x", "dog");
+
+            // assert
+            CollectionAssert.AreEqual(new[] { "I", "a" }, result);
         }
 
         [Test]
