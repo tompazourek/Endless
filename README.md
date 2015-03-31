@@ -478,6 +478,10 @@ new [] { 1, 2, 3, 4, 5 }.Init(); // returns { 2, 3, 4, 5 }
 
 Equivalent to `.OrderBy(x => x)` and `.OrderByDescending(x => x)`.
 
+### IndexOf
+
+`IndexOf` provides the same functionality as [existing `IndexOf` for List&lt;T&gt;](https://msdn.microsoft.com/en-us/library/e4w08k17%28v=vs.110%29.aspx), only for all `IEnumerable<T>`; it returns the zero-based index of the first occurrence.
+
 ## Existing IEnumerable extensions overloads
 
 Extensions overloading the [existing `IEnumerable` extensions](http://msdn.microsoft.com/en-us/library/9eekhta0(v=vs.110).aspx).

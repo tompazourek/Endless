@@ -489,5 +489,70 @@ namespace Endless.Tests
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, result);
         }
+
+        [Test]
+        public void IndexOf_Exists1()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            int result = sequence.IndexOf(1);
+
+            // assert
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void IndexOf_Exists2()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            int result = sequence.IndexOf(3);
+
+            // assert
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void IndexOf_Exists3()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3, 1, 2, 3 };
+
+            // action
+            int result = sequence.IndexOf(3);
+
+            // assert
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void IndexOf_NotExists1()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            int result = sequence.IndexOf(4);
+
+            // assert
+            Assert.AreEqual(-1, result);
+        }
+
+        [Test]
+        public void IndexOf_NotExists2()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            int result = sequence.IndexOf(0);
+
+            // assert
+            Assert.AreEqual(-1, result);
+        }
     }
 }
