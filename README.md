@@ -627,6 +627,19 @@ Stream ToStream(this IEnumerable<byte> bytes)
 ```
 The underlying stream is `MemoryStream` but the bytes are only written to memory when needed (when they are being accessed from the stream). This allows for infinite sequences to be used with `ToStream` extension.
 
+```csharp
+var random = new Random();
+
+// infinite sequence of random bytes
+IEnumerable<byte> randomBytes = new Func<byte>(() => random.NextByte()).Repeat();
+
+// infinite stream of random data
+using (Stream randomStream = randomBytes.ToStream())
+{
+   // ...
+}
+```
+
 ## String extensions
 
 Extensions for easier work with strings.
