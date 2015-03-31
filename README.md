@@ -607,11 +607,25 @@ using (var stream = File.OpenRead(filename))
 
 ### Write, WriteBuffered
 
-*(documentation TBD)*
+`Write` and `WriteBuffered` will write sequences of bytes (`IEnumerable<byte>`) to given stream. Using `WriteBuffered` is recommended as it performs better; this way, writes will be buffered by 8 KB by default.
+
+```csharp
+IEnumerable<byte> bytes;
+
+using (var stream = File.OpenWrite(filename))
+{
+    stream.WriteBuffered(bytes);
+}
+```
 
 ### ToStream
 
-*(documentation TBD)*
+Provides stream interface to given sequence of bytes.
+
+```csharp
+Stream ToStream(this IEnumerable<byte> bytes)
+```
+The underlying stream is `MemoryStream` but the bytes are only written to memory when needed (when they are being accessed from the stream). This allows for infinite sequences to be used with `ToStream` extension.
 
 ## String extensions
 
