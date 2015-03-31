@@ -38,6 +38,15 @@ namespace Endless
         }
 
         /// <summary>
+        /// Endless collection of times incremented by one day.
+        /// </summary>
+        /// <returns>(t0, t0 + 1, t0 + 2, t0 + 3, ...)</returns>
+        public static IFromEnumerable<DateTimeOffset> From(DateTimeOffset t0)
+        {
+            return new FromEnumerable<DateTimeOffset>(new DateTimeOffsetFromThenToEnumerator(t0));
+        }
+
+        /// <summary>
         /// Endless collection of numbers incremented by one.
         /// </summary>
         /// <returns>(n0, n0 + 1, n0 + 2, n0 + 3, ...)</returns>

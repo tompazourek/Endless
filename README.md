@@ -142,7 +142,7 @@ int sum = Natural.Numbers.TakeUntil(1000).Where(x => x % 3 == 0 || x % 5 == 0).S
 
 ### From, Then, To
 
-Set of generic enumerators to create useful finite or infinite sequences. The argument is **implemented dynamically**, it is tested with `BigInteger`, `byte`, `char`, `decimal`, `double`, `float`, `int`, `long`, but should **work with other types too** (even custom ones that can be added/subtracted and compared). Also there is a support for `DateTime`.
+Set of generic enumerators to create useful finite or infinite sequences. The argument is **implemented dynamically**, it is tested with `BigInteger`, `byte`, `char`, `decimal`, `double`, `float`, `int`, `long`, but should **work with other types too** (even custom ones that can be added/subtracted and compared). Also there is a support for `DateTime` and `DateTimeOffset`.
 
 #### From
 

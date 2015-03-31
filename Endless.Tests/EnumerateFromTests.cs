@@ -120,5 +120,15 @@ namespace Endless.Tests
             // assert
             CollectionAssert.AreEqual(new DateTime[] { new DateTime(1990, 7, 5), new DateTime(1990, 7, 6), new DateTime(1990, 7, 7), new DateTime(1990, 7, 8), new DateTime(1990, 7, 9) }, numbers);
         }
+
+        [Test]
+        public void EnumerateDateTimeOffset_From()
+        {
+            // act
+            IEnumerable<DateTimeOffset> numbers = Enumerate.From(new DateTimeOffset(1990, 7, 5, 0, 0, 0, 0, TimeSpan.FromHours(2))).Take(5);
+
+            // assert
+            CollectionAssert.AreEqual(new DateTimeOffset[] { new DateTimeOffset(1990, 7, 5, 0, 0, 0, 0, TimeSpan.FromHours(2)), new DateTimeOffset(1990, 7, 6, 0, 0, 0, 0, TimeSpan.FromHours(2)), new DateTimeOffset(1990, 7, 7, 0, 0, 0, 0, TimeSpan.FromHours(2)), new DateTimeOffset(1990, 7, 8, 0, 0, 0, 0, TimeSpan.FromHours(2)), new DateTimeOffset(1990, 7, 9, 0, 0, 0, 0, TimeSpan.FromHours(2)) }, numbers);
+        }
     }
 }

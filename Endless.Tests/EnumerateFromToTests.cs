@@ -222,5 +222,37 @@ namespace Endless.Tests
             // assert
             CollectionAssert.IsEmpty(times);
         }
+
+        [Test]
+        public void EnumerateDateTimeOffset_FromTo()
+        {
+            // act
+            IEnumerable<DateTimeOffset> times = Enumerate
+                .From(new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.FromMinutes(30)))
+                .To(new DateTimeOffset(1990, 7, 10, 13, 00, 00, TimeSpan.FromMinutes(30)));
+
+            // assert
+            CollectionAssert.AreEqual(new DateTimeOffset[]
+                {
+                    new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.FromMinutes(30)),
+                    new DateTimeOffset(1990, 7, 6, 12, 00, 00, TimeSpan.FromMinutes(30)),
+                    new DateTimeOffset(1990, 7, 7, 12, 00, 00, TimeSpan.FromMinutes(30)),
+                    new DateTimeOffset(1990, 7, 8, 12, 00, 00, TimeSpan.FromMinutes(30)),
+                    new DateTimeOffset(1990, 7, 9, 12, 00, 00, TimeSpan.FromMinutes(30)),
+                    new DateTimeOffset(1990, 7, 10, 12, 00, 00, TimeSpan.FromMinutes(30))
+                }, times);
+        }
+
+        [Test]
+        public void EnumerateDateTimeOffset_FromTo_Empty()
+        {
+            // act
+            IEnumerable<DateTimeOffset> times = Enumerate
+                .From(new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.FromMinutes(30)))
+                .To(new DateTimeOffset(1990, 7, 4, 12, 00, 00, TimeSpan.FromMinutes(30)));
+
+            // assert
+            CollectionAssert.IsEmpty(times);
+        }
     }
 }

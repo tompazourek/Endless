@@ -156,5 +156,45 @@ namespace Endless.Tests
                     new DateTime(1990, 7, 5, 13, 00, 00)
                 }, times);
         }
+
+        [Test]
+        public void EnumerateDateTimeOffset_FromThenTo1()
+        {
+            // act
+            IEnumerable<DateTimeOffset> numbers = Enumerate
+                .From(new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.Zero))
+                .Then(new DateTimeOffset(1990, 7, 5, 13, 15, 00, TimeSpan.FromHours(1)))
+                .To(new DateTimeOffset(1990, 7, 5, 13, 00, 00, TimeSpan.Zero));
+
+            // assert
+            CollectionAssert.AreEqual(new DateTimeOffset[]
+                {
+                    new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 12, 15, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 12, 30, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 12, 45, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 13, 00, 00, TimeSpan.Zero)
+                }, numbers);
+        }
+
+        [Test]
+        public void EnumerateDateTimeOffset_FromThenTo2()
+        {
+            // act
+            IEnumerable<DateTimeOffset> times = Enumerate
+                .From(new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.Zero))
+                .Then(new DateTimeOffset(1990, 7, 5, 13, 15, 00, TimeSpan.FromHours(1)))
+                .To(new DateTimeOffset(1990, 7, 5, 13, 04, 00, TimeSpan.Zero));
+
+            // assert
+            CollectionAssert.AreEqual(new DateTimeOffset[]
+                {
+                    new DateTimeOffset(1990, 7, 5, 12, 00, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 12, 15, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 12, 30, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 12, 45, 00, TimeSpan.Zero),
+                    new DateTimeOffset(1990, 7, 5, 13, 00, 00, TimeSpan.Zero)
+                }, times);
+        }
     }
 }
