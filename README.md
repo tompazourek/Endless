@@ -574,7 +574,36 @@ Working with streams and `IEnumerable<byte>` in harmony.
 
 ### Enumerate, EnumerateBuffered
 
-*(documentation TBD)*
+`Enumerate` and `EnumerateBuffered` are extensions on the `Stream` class which convert given stream to `IEnumerable<byte>`. Iterating through the resulting enumerable will read bytes from the input stream. This allows to work with the byte streams in more functional way.
+
+```csharp
+// Detect whether given file has UTF8 BOM
+private static bool FileHasUTF8ByteOrderMark(string filename)
+{
+    using (var stream = File.OpenRead(filename))
+        return stream.Enumerate().StartsWith<byte>(0xEF, 0xBB, 0xBF);
+}
+```
+
+This allows to use functions like `StartsWith`, which are extensions to `IEnumerable<T>`. Whenever the enumerable is iterated, it seeks to the beginning of the stream and starts reading all over. If we don't want this behavior and want all the bytes, which were read to be stored (e.g. because the input stream is not seekable), we can use the `Cached` extension:
+
+```csharp
+using (var stream = File.OpenRead(filename))
+using (var sequence = stream.Enumerate().Cached())
+{
+    // do stuff with sequence, evaluate it multiple times
+}
+```
+
+When using the `Enumerate` extension, each time the `IEnumerator.MoveNext` is called, one byte from the stream is read. This will not perform very well in most cases, since each read from stream is expensive. That's why there is an alternative way, which reads from stream by fixed-length buffer (8 KB by default, but customizable). By using `EnumerateBuffered` we can minimize the number of reads from the stream.
+
+```csharp
+using (var stream = File.OpenRead(filename))
+{
+    // when using buffer of 16,000 bytes, the array of 20,000 bytes will result in two stream.Read() calls
+    var bytes = stream.EnumerateBuffered(16000).Take(20000).ToArray();
+}
+```
 
 ### Write, WriteBuffered
 
