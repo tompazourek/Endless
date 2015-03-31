@@ -640,7 +640,17 @@ var someChar = random.NextChar();
 
 ### Pipe
 
-*(documentation TBD)*
+
+Pipe applies given function to it's caller allowing to write function calls similar to [Unix pipeline](http://en.wikipedia.org/wiki/Pipeline_%28Unix%29). It has the same effect as calling the function directly, but it might be more readable to write some processes in this way.
+
+```csharp
+TOut Pipe<TIn, TOut>(this TIn _this, Func<TIn, TOut> func)
+```
+
+```csharp
+h(g(f(x)))                // normal function call
+x.Pipe(f).Pipe(g).Pipe(h) // pipeline
+```
 
 ## Samples
 
