@@ -1,24 +1,12 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace Endless
 {
     /// <summary>
-    /// Extensions to <see cref="Stream"/>
+    /// Extensions to <see cref="Stream" />
     /// </summary>
     public static class StreamExtensions
     {
@@ -31,12 +19,12 @@ namespace Endless
         /// <param name="seekToBegining">Seek to beginning before reading the stream. Default is true.</param>
         public static IEnumerable<byte> Enumerate(this Stream stream, bool seekToBegining = true)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
 
             if (seekToBegining)
                 SeekToBeginning(stream);
 
-            return Generate.Repeat(stream.ReadByte).TakeUntil(-1).Select(x => (byte) x);
+            return Generate.Repeat(stream.ReadByte).TakeUntil(-1).Select(x => (byte)x);
         }
 
         /// <summary>
@@ -47,7 +35,7 @@ namespace Endless
         /// <param name="seekToBegining">Seek to beginning before reading the stream. Default is true.</param>
         public static IEnumerable<byte> EnumerateBuffered(this Stream stream, int bufferSize = DefaultBufferSize, bool seekToBegining = true)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
 
             if (seekToBegining)
                 SeekToBeginning(stream);
@@ -57,7 +45,7 @@ namespace Endless
 
             while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                for (int i = 0; i < bytesRead; i++)
+                for (var i = 0; i < bytesRead; i++)
                 {
                     yield return buffer[i];
                 }
@@ -72,11 +60,11 @@ namespace Endless
         /// <returns>The number of bytes written to the stream</returns>
         public static long Write(this Stream stream, IEnumerable<byte> bytes)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (bytes == null) throw new ArgumentNullException("bytes");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
 
             long writtenCount = 0;
-            foreach (byte b in bytes)
+            foreach (var b in bytes)
             {
                 stream.WriteByte(b);
                 writtenCount++;
@@ -93,14 +81,14 @@ namespace Endless
         /// <returns>The number of bytes written to the stream</returns>
         public static long WriteBuffered(this Stream stream, IEnumerable<byte> bytes, int bufferSize = DefaultBufferSize)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
-            if (bytes == null) throw new ArgumentNullException("bytes");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
 
             long writtenCount = 0;
-            List<IEnumerable<byte>> chunked = bytes.Chunk(bufferSize).ToList();
+            var chunked = bytes.Chunk(bufferSize).ToList();
             foreach (var chunk in chunked)
             {
-                byte[] buffer = chunk.ToArray();
+                var buffer = chunk.ToArray();
                 stream.Write(buffer, 0, buffer.Length);
                 writtenCount += buffer.Length;
             }
@@ -109,7 +97,7 @@ namespace Endless
 
         private static void SeekToBeginning(Stream stream)
         {
-            if (stream == null) throw new ArgumentNullException("stream");
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
 
             if (!stream.CanSeek)
                 throw new NotSupportedException("Stream doesn't support seek.");
@@ -118,14 +106,14 @@ namespace Endless
         }
 
         /// <summary>
-        /// Provides stream interface to given sequence of bytes. The underlying stream is <see cref="MemoryStream"/>,
+        /// Provides stream interface to given sequence of bytes. The underlying stream is <see cref="MemoryStream" />,
         /// but the bytes are only written to memory when needed. This allows for infinite sequences.
         /// </summary>
         /// <param name="bytes">Sequence of bytes</param>
         /// <returns>Read-only stream</returns>
         public static Stream ToStream(this IEnumerable<byte> bytes)
         {
-            if (bytes == null) throw new ArgumentNullException("bytes");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
             return new LazyEnumerableStream(bytes);
         }
     }

@@ -1,18 +1,6 @@
-#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Endless
 {
@@ -26,7 +14,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> SelectMany<T>(this IEnumerable<IEnumerable<T>> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.SelectMany(Identity<IEnumerable<T>>.Func);
         }
 
@@ -35,7 +23,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Except<T>(this IEnumerable<T> source, params T[] items)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.Except((IEnumerable<T>)items);
         }
 
@@ -48,17 +36,17 @@ namespace Endless
         /// The second parameter function will be called only when items at that position need to be evaluated (i.e. all the items of first collections were already enumerated). Otherwise the function will not be called at all.
         /// </remarks>
         /// <returns>
-        /// An <see cref="T:System.Collections.Generic.IEnumerable`1"/> that contains the concatenated elements of the two input sequences.
+        /// An <see cref="T:System.Collections.Generic.IEnumerable`1" /> that contains the concatenated elements of the two input sequences.
         /// </returns>
         public static IEnumerable<TSource> Concat<TSource>(this IEnumerable<TSource> first, Func<IEnumerable<TSource>> second)
         {
-            if (first == null) throw new ArgumentNullException("first");
-            if (second == null) throw new ArgumentNullException("second");
+            if (first == null) throw new ArgumentNullException(nameof(first));
+            if (second == null) throw new ArgumentNullException(nameof(second));
 
-            foreach (TSource source in first)
+            foreach (var source in first)
                 yield return source;
 
-            foreach (TSource source in second())
+            foreach (var source in second())
                 yield return source;
         }
 
@@ -67,8 +55,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<Tuple<T1, T2>> Zip<T1, T2>(this IEnumerable<T1> first, IEnumerable<T2> second)
         {
-            if (first == null) throw new ArgumentNullException("first");
-            if (second == null) throw new ArgumentNullException("second");
+            if (first == null) throw new ArgumentNullException(nameof(first));
+            if (second == null) throw new ArgumentNullException(nameof(second));
             return first.Zip(second, Tuple.Create);
         }
 
@@ -77,7 +65,7 @@ namespace Endless
         /// </summary>
         public static IDictionary<T1, T2> ToDictionary<T1, T2>(this IEnumerable<Tuple<T1, T2>> sequence)
         {
-            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             return sequence.ToDictionary(x => x.Item1, x => x.Item2);
         }
     }

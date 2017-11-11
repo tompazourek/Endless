@@ -1,24 +1,11 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Endless
 {
     /// <summary>
-    /// <see cref="ICachedEnumerable{T}"/>
+    ///     <see cref="ICachedEnumerable{T}" />
     /// </summary>
     internal class CachedEnumerable<T> : ICachedEnumerable<T>
     {
@@ -56,7 +43,6 @@ namespace Endless
             private readonly IEnumerator<TT> _first;
             private readonly CachedEnumerable<TT> _parent;
             private readonly IEnumerator<TT> _second;
-            private TT _current;
             private bool _switched; // switched from first to second
 
             public CachedEnumerator(IEnumerator<TT> firstEnumerator, IEnumerator<TT> secondEnumerator, CachedEnumerable<TT> parent)
@@ -64,7 +50,7 @@ namespace Endless
                 _first = firstEnumerator;
                 _second = secondEnumerator;
                 _parent = parent;
-                _current = _first.Current;
+                Current = _first.Current;
             }
 
             public void Dispose()
@@ -76,14 +62,14 @@ namespace Endless
             {
                 if (!_switched && _first.MoveNext())
                 {
-                    _current = _first.Current;
+                    Current = _first.Current;
                     return true;
                 }
                 _switched = true;
                 if (_second.MoveNext())
                 {
-                    _current = _second.Current;
-                    _parent._cache.AddLast(_current); // add to cache
+                    Current = _second.Current;
+                    _parent._cache.AddLast(Current); // add to cache
                     return true;
                 }
                 return false;
@@ -94,15 +80,9 @@ namespace Endless
                 _first.Reset();
             }
 
-            public TT Current
-            {
-                get { return _current; }
-            }
+            public TT Current { get; private set; }
 
-            object IEnumerator.Current
-            {
-                get { return Current; }
-            }
+            object IEnumerator.Current => Current;
         }
     }
 }

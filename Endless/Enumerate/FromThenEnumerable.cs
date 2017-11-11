@@ -1,19 +1,5 @@
-#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Endless
 {
@@ -28,7 +14,7 @@ namespace Endless
 
         public IEnumerable<T> To(T toNumber)
         {
-            IFromThenToEnumerator<T> enumerator = _enumerator.CloneWithToRestriction(toNumber);
+            var enumerator = _enumerator.CloneWithToRestriction(toNumber);
             while (enumerator.MoveNext())
             {
                 yield return enumerator.Current;

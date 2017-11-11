@@ -1,19 +1,5 @@
-#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Endless
 {
@@ -33,11 +19,11 @@ namespace Endless
             To = to;
         }
 
-        public DateTimeOffset From { get; private set; }
+        public DateTimeOffset From { get; }
 
         public DateTimeOffset Then
         {
-            get { return _then; }
+            get => _then;
             private set
             {
                 _then = value;
@@ -48,7 +34,7 @@ namespace Endless
             }
         }
 
-        public DateTimeOffset? To { get; private set; }
+        public DateTimeOffset? To { get; }
 
         public void Dispose()
         {
@@ -98,15 +84,9 @@ namespace Endless
             _current = From;
         }
 
-        public DateTimeOffset Current
-        {
-            get { return _current ?? default(DateTimeOffset); }
-        }
+        public DateTimeOffset Current => _current ?? default(DateTimeOffset);
 
-        object IEnumerator.Current
-        {
-            get { return Current; }
-        }
+        object IEnumerator.Current => Current;
 
         public IFromThenToEnumerator<DateTimeOffset> Clone()
         {

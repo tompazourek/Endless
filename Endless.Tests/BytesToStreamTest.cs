@@ -1,19 +1,8 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -23,13 +12,14 @@ namespace Endless.Tests
     {
         // ReSharper disable FunctionNeverReturns
 
+        [SuppressMessage("ReSharper", "IteratorNeverReturns")]
         private static IEnumerable<byte> GetTestBytes(IDictionary<long, int> enumeratedStatistics = null)
         {
             var random = new Random(4);
             long currentPosition = 0;
             while (true)
             {
-                byte b = random.NextByte();
+                var b = random.NextByte();
                 currentPosition++;
 
                 if (enumeratedStatistics != null)
@@ -52,10 +42,10 @@ namespace Endless.Tests
             // arrange
             const int bytesCount = 10 * 1024;
             var statistics = new Dictionary<long, int>();
-            IEnumerable<byte> bytes = GetTestBytes(statistics).Take(bytesCount);
+            var bytes = GetTestBytes(statistics).Take(bytesCount);
 
             // action
-            using (Stream stream = bytes.ToStream())
+            using (var stream = bytes.ToStream())
             {
                 const int bufferSize = 200;
                 var buffer = new byte[bufferSize];
@@ -77,19 +67,19 @@ namespace Endless.Tests
         [Test]
         public void BytesToStream_StreamReader()
         {
-            IEnumerable<byte> bytes = GetTestBytes().Take(4096);
+            var bytes = GetTestBytes().Take(4096);
 
             var getLineLength = new Func<Stream, int>(stream =>
+            {
+                using (var streamReader = new StreamReader(stream))
                 {
-                    using (var streamReader = new StreamReader(stream))
-                    {
-                        string line = streamReader.ReadLine();
-                        return line.Length;
-                    }
-                });
+                    var line = streamReader.ReadLine();
+                    return line.Length;
+                }
+            });
 
             int bytesStreamLineLength;
-            using (Stream stream = bytes.ToStream())
+            using (var stream = bytes.ToStream())
             {
                 bytesStreamLineLength = getLineLength(stream);
             }

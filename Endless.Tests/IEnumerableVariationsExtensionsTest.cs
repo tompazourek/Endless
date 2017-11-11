@@ -1,18 +1,4 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -21,13 +7,78 @@ namespace Endless.Tests
     public class IEnumerableVariationsExtensionsTest
     {
         [Test]
+        public void IndexOf_Exists1()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            var result = sequence.IndexOf(1);
+
+            // assert
+            Assert.AreEqual(0, result);
+        }
+
+        [Test]
+        public void IndexOf_Exists2()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            var result = sequence.IndexOf(3);
+
+            // assert
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void IndexOf_Exists3()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3, 1, 2, 3 };
+
+            // action
+            var result = sequence.IndexOf(3);
+
+            // assert
+            Assert.AreEqual(2, result);
+        }
+
+        [Test]
+        public void IndexOf_NotExists1()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            var result = sequence.IndexOf(4);
+
+            // assert
+            Assert.AreEqual(-1, result);
+        }
+
+        [Test]
+        public void IndexOf_NotExists2()
+        {
+            // arrange
+            IEnumerable<int> sequence = new[] { 1, 2, 3 };
+
+            // action
+            var result = sequence.IndexOf(0);
+
+            // assert
+            Assert.AreEqual(-1, result);
+        }
+
+        [Test]
         public void Init()
         {
             // arrange
             var sequence = new[] { 1, 2, 3, 4, 5 };
 
             // action
-            IEnumerable<int> result = sequence.Init();
+            var result = sequence.Init();
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3, 4 }, result);
@@ -40,7 +91,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.Init();
+            var result = sequence.Init();
 
             // assert
             Assert.IsEmpty(result);
@@ -53,7 +104,7 @@ namespace Endless.Tests
             var sequence = new[] { 1 };
 
             // action
-            IEnumerable<int> result = sequence.Init();
+            var result = sequence.Init();
 
             // assert
             Assert.IsEmpty(result);
@@ -66,7 +117,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            bool result = sequence.IsEmpty();
+            var result = sequence.IsEmpty();
 
             // assert
             Assert.IsTrue(result);
@@ -79,7 +130,7 @@ namespace Endless.Tests
             var sequence = new[] { 1 };
 
             // action
-            bool result = sequence.IsEmpty();
+            var result = sequence.IsEmpty();
 
             // assert
             Assert.IsFalse(result);
@@ -92,7 +143,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(3);
+            var result = sequence.SkipUntil(3);
 
             // assert
             CollectionAssert.AreEqual(new[] { 3 }, result);
@@ -105,7 +156,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(x => x == 3);
+            var result = sequence.SkipUntil(x => x == 3);
 
             // assert
             CollectionAssert.AreEqual(new[] { 3 }, result);
@@ -118,7 +169,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(x => true);
+            var result = sequence.SkipUntil(x => true);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, result);
@@ -131,7 +182,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(5);
+            var result = sequence.SkipUntil(5);
 
             // assert
             Assert.IsEmpty(result);
@@ -144,7 +195,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(x => true);
+            var result = sequence.SkipUntil(x => true);
 
             // assert
             Assert.IsEmpty(result);
@@ -157,7 +208,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(x => false);
+            var result = sequence.SkipUntil(x => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -170,7 +221,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil((i, x) => false);
+            var result = sequence.SkipUntil((i, x) => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -183,7 +234,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil((i, x) => false);
+            var result = sequence.SkipUntil((i, x) => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -196,7 +247,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(-1);
+            var result = sequence.SkipUntil(-1);
 
             // assert
             Assert.IsEmpty(result);
@@ -209,7 +260,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(x => x == -1);
+            var result = sequence.SkipUntil(x => x == -1);
 
             // assert
             Assert.IsEmpty(result);
@@ -222,7 +273,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.SkipUntil(x => false);
+            var result = sequence.SkipUntil(x => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -235,50 +286,10 @@ namespace Endless.Tests
             var sequence = new[] { 2, 3, 1 };
 
             // action
-            IEnumerable<int> result = sequence.Sort();
+            var result = sequence.Sort();
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, result);
-        }
-
-        [Test]
-        public void SortDescending()
-        {
-            // arrange
-            var sequence = new[] { 2, 3, 1 };
-
-            // action
-            IEnumerable<int> result = sequence.SortDescending();
-
-            // assert
-            CollectionAssert.AreEqual(new[] { 3, 2, 1 }, result);
-        }
-
-        [Test]
-        public void SortDescending_Empty()
-        {
-            // arrange
-            var sequence = new int[] { };
-
-            // action
-            IEnumerable<int> result = sequence.SortDescending();
-
-            // assert
-            Assert.IsEmpty(result);
-        }
-
-
-        [Test]
-        public void SortDescending_One()
-        {
-            // arrange
-            var sequence = new[] { 1 };
-
-            // action
-            IEnumerable<int> result = sequence.SortDescending();
-
-            // assert
-            CollectionAssert.AreEqual(new[] { 1 }, result);
         }
 
         [Test]
@@ -288,7 +299,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.Sort();
+            var result = sequence.Sort();
 
             // assert
             Assert.IsEmpty(result);
@@ -302,7 +313,47 @@ namespace Endless.Tests
             var sequence = new[] { 1 };
 
             // action
-            IEnumerable<int> result = sequence.Sort();
+            var result = sequence.Sort();
+
+            // assert
+            CollectionAssert.AreEqual(new[] { 1 }, result);
+        }
+
+        [Test]
+        public void SortDescending()
+        {
+            // arrange
+            var sequence = new[] { 2, 3, 1 };
+
+            // action
+            var result = sequence.SortDescending();
+
+            // assert
+            CollectionAssert.AreEqual(new[] { 3, 2, 1 }, result);
+        }
+
+        [Test]
+        public void SortDescending_Empty()
+        {
+            // arrange
+            var sequence = new int[] { };
+
+            // action
+            var result = sequence.SortDescending();
+
+            // assert
+            Assert.IsEmpty(result);
+        }
+
+
+        [Test]
+        public void SortDescending_One()
+        {
+            // arrange
+            var sequence = new[] { 1 };
+
+            // action
+            var result = sequence.SortDescending();
 
             // assert
             CollectionAssert.AreEqual(new[] { 1 }, result);
@@ -315,7 +366,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3, 4, 5 };
 
             // action
-            IEnumerable<int> result = sequence.Tail();
+            var result = sequence.Tail();
 
             // assert
             CollectionAssert.AreEqual(new[] { 2, 3, 4, 5 }, result);
@@ -328,7 +379,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.Tail();
+            var result = sequence.Tail();
 
             // assert
             Assert.IsEmpty(result);
@@ -341,7 +392,7 @@ namespace Endless.Tests
             var sequence = new[] { 1 };
 
             // action
-            IEnumerable<int> result = sequence.Tail();
+            var result = sequence.Tail();
 
             // assert
             Assert.IsEmpty(result);
@@ -354,7 +405,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(3);
+            var result = sequence.TakeUntil(3);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2 }, result);
@@ -367,7 +418,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(x => x == 3);
+            var result = sequence.TakeUntil(x => x == 3);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2 }, result);
@@ -380,7 +431,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(x => true);
+            var result = sequence.TakeUntil(x => true);
 
             // assert
             Assert.IsEmpty(result);
@@ -393,7 +444,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(5);
+            var result = sequence.TakeUntil(5);
 
             // assert
             Assert.IsEmpty(result);
@@ -406,7 +457,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(x => true);
+            var result = sequence.TakeUntil(x => true);
 
             // assert
             Assert.IsEmpty(result);
@@ -419,7 +470,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(x => false);
+            var result = sequence.TakeUntil(x => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -432,7 +483,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil((i, x) => false);
+            var result = sequence.TakeUntil((i, x) => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -445,7 +496,7 @@ namespace Endless.Tests
             var sequence = new int[] { };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil((i, x) => false);
+            var result = sequence.TakeUntil((i, x) => false);
 
             // assert
             Assert.IsEmpty(result);
@@ -458,7 +509,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(-1);
+            var result = sequence.TakeUntil(-1);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, result);
@@ -471,7 +522,7 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(x => x == -1);
+            var result = sequence.TakeUntil(x => x == -1);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, result);
@@ -484,75 +535,10 @@ namespace Endless.Tests
             var sequence = new[] { 1, 2, 3 };
 
             // action
-            IEnumerable<int> result = sequence.TakeUntil(x => false);
+            var result = sequence.TakeUntil(x => false);
 
             // assert
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, result);
-        }
-
-        [Test]
-        public void IndexOf_Exists1()
-        {
-            // arrange
-            IEnumerable<int> sequence = new[] { 1, 2, 3 };
-
-            // action
-            int result = sequence.IndexOf(1);
-
-            // assert
-            Assert.AreEqual(0, result);
-        }
-
-        [Test]
-        public void IndexOf_Exists2()
-        {
-            // arrange
-            IEnumerable<int> sequence = new[] { 1, 2, 3 };
-
-            // action
-            int result = sequence.IndexOf(3);
-
-            // assert
-            Assert.AreEqual(2, result);
-        }
-
-        [Test]
-        public void IndexOf_Exists3()
-        {
-            // arrange
-            IEnumerable<int> sequence = new[] { 1, 2, 3, 1, 2, 3 };
-
-            // action
-            int result = sequence.IndexOf(3);
-
-            // assert
-            Assert.AreEqual(2, result);
-        }
-
-        [Test]
-        public void IndexOf_NotExists1()
-        {
-            // arrange
-            IEnumerable<int> sequence = new[] { 1, 2, 3 };
-
-            // action
-            int result = sequence.IndexOf(4);
-
-            // assert
-            Assert.AreEqual(-1, result);
-        }
-
-        [Test]
-        public void IndexOf_NotExists2()
-        {
-            // arrange
-            IEnumerable<int> sequence = new[] { 1, 2, 3 };
-
-            // action
-            int result = sequence.IndexOf(0);
-
-            // assert
-            Assert.AreEqual(-1, result);
         }
     }
 }

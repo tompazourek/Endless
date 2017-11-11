@@ -1,19 +1,7 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
-using System.Text;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -28,7 +16,7 @@ namespace Endless.Tests
         [Test]
         public void Problem1_MultiplesOf3And5()
         {
-            int sum = Natural.Numbers.TakeUntil(1000).Where(x => x % 3 == 0 || x % 5 == 0).Sum();
+            var sum = Natural.Numbers.TakeUntil(1000).Where(x => x % 3 == 0 || x % 5 == 0).Sum();
             Assert.AreEqual(233168, sum);
         }
 
@@ -40,9 +28,9 @@ namespace Endless.Tests
         [Test]
         public void Problem2_EvenFibonacciNumbers()
         {
-            IEnumerable<BigInteger> fibonacci = Tuple.Create(new BigInteger(0), new BigInteger(1)).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
-            IEnumerable<BigInteger> sequence = fibonacci.TakeWhile(x => x < 4 * 1000 * 1000).Where(x => x % 2 == 0);
-            BigInteger sum = sequence.Aggregate((x, y) => x + y);
+            var fibonacci = Tuple.Create(new BigInteger(0), new BigInteger(1)).Iterate(x => Tuple.Create(x.Item2, x.Item1 + x.Item2)).Select(x => x.Item1);
+            var sequence = fibonacci.TakeWhile(x => x < 4 * 1000 * 1000).Where(x => x % 2 == 0);
+            var sum = sequence.Aggregate((x, y) => x + y);
 
             Assert.AreEqual(new BigInteger(4613732), sum);
         }
@@ -52,22 +40,26 @@ namespace Endless.Tests
         /// Find the sum of all numbers which are equal to the sum of the factorial of their digits.
         /// Note: as 1! = 1 and 2! = 2 are not sums they are not included.
         /// </remarks>
-        [Test, Ignore]
+        [Test]
+        [Ignore("Takes long to compute")]
         public void Problem34_DigitFactorials()
         {
-            Func<int, long> factorial = n => 1.Yield().Concat(
-                Natural.Numbers.Scan((x, y) => x * y))
-                                              .ElementAt(n);
+            long Factorial(int n) => 1.Yield()
+                .Concat(Natural.Numbers.Scan((x, y) => x * y))
+                .ElementAt(n);
 
-            Func<int, IEnumerable<int>> digits = n => n.Iterate(x => x / 10).TakeUntil(0).Select(x => x % 10);
+            IEnumerable<int> Digits(int n) => n
+                .Iterate(x => x / 10)
+                .TakeUntil(0)
+                .Select(x => x % 10);
 
             const int lowerBound = 10; // cannot be one digit
-            int upperDigitCount = Enumerate.From(2).First(x => x * factorial(9) < Math.Pow(10, x));
-            var upperBound = (int) (upperDigitCount * factorial(9));
+            var upperDigitCount = Enumerate.From(2).First(x => x * Factorial(9) < Math.Pow(10, x));
+            var upperBound = (int)(upperDigitCount * Factorial(9));
 
             long numbersSum = Enumerate.From(lowerBound).To(upperBound).AsParallel()
-                                       .Where(x => digits(x).Sum(factorial) == x) // sum+equals could be optimized
-                                       .Sum();
+                .Where(x => Digits(x).Sum((Func<int, long>)Factorial) == x) // sum+equals could be optimized
+                .Sum();
 
             Assert.AreEqual(40730, numbersSum);
         }

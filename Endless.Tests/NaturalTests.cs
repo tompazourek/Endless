@@ -1,19 +1,5 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Numerics;
-using System.Text;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -21,26 +7,6 @@ namespace Endless.Tests
     [TestFixture]
     public class NaturalTests
     {
-        [Test]
-        public void NaturalNumbers_10()
-        {
-            // act
-            var numbers = Natural.Numbers.Take(10);
-
-            // assert
-            CollectionAssert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, numbers);
-        }
-
-        [Test]
-        public void NaturalNumbersWithZero_10()
-        {
-            // act
-            var numbers = Natural.NumbersWithZero.Take(10);
-
-            // assert
-            CollectionAssert.AreEqual(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, numbers);
-        }
-
         [Test]
         public void BigNaturalNumbers_10()
         {
@@ -59,6 +25,26 @@ namespace Endless.Tests
 
             // assert
             CollectionAssert.AreEqual(new BigInteger[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, numbers);
+        }
+
+        [Test]
+        public void NaturalNumbers_10()
+        {
+            // act
+            var numbers = Natural.Numbers.Take(10);
+
+            // assert
+            CollectionAssert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, numbers);
+        }
+
+        [Test]
+        public void NaturalNumbersWithZero_10()
+        {
+            // act
+            var numbers = Natural.NumbersWithZero.Take(10);
+
+            // assert
+            CollectionAssert.AreEqual(new[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, numbers);
         }
     }
 }

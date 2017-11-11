@@ -1,18 +1,6 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -27,7 +15,7 @@ namespace Endless.Tests
         {
             // action
             var values = new List<byte>(5000);
-            for (int i = 0; i < 5000; i++)
+            for (var i = 0; i < 5000; i++)
             {
                 values.Add(_random.NextByte());
             }
@@ -35,7 +23,7 @@ namespace Endless.Tests
             // assert
             for (int i = byte.MinValue; i <= byte.MaxValue; i++)
             {
-                var b = (byte) i;
+                var b = (byte)i;
                 CollectionAssert.Contains(values, b);
                 Debug.WriteLine(b);
             }
@@ -46,7 +34,7 @@ namespace Endless.Tests
         {
             // action
             var values = new List<char>(500000);
-            for (int i = 0; i < 500000; i++)
+            for (var i = 0; i < 500000; i++)
             {
                 values.Add(_random.NextChar());
             }

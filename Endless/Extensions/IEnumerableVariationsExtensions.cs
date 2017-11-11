@@ -1,18 +1,6 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Endless
 {
@@ -26,9 +14,9 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Init<T>(this IEnumerable<T> sequence)
         {
-            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
 
-            using (IEnumerator<T> enumerator = sequence.GetEnumerator())
+            using (var enumerator = sequence.GetEnumerator())
             {
                 T previous;
 
@@ -50,7 +38,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Tail<T>(this IEnumerable<T> sequence)
         {
-            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             return sequence.Skip(1);
         }
 
@@ -59,7 +47,7 @@ namespace Endless
         /// </summary>
         public static bool IsEmpty<T>(this IEnumerable<T> sequence)
         {
-            if (sequence == null) throw new ArgumentNullException("sequence");
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             return !sequence.Any();
         }
 
@@ -68,7 +56,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> TakeUntil<T>(this IEnumerable<T> source, T item)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.TakeWhile(x => !Equals(x, item));
         }
 
@@ -77,8 +65,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> TakeUntil<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return source.TakeWhile(x => !predicate(x));
         }
 
@@ -87,8 +75,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> TakeUntil<T>(this IEnumerable<T> source, Func<T, int, bool> predicate)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return source.TakeWhile((x, index) => !predicate(x, index));
         }
 
@@ -97,7 +85,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, T item)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.SkipWhile(x => !Equals(x, item));
         }
 
@@ -106,8 +94,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return source.SkipWhile(x => !predicate(x));
         }
 
@@ -116,8 +104,8 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> SkipUntil<T>(this IEnumerable<T> source, Func<T, int, bool> predicate)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return source.SkipWhile((x, index) => !predicate(x, index));
         }
 
@@ -126,7 +114,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Sort<T>(this IEnumerable<T> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.OrderBy(Identity<T>.Func);
         }
 
@@ -135,7 +123,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> SortDescending<T>(this IEnumerable<T> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.OrderByDescending(Identity<T>.Func);
         }
 

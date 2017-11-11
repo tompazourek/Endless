@@ -1,19 +1,6 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using Endless.Functional;
 using NUnit.Framework;
 
@@ -23,6 +10,7 @@ namespace Endless.Tests
     public class FuncTests
     {
         [Test]
+        [SuppressMessage("ReSharper", "ConvertToLocalFunction")]
         public void Compose()
         {
             Func<int, int> f = x => x * 2;

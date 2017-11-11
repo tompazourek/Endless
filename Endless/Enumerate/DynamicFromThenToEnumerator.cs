@@ -1,19 +1,4 @@
-#region License
-
-// Copyright (C) Tomáš Paourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Endless
 {
@@ -33,11 +18,11 @@ namespace Endless
             To = to;
         }
 
-        public T From { get; private set; }
+        public T From { get; }
 
         public T Then
         {
-            get { return _then; }
+            get => _then;
             private set
             {
                 _then = value;
@@ -48,14 +33,14 @@ namespace Endless
             }
         }
 
-        public T? To { get; private set; }
+        public T? To { get; }
 
         private static dynamic One
         {
             get
             {
                 dynamic zero = default(T);
-                dynamic one = ++zero;
+                var one = ++zero;
                 return one;
             }
         }
@@ -108,15 +93,9 @@ namespace Endless
             _current = From;
         }
 
-        public T Current
-        {
-            get { return _current ?? default(T); }
-        }
+        public T Current => _current ?? default(T);
 
-        object IEnumerator.Current
-        {
-            get { return Current; }
-        }
+        object IEnumerator.Current => Current;
 
         public IFromThenToEnumerator<T> Clone()
         {
@@ -135,13 +114,13 @@ namespace Endless
 
         private dynamic Add(dynamic x, dynamic y)
         {
-            dynamic result = (T) (x + y);
+            dynamic result = (T)(x + y);
             return result;
         }
 
         private dynamic Subtract(dynamic x, dynamic y)
         {
-            dynamic result = (T) (x - y);
+            dynamic result = (T)(x - y);
             return result;
         }
 

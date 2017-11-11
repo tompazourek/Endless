@@ -1,37 +1,24 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace Endless
 {
     /// <summary>
-    /// The stream provides <see cref="Stream"/>-like interface to <see cref="IEnumerable{T}"/> of bytes.
-    /// Is uses underlying <see cref="MemoryStream"/> to store the data from the source <see cref="IEnumerable{T}"/>.
-    /// The data is stored on-demand, which makes the reading of the <see cref="IEnumerable{T}"/> lazy.
+    /// The stream provides <see cref="Stream" />-like interface to <see cref="IEnumerable{T}" /> of bytes.
+    /// Is uses underlying <see cref="MemoryStream" /> to store the data from the source <see cref="IEnumerable{T}" />.
+    /// The data is stored on-demand, which makes the reading of the <see cref="IEnumerable{T}" /> lazy.
     /// This allows for infinite enumerables to be the input of this stream.
     /// </summary>
     /// <remarks>
-    /// No byte from the underlying enumerable should be enumerated twice. All the bytes that were already read are written in <see cref="MemoryStream"/>.
+    /// No byte from the underlying enumerable should be enumerated twice. All the bytes that were already read are written in <see cref="MemoryStream" />.
     /// </remarks>
     internal class LazyEnumerableStream : Stream
     {
         #region Stream loading implementation
 
         /// <summary>
-        /// Enumerator of the bytes 
+        /// Enumerator of the bytes
         /// </summary>
         private readonly IEnumerator<byte> _enumerator;
 
@@ -66,10 +53,10 @@ namespace Endless
             if (requiredBytes <= _loadedBytes)
                 return;
 
-            long newBytesCount = requiredBytes - _loadedBytes;
-            IEnumerable<byte> newData = TakeBytes(newBytesCount);
+            var newBytesCount = requiredBytes - _loadedBytes;
+            var newData = TakeBytes(newBytesCount);
 
-            long writtenCount = WriteToStream(newData);
+            var writtenCount = WriteToStream(newData);
             _loadedBytes += writtenCount;
             if (_enumeratedAllBytes)
                 _length = _loadedBytes;
@@ -86,8 +73,8 @@ namespace Endless
             if (_loadedBytes == _length)
                 return;
 
-            IEnumerable<byte> newData = TakeAllBytes();
-            long writtenCount = WriteToStream(newData);
+            var newData = TakeAllBytes();
+            var writtenCount = WriteToStream(newData);
             _loadedBytes += writtenCount;
             _length = _loadedBytes;
         }
@@ -133,8 +120,8 @@ namespace Endless
         /// <returns></returns>
         private long WriteToStream(IEnumerable<byte> data)
         {
-            long position = _memoryStream.Position;
-            long writtenBytes = _memoryStream.WriteBuffered(data);
+            var position = _memoryStream.Position;
+            var writtenBytes = _memoryStream.WriteBuffered(data);
             _memoryStream.Seek(position, SeekOrigin.Begin);
             return writtenBytes;
         }
@@ -145,7 +132,7 @@ namespace Endless
 
         public LazyEnumerableStream(IEnumerable<byte> bytes)
         {
-            if (bytes == null) throw new ArgumentNullException("bytes");
+            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
             _enumerator = bytes.GetEnumerator();
             _memoryStream = new MemoryStream();
         }
@@ -154,20 +141,11 @@ namespace Endless
 
         #region Stream overrides
 
-        public override bool CanRead
-        {
-            get { return true; }
-        }
+        public override bool CanRead => true;
 
-        public override bool CanSeek
-        {
-            get { return true; }
-        }
+        public override bool CanSeek => true;
 
-        public override bool CanWrite
-        {
-            get { return false; }
-        }
+        public override bool CanWrite => false;
 
         public override long Length
         {
@@ -180,7 +158,7 @@ namespace Endless
 
         public override long Position
         {
-            get { return _memoryStream.Position; }
+            get => _memoryStream.Position;
             set
             {
                 EnsureLoadedBytes(value);
@@ -215,7 +193,7 @@ namespace Endless
                     EnsureLoadedAllBytes();
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException("origin");
+                    throw new ArgumentOutOfRangeException(nameof(origin));
             }
             return _memoryStream.Seek(offset, origin);
         }
@@ -227,7 +205,7 @@ namespace Endless
 
         public override int Read(byte[] buffer, int offset, int count)
         {
-            long requiredBytes = _memoryStream.Position + count;
+            var requiredBytes = _memoryStream.Position + count;
             EnsureLoadedBytes(requiredBytes);
             return _memoryStream.Read(buffer, offset, count);
         }

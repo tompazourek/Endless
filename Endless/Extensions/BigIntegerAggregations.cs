@@ -1,19 +1,7 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
-using System.Text;
 
 namespace Endless
 {
@@ -23,30 +11,30 @@ namespace Endless
     public static class BigIntegerAggregations
     {
         /// <summary>
-        /// Computes the sum of a sequence of <see cref="BigInteger"/> values.
+        /// Computes the sum of a sequence of <see cref="BigInteger" /> values.
         /// </summary>
-        /// <param name="source">A sequence of <see cref="BigInteger"/> values to calculate the sum of.</param>
+        /// <param name="source">A sequence of <see cref="BigInteger" /> values to calculate the sum of.</param>
         /// <returns>The sum of the values in the sequence.</returns>
         public static BigInteger Sum(this IEnumerable<BigInteger> source)
         {
             if (source == null)
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
 
-            BigInteger result = source.Aggregate(new BigInteger(0), (x, y) => x + y);
+            var result = source.Aggregate(new BigInteger(0), (x, y) => x + y);
             return result;
         }
 
         /// <summary>
-        /// Computes the sum of a sequence of nullable <see cref="BigInteger"/> values.
+        /// Computes the sum of a sequence of nullable <see cref="BigInteger" /> values.
         /// </summary>
-        /// <param name="source">A sequence of nullable <see cref="BigInteger"/> values to calculate the sum of.</param>
+        /// <param name="source">A sequence of nullable <see cref="BigInteger" /> values to calculate the sum of.</param>
         /// <returns> he sum of the values in the sequence.</returns>
         public static BigInteger? Sum(this IEnumerable<BigInteger?> source)
         {
             if (source == null)
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
 
-            BigInteger result = source
+            var result = source
                 .Where(x => x.HasValue)
                 .Aggregate<BigInteger?, BigInteger>(0, (x, y) => x + y.GetValueOrDefault());
 
@@ -54,18 +42,18 @@ namespace Endless
         }
 
         /// <summary>
-        /// Returns the minimum value in a sequence of <see cref="BigInteger"/> values.
+        /// Returns the minimum value in a sequence of <see cref="BigInteger" /> values.
         /// </summary>
-        /// <param name="source">A sequence of <see cref="BigInteger"/> values to determine the minimum value of.</param>
+        /// <param name="source">A sequence of <see cref="BigInteger" /> values to determine the minimum value of.</param>
         /// <returns>The minimum value in the sequence.</returns>
         public static BigInteger Min(this IEnumerable<BigInteger> source)
         {
             if (source == null)
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
 
             BigInteger minimum = 0;
-            bool isFirstItemProcessed = false;
-            foreach (BigInteger currentItem in source)
+            var isFirstItemProcessed = false;
+            foreach (var currentItem in source)
             {
                 if (isFirstItemProcessed)
                 {
@@ -86,13 +74,13 @@ namespace Endless
         }
 
         /// <summary>
-        /// Returns the minimum value in a sequence of nullable <see cref="BigInteger"/> values.
+        /// Returns the minimum value in a sequence of nullable <see cref="BigInteger" /> values.
         /// </summary>
-        /// <param name="source">A sequence of nullable <see cref="BigInteger"/> values to determine the minimum value of.</param>
+        /// <param name="source">A sequence of nullable <see cref="BigInteger" /> values to determine the minimum value of.</param>
         /// <returns>The minimum value in the sequence.</returns>
         public static BigInteger? Min(this IEnumerable<BigInteger?> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
 
             BigInteger? minimum = null;
             foreach (var currentItem in source)
@@ -107,18 +95,18 @@ namespace Endless
         }
 
         /// <summary>
-        /// Returns the maximum value in a sequence of <see cref="BigInteger"/> values.
+        /// Returns the maximum value in a sequence of <see cref="BigInteger" /> values.
         /// </summary>
-        /// <param name="source">A sequence of <see cref="BigInteger"/> values to determine the maximum value of.</param>
+        /// <param name="source">A sequence of <see cref="BigInteger" /> values to determine the maximum value of.</param>
         /// <returns>The maximum value in the sequence.</returns>
         public static BigInteger Max(this IEnumerable<BigInteger> source)
         {
             if (source == null)
-                throw new ArgumentNullException("source");
+                throw new ArgumentNullException(nameof(source));
 
             BigInteger maximum = 0;
-            bool isFirstItemProcessed = false;
-            foreach (BigInteger currentItem in source)
+            var isFirstItemProcessed = false;
+            foreach (var currentItem in source)
             {
                 if (isFirstItemProcessed)
                 {
@@ -139,13 +127,13 @@ namespace Endless
         }
 
         /// <summary>
-        /// Returns the maximum value in a sequence of nullable <see cref="BigInteger"/> values.
+        /// Returns the maximum value in a sequence of nullable <see cref="BigInteger" /> values.
         /// </summary>
-        /// <param name="source">A sequence of nullable <see cref="BigInteger"/> values to determine the maximum value of.</param>
+        /// <param name="source">A sequence of nullable <see cref="BigInteger" /> values to determine the maximum value of.</param>
         /// <returns>The maximum value in the sequence.</returns>
         public static BigInteger? Max(this IEnumerable<BigInteger?> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
 
             BigInteger? maximum = null;
             foreach (var currentItem in source)

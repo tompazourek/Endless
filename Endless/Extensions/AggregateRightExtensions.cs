@@ -1,24 +1,12 @@
-#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using Endless.Functional;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Endless
 {
     /// <summary>
-    /// Fold reductions (<see cref="Enumerable.Aggregate{TSource}"/> variations)
+    /// Fold reductions (<see cref="Enumerable.Aggregate{TSource}" /> variations)
     /// </summary>
     public static class AggregateRightExtensions
     {
@@ -34,10 +22,10 @@ namespace Endless
         /// <returns>The final accumulator value.</returns>
         public static TAccumulate AggregateRight<TSource, TAccumulate>(this IEnumerable<TSource> sequence, TAccumulate end, Func<TSource, TAccumulate, TAccumulate> func)
         {
-            if (sequence == null) throw new ArgumentNullException("sequence");
-            if (func == null) throw new ArgumentNullException("func");
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            if (func == null) throw new ArgumentNullException(nameof(func));
 
-            TAccumulate result = sequence.Reverse().Aggregate(end, func.Flip());
+            var result = sequence.Reverse().Aggregate(end, func.Flip());
             return result;
         }
 
@@ -51,10 +39,10 @@ namespace Endless
         /// <returns>The final accumulator value.</returns>
         public static TSource AggregateRight<TSource>(this IEnumerable<TSource> sequence, Func<TSource, TSource, TSource> func)
         {
-            if (sequence == null) throw new ArgumentNullException("sequence");
-            if (func == null) throw new ArgumentNullException("func");
+            if (sequence == null) throw new ArgumentNullException(nameof(sequence));
+            if (func == null) throw new ArgumentNullException(nameof(func));
 
-            TSource result = sequence.Reverse().Aggregate(func.Flip());
+            var result = sequence.Reverse().Aggregate(func.Flip());
             return result;
         }
     }

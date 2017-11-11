@@ -1,18 +1,6 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -24,10 +12,10 @@ namespace Endless.Tests
         public void And_Empty()
         {
             // arrange
-            IEnumerable<bool> conditions = Enumerable.Empty<bool>();
+            var conditions = Enumerable.Empty<bool>();
 
             // act
-            bool result = conditions.And();
+            var result = conditions.And();
 
             // assert
             Assert.IsTrue(result);
@@ -40,7 +28,7 @@ namespace Endless.Tests
             IEnumerable<bool> conditions = new[] { true, true, false, true };
 
             // act
-            bool result = conditions.And();
+            var result = conditions.And();
 
             // assert
             Assert.IsFalse(result);
@@ -52,14 +40,14 @@ namespace Endless.Tests
             // arrange
             var funcResults = new[] { true, true, true, true };
             var funcWasCalled = new bool[funcResults.Length];
-            List<Func<bool>> predicates = funcResults.Select((_, i) => new Func<bool>(() =>
-                {
-                    funcWasCalled[i] = true;
-                    return funcResults[i];
-                })).ToList();
+            var predicates = funcResults.Select((_, i) => new Func<bool>(() =>
+            {
+                funcWasCalled[i] = true;
+                return funcResults[i];
+            })).ToList();
 
             // act
-            bool result = predicates.And();
+            var result = predicates.And();
 
             // assert
             Assert.IsTrue(result);
@@ -76,7 +64,7 @@ namespace Endless.Tests
             IEnumerable<bool> conditions = new[] { true, true, true, true };
 
             // act
-            bool result = conditions.And();
+            var result = conditions.And();
 
             // assert
             Assert.IsTrue(result);
@@ -86,10 +74,10 @@ namespace Endless.Tests
         public void Or_Empty()
         {
             // arrange
-            IEnumerable<bool> conditions = Enumerable.Empty<bool>();
+            var conditions = Enumerable.Empty<bool>();
 
             // act
-            bool result = conditions.Or();
+            var result = conditions.Or();
 
             // assert
             Assert.IsFalse(result);
@@ -102,7 +90,7 @@ namespace Endless.Tests
             IEnumerable<bool> conditions = new[] { false, false, false, false };
 
             // act
-            bool result = conditions.Or();
+            var result = conditions.Or();
 
             // assert
             Assert.IsFalse(result);
@@ -114,14 +102,14 @@ namespace Endless.Tests
             // arrange
             var funcResults = new[] { false, true, true, true };
             var funcWasCalled = new bool[funcResults.Length];
-            List<Func<bool>> predicates = funcResults.Select((_, i) => new Func<bool>(() =>
-                {
-                    funcWasCalled[i] = true;
-                    return funcResults[i];
-                })).ToList();
+            var predicates = funcResults.Select((_, i) => new Func<bool>(() =>
+            {
+                funcWasCalled[i] = true;
+                return funcResults[i];
+            })).ToList();
 
             // act
-            bool result = predicates.Or();
+            var result = predicates.Or();
 
             // assert
             Assert.IsTrue(result);
@@ -138,7 +126,7 @@ namespace Endless.Tests
             IEnumerable<bool> conditions = new[] { false, true, false, true };
 
             // act
-            bool result = conditions.Or();
+            var result = conditions.Or();
 
             // assert
             Assert.IsTrue(result);

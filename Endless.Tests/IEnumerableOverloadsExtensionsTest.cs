@@ -1,18 +1,6 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
 using NUnit.Framework;
 
 namespace Endless.Tests
@@ -27,23 +15,26 @@ namespace Endless.Tests
             var sequence = new[] { "Hello", "I", "am", "a", "Hello", "dog" };
 
             // action
-            IEnumerable<string> result = sequence.Except("Hello");
+            var result = sequence.Except("Hello");
 
             // assert
             CollectionAssert.AreEqual(new[] { "I", "am", "a", "dog" }, result);
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         public void Except2()
         {
             // arrange
             var sequence = new[] { "I", "am", "a", null, "dog" };
 
             // action
-            IEnumerable<string> result = sequence.Except(null);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                // ReSharper disable once UnusedVariable
+                var result = sequence.Except(null);
+            });
         }
-        
+
         [Test]
         public void Except3()
         {
@@ -51,7 +42,7 @@ namespace Endless.Tests
             var sequence = new[] { "I", "am", "a", "dog" };
 
             // action
-            IEnumerable<string> result = sequence.Except();
+            var result = sequence.Except();
 
             // assert
             CollectionAssert.AreEqual(new[] { "I", "am", "a", "dog" }, result);
@@ -64,33 +55,34 @@ namespace Endless.Tests
             var sequence = new[] { "I", "am", "a", "dog" };
 
             // action
-            IEnumerable<string> result = sequence.Except("am", "x", "dog");
+            var result = sequence.Except("am", "x", "dog");
 
             // assert
             CollectionAssert.AreEqual(new[] { "I", "a" }, result);
         }
 
         [Test]
+        [SuppressMessage("ReSharper", "PossibleMultipleEnumeration")]
         public void LazyConcat()
         {
             // arrange
             var sequence = new[] { 'a', 'b', 'c' };
 
-            bool generatorCalled = false;
+            var generatorCalled = false;
             var generator = new Func<char[]>(() =>
-                {
-                    generatorCalled = true;
-                    return new[] { 'd', 'e', 'f' };
-                });
+            {
+                generatorCalled = true;
+                return new[] { 'd', 'e', 'f' };
+            });
 
             // action
-            IEnumerable<char> concatenated = sequence.Concat(generator);
+            var concatenated = sequence.Concat(generator);
 
-            List<char> result1 = concatenated.Take(3).ToList();
-            bool generatorCalledAfterResult1 = generatorCalled;
+            var result1 = concatenated.Take(3).ToList();
+            var generatorCalledAfterResult1 = generatorCalled;
 
-            List<char> result2 = concatenated.ToList();
-            bool generatorCalledAfterResult2 = generatorCalled;
+            var result2 = concatenated.ToList();
+            var generatorCalledAfterResult2 = generatorCalled;
 
             // assert
             CollectionAssert.AreEqual(new[] { 'a', 'b', 'c' }, result1);
@@ -104,15 +96,15 @@ namespace Endless.Tests
         {
             // arrange
             var numberSequences = new[]
-                {
-                    new[] { 5 },
-                    new int[] { },
-                    new[] { 1, 2, 3 },
-                    new[] { 4, 6 }
-                };
+            {
+                new[] { 5 },
+                new int[] { },
+                new[] { 1, 2, 3 },
+                new[] { 4, 6 }
+            };
 
             // action
-            IEnumerable<int> numbers = numberSequences.SelectMany();
+            var numbers = numberSequences.SelectMany();
 
             // assert
             CollectionAssert.AreEqual(new[] { 5, 1, 2, 3, 4, 6 }, numbers);
@@ -125,10 +117,31 @@ namespace Endless.Tests
             var numberSequences = new int[][] { };
 
             // action
-            IEnumerable<int> numbers = numberSequences.SelectMany();
+            var numbers = numberSequences.SelectMany();
 
             // assert
             CollectionAssert.AreEqual(new int[] { }, numbers);
+        }
+
+        [Test]
+        public void TupleToDictionary()
+        {
+            // arrange
+            var tuples = new[]
+            {
+                Tuple.Create('a', 1),
+                Tuple.Create('b', 2),
+                Tuple.Create('c', 3)
+            };
+
+            // action
+            var dictionary = tuples.ToDictionary();
+
+            // assert
+            Assert.AreEqual(3, dictionary.Keys.Count);
+            Assert.AreEqual(1, dictionary['a']);
+            Assert.AreEqual(2, dictionary['b']);
+            Assert.AreEqual(3, dictionary['c']);
         }
 
         [Test]
@@ -139,36 +152,15 @@ namespace Endless.Tests
             var sequence2 = new[] { 1, 2, 3, 4, 5 };
 
             // action
-            IEnumerable<Tuple<char, int>> zipped = sequence1.Zip(sequence2);
+            var zipped = sequence1.Zip(sequence2);
 
             // assert
             CollectionAssert.AreEqual(new[]
-                {
-                    Tuple.Create('a', 1),
-                    Tuple.Create('b', 2),
-                    Tuple.Create('c', 3)
-                }, zipped);
-        }
-
-        [Test]
-        public void TupleToDictionary()
-        {
-            // arrange
-            var tuples = new[]
-                {
-                    Tuple.Create('a', 1),
-                    Tuple.Create('b', 2),
-                    Tuple.Create('c', 3)
-                };
-
-            // action
-            var dictionary = tuples.ToDictionary();
-
-            // assert
-            Assert.AreEqual(3, dictionary.Keys.Count);
-            Assert.AreEqual(1, dictionary['a']);
-            Assert.AreEqual(2, dictionary['b']);
-            Assert.AreEqual(3, dictionary['c']);
+            {
+                Tuple.Create('a', 1),
+                Tuple.Create('b', 2),
+                Tuple.Create('c', 3)
+            }, zipped);
         }
     }
 }

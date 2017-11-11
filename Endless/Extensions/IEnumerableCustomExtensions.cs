@@ -1,19 +1,7 @@
-﻿#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 
 namespace Endless
 {
@@ -27,7 +15,7 @@ namespace Endless
         /// </summary>
         public static T Random<T>(this IEnumerable<T> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.Shuffle().First();
         }
 
@@ -36,8 +24,8 @@ namespace Endless
         /// </summary>
         public static T Random<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (predicate == null) throw new ArgumentNullException("predicate");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (predicate == null) throw new ArgumentNullException(nameof(predicate));
             return source.Shuffle().First(predicate);
         }
 
@@ -46,7 +34,7 @@ namespace Endless
         /// </summary>
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
             return source.OrderBy(_ => Guid.NewGuid());
         }
 
@@ -55,12 +43,12 @@ namespace Endless
         /// </summary>
         public static IEnumerable<IEnumerable<T>> Chunk<T>(this IEnumerable<T> source, int chunkSize)
         {
-            if (source == null) throw new ArgumentNullException("source");
+            if (source == null) throw new ArgumentNullException(nameof(source));
 
             if (chunkSize <= 0)
-                throw new ArgumentException(String.Format("Chunk size must be greater than zero, {0} given.", chunkSize));
+                throw new ArgumentException(string.Format("Chunk size must be greater than zero, {0} given.", chunkSize));
 
-            using (IEnumerator<T> enumerator = source.GetEnumerator())
+            using (var enumerator = source.GetEnumerator())
             {
                 while (enumerator.MoveNext())
                 {
@@ -93,6 +81,7 @@ namespace Endless
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
+        /// <param name="comparer"></param>
         /// <returns></returns>
         public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
         {
@@ -123,13 +112,13 @@ namespace Endless
         /// <returns></returns>
         public static IEnumerable<IGrouping<TKey, TSource>> ChunkBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (keySelector == null) throw new ArgumentNullException("keySelector");
-            if (comparer == null) throw new ArgumentNullException("comparer");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (keySelector == null) throw new ArgumentNullException(nameof(keySelector));
+            if (comparer == null) throw new ArgumentNullException(nameof(comparer));
 
-            using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+            using (var enumerator = source.GetEnumerator())
             {
-                bool movedNext = false;
+                var movedNext = false;
                 while (movedNext || enumerator.MoveNext())
                 {
                     yield return GetChunkByGrouping(enumerator, keySelector, comparer, out movedNext);
@@ -139,7 +128,7 @@ namespace Endless
 
         private static IGrouping<TKey, TSource> GetChunkByGrouping<TKey, TSource>(IEnumerator<TSource> enumerator, Func<TSource, TKey> keySelector, IEqualityComparer<TKey> comparer, out bool movedNext)
         {
-            TKey currentKey = keySelector(enumerator.Current);
+            var currentKey = keySelector(enumerator.Current);
             var items = new List<TSource>();
             var grouping = new TrivialGrouping<TKey, TSource>(currentKey, items);
             do
@@ -164,11 +153,11 @@ namespace Endless
         /// </summary>
         public static bool StartsWith<T>(this IEnumerable<T> source, IEnumerable<T> subsequence)
         {
-            if (source == null) throw new ArgumentNullException("source");
-            if (subsequence == null) throw new ArgumentNullException("subsequence");
+            if (source == null) throw new ArgumentNullException(nameof(source));
+            if (subsequence == null) throw new ArgumentNullException(nameof(subsequence));
 
-            using (IEnumerator<T> subsequenceIterator = subsequence.GetEnumerator())
-            using (IEnumerator<T> sourceIterator = source.GetEnumerator())
+            using (var subsequenceIterator = subsequence.GetEnumerator())
+            using (var sourceIterator = source.GetEnumerator())
             {
                 while (subsequenceIterator.MoveNext())
                 {
@@ -191,12 +180,12 @@ namespace Endless
         }
 
         /// <summary>
-        /// Casts dynamically. Alternative to original Cast<> LINQ method, which does not make the use of conversion operators.
+        /// Casts dynamically. Alternative to original Cast&lt;&gt; LINQ method, which does not make the use of conversion operators.
         /// </summary>
         /// <exception cref="Microsoft.CSharp.RuntimeBinder.RuntimeBinderException">Thrown when cast is not supported.</exception>
         public static IEnumerable<TResult> DynamicCast<TResult>(this IEnumerable source)
         {
-            return source.Cast<dynamic>().Select(result => (TResult) result);
+            return source.Cast<dynamic>().Select(result => (TResult)result);
         }
 
         /// <summary>

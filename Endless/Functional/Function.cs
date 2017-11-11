@@ -1,18 +1,4 @@
-#region License
-
-// Copyright (C) Tomáš Pažourek, 2014
-// All rights reserved.
-// 
-// Distributed under MIT license as a part of project Endless.
-// https://github.com/tompazourek/Endless
-
-#endregion
-
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 
 namespace Endless.Functional
 {
@@ -26,7 +12,7 @@ namespace Endless.Functional
         /// </summary>
         public static Func<T2, T1, TResult> Flip<T1, T2, TResult>(this Func<T1, T2, TResult> func)
         {
-            if (func == null) throw new ArgumentNullException("func");
+            if (func == null) throw new ArgumentNullException(nameof(func));
             return (x, y) => func(y, x);
         }
 
@@ -35,7 +21,7 @@ namespace Endless.Functional
         /// </summary>
         public static Action<T2, T1> Flip<T1, T2>(this Action<T1, T2> action)
         {
-            if (action == null) throw new ArgumentNullException("action");
+            if (action == null) throw new ArgumentNullException(nameof(action));
             return (x, y) => action(y, x);
         }
 
@@ -44,7 +30,7 @@ namespace Endless.Functional
         /// </summary>
         public static TOut Pipe<TIn, TOut>(this TIn _this, Func<TIn, TOut> func)
         {
-            if (func == null) throw new ArgumentNullException("func");
+            if (func == null) throw new ArgumentNullException(nameof(func));
             return func(_this);
         }
     }
