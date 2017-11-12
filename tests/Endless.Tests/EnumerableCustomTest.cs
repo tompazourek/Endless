@@ -131,7 +131,7 @@ namespace Endless.Tests
             var chunks = collection.Chunk(11).ToList();
 
             // assert
-            Assert.Equal(1, chunks.Count);
+            Assert.Single(chunks);
             Assert.Equal(collection, chunks[0]);
         }
 
