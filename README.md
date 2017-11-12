@@ -1,9 +1,26 @@
 ![Endless logo](https://raw.githubusercontent.com/tompazourek/Endless/master/assets/logo_32.png) Endless .NET
 ============
 
+[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o)](https://ci.appveyor.com/project/tompazourek/endless)
+
 *Extensions that support the C# functional paradigm.*
 
-[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o)](https://ci.appveyor.com/project/tompazourek/endless)
+The library is written in C# and released with an [MIT license](https://raw.githubusercontent.com/tompazourek/Endless/master/LICENSE), so feel **free to fork** or **use commercially**.
+
+**Any feedback is appreciated, please visit the [issues](https://github.com/tompazourek/Endless/issues?state=open) page or send me an [e-mail](mailto:tom.pazourek@gmail.com).**
+
+Download
+--------
+
+Binaries of the last build can be downloaded on the [AppVeyor CI page of the project](https://ci.appveyor.com/project/tompazourek/Endless/build/artifacts).
+
+The library is also [published on NuGet.org](https://www.nuget.org/packages/Endless/) (prerelease), install using:
+
+```
+PM> Install-Package Endless -Pre
+```
+
+<sup>Endless is is built as for .NET v4.0, .NET v4.7, v4.0, .NET Standard 1.1 and .NET Standard 2.0.</sup>
 
 ## Table of contents
 
