@@ -1,3 +1,4 @@
+![Endless logo](https://raw.githubusercontent.com/tompazourek/Endless/master/assets/logo_32.png) 
 # Endless .NET
 
 *Extensions that support the C# functional paradigm.*
