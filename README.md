@@ -1,7 +1,7 @@
 ![Endless logo](https://raw.githubusercontent.com/tompazourek/Endless/master/assets/logo_32.png) Endless .NET
 ============
 
-[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o)](https://ci.appveyor.com/project/tompazourek/endless)
+[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o?svg=true)](https://ci.appveyor.com/project/tompazourek/endless)
 
 *Extensions that support the C# functional paradigm.*
 
