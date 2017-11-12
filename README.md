@@ -20,7 +20,7 @@ The library is also [published on NuGet.org](https://www.nuget.org/packages/Endl
 PM> Install-Package Endless -Pre
 ```
 
-<sup>Endless is is built as for .NET v4.0, .NET v4.7, v4.0, .NET Standard 1.1 and .NET Standard 2.0.</sup>
+<sup>Endless is built for .NET v4.0, .NET v4.7, v4.0, .NET Standard 1.1 and .NET Standard 2.0.</sup>
 
 ## Table of contents
 
