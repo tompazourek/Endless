@@ -1,7 +1,9 @@
 ![Endless logo](https://raw.githubusercontent.com/tompazourek/Endless/master/assets/logo_32.png) Endless .NET
 ============
 
-[![Build status](https://ci.appveyor.com/api/projects/status/h7iyo0gr4qelf89o?svg=true)](https://ci.appveyor.com/project/tompazourek/endless)
+[![Build status](https://img.shields.io/appveyor/ci/tompazourek/endless.svg)](https://ci.appveyor.com/project/tompazourek/endless)
+[![Tests](https://img.shields.io/appveyor/tests/tompazourek/endless.svg)](https://ci.appveyor.com/project/tompazourek/endless/build/tests)
+[![NuGet downloads](https://img.shields.io/nuget/dt/Endless.svg)](https://www.nuget.org/packages/Endless/)
 
 *Extensions that support the C# functional paradigm.*
 
