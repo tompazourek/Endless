@@ -19,6 +19,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageReleaseNotes>https://github.com/tompazourek/Endless/releases</PackageReleaseNotes>
     <PackageId>Endless</PackageId>
+    <DocumentationFile>/bin/$(Configuration)/Endless.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'net47' ">
