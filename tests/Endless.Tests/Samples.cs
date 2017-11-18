@@ -13,17 +13,19 @@ namespace Endless.Tests
         [Fact]
         public void AlternatingDigitSum_Sample()
         {
-            IEnumerable<int> Digits(int number)
-            {
-                return Math.Abs(number).Iterate(x => x / 10).TakeUntil(0).Select(x => x % 10).Reverse();
-            }
+            IEnumerable<int> digits(int number)
+                => Math.Abs(number)
+                    .Iterate(x => x / 10)
+                    .TakeUntil(0)
+                    .Select(x => x % 10)
+                    .Reverse();
 
-            IEnumerable<int> AlternateSequence(IEnumerable<int> sequence)
-            {
-                return sequence.Zip(new[] { 1, -1 }.Cycle(), (x, y) => x * y);
-            }
+            IEnumerable<int> alternateSequence(IEnumerable<int> sequence)
+                => sequence
+                    .Zip(new[] { 1, -1 }.Cycle(), (x, y) => x * y);
 
-            var alternatingDigitSum = Function.Compose(x => x.Sum(), AlternateSequence, (Func<int, IEnumerable<int>>)Digits); // sum of alternating sequence of digits
+            int alternatingDigitSum(int number)
+                => alternateSequence(digits(number)).Sum();
 
             Assert.Equal(0, alternatingDigitSum(0));
             Assert.Equal(1 - 2 + 3, alternatingDigitSum(123));
@@ -35,16 +37,18 @@ namespace Endless.Tests
         [Fact]
         public void DigitSum_Sample()
         {
-            int DigitSum(int a)
-            {
-                return Math.Abs(a).Iterate(x => x / 10).TakeUntil(0).Select(x => x % 10).Sum();
-            }
+            int digitSum(int number)
+                => Math.Abs(number)
+                    .Iterate(x => x / 10)
+                    .TakeUntil(0)
+                    .Select(x => x % 10)
+                    .Sum();
 
-            Assert.Equal(0, DigitSum(0));
-            Assert.Equal(1 + 2 + 3, DigitSum(123));
-            Assert.Equal(9 + 5 + 4 + 1 + 6, DigitSum(95416));
-            Assert.Equal(9 + 9 + 0 + 9 + 9, DigitSum(99099));
-            Assert.Equal(9 + 5 + 4 + 1 + 6, DigitSum(-95416));
+            Assert.Equal(0, digitSum(0));
+            Assert.Equal(1 + 2 + 3, digitSum(123));
+            Assert.Equal(9 + 5 + 4 + 1 + 6, digitSum(95416));
+            Assert.Equal(9 + 9 + 0 + 9 + 9, digitSum(99099));
+            Assert.Equal(9 + 5 + 4 + 1 + 6, digitSum(-95416));
         }
 
         /// <summary>
@@ -89,13 +93,13 @@ namespace Endless.Tests
         {
             var today = new DateTime(2013, 11, 3); // DateTime.Today;
 
-            DateTime NextFridayThe13ThSince(DateTime day)
+            DateTime nextFridayThe13ThSince(DateTime day)
             {
                 var future = day.Iterate(x => x.AddDays(1));
                 return future.First(x => x.Day == 13 && x.DayOfWeek == DayOfWeek.Friday);
             }
 
-            Assert.Equal(new DateTime(2013, 12, 13), NextFridayThe13ThSince(today));
+            Assert.Equal(new DateTime(2013, 12, 13), nextFridayThe13ThSince(today));
         }
 
         [Fact]
@@ -152,20 +156,23 @@ namespace Endless.Tests
             const string input = @"How can you tell an extrovert from an introvert at NSA? Va gur ryringbef, gur rkgebireg ybbxf ng gur BGURE thl'f fubrf.";
             const string output = @"Ubj pna lbh gryy na rkgebireg sebz na vagebireg ng AFN? In the elevators, the extrovert looks at the OTHER guy's shoes.";
 
-            var rot = new Func<int, string, string>((degree, src) =>
+            string rot(int degree, string src)
             {
                 var alphabet = Enumerate.From('a').To('z');
-                var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(26);
+                var shiftedAlphabet = alphabet.Cycle().Skip(degree).Take(alphabet.Count());
 
-                var repeatWithUpperCase = new Func<IEnumerable<char>, IEnumerable<char>>(x => x.Concat(x.Select(char.ToUpper)));
-                var transformation = alphabet.Pipe(repeatWithUpperCase)
-                    .Zip(shiftedAlphabet.Pipe(repeatWithUpperCase))
+                IEnumerable<char> repeatWithUpperCase(IEnumerable<char> x)
+                    => x.Concat(x.Select(char.ToUpper));
+
+                var transformation = repeatWithUpperCase(alphabet)
+                    .Zip(repeatWithUpperCase(shiftedAlphabet))
                     .ToDictionary();
 
                 var result = src.Select(c => transformation.ContainsKey(c) ? transformation[c] : c).BuildString();
                 return result;
-            });
-            var rot13 = rot.Curry()(13);
+            }
+
+            var rot13 = ((Func<int, string, string>)rot).Curry()(13);
 
             Assert.Equal(output, rot13(input));
             Assert.Equal(input, rot13(output));
@@ -176,18 +183,18 @@ namespace Endless.Tests
         public void Sum1000Primes()
         {
             // ReSharper disable once FunctionRecursiveOnAllPaths
-            IEnumerable<int> Sieve(IEnumerable<int> list)
+            IEnumerable<int> sieve(IEnumerable<int> list)
             {
                 var prime = list.First();
                 yield return prime;
 
-                foreach (var other in Sieve(list.Tail().Where(x => x % prime != 0)))
+                foreach (var other in sieve(list.Tail().Where(x => x % prime != 0)))
                 {
                     yield return other;
                 }
             }
 
-            var primeNumbers = Sieve(Enumerate.From(2));
+            var primeNumbers = sieve(Enumerate.From(2));
             var sum = primeNumbers.Take(1000).Sum();
 
             Assert.Equal(3682913, sum);
@@ -197,6 +204,7 @@ namespace Endless.Tests
         /// Detects UTF-8 BOM of the file
         /// </summary>
         [Fact]
+        [SuppressMessage("ReSharper", "InconsistentNaming")]
         public void UTF8ByteOrderMark()
         {
             // arrange

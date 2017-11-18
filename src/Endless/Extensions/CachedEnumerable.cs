@@ -33,10 +33,7 @@ namespace Endless
             return new CachedEnumerator<T>(_cache.GetEnumerator(), _sourceEnumerator, this);
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         private class CachedEnumerator<TT> : IEnumerator<TT>
         {

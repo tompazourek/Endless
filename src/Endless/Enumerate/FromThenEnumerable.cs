@@ -21,14 +21,8 @@ namespace Endless
             }
         }
 
-        public IEnumerator<T> GetEnumerator()
-        {
-            return _enumerator.Clone();
-        }
+        public IEnumerator<T> GetEnumerator() => _enumerator.Clone();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

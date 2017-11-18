@@ -15,14 +15,8 @@ namespace Endless
         public IList<TSource> Items { get; }
         public TKey Key { get; }
 
-        public IEnumerator<TSource> GetEnumerator()
-        {
-            return Items.GetEnumerator();
-        }
+        public IEnumerator<TSource> GetEnumerator() => Items.GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

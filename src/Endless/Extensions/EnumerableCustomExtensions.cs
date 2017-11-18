@@ -71,10 +71,7 @@ namespace Endless
         /// <typeparam name="T"></typeparam>
         /// <param name="source"></param>
         /// <returns></returns>
-        public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source)
-        {
-            return source.ChunkBy(EqualityComparer<T>.Default);
-        }
+        public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source) => source.ChunkBy(EqualityComparer<T>.Default);
 
         /// <summary>
         /// Groups results by contiguous values
@@ -83,10 +80,7 @@ namespace Endless
         /// <param name="source"></param>
         /// <param name="comparer"></param>
         /// <returns></returns>
-        public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer)
-        {
-            return source.ChunkBy(Identity<T>.Func, comparer);
-        }
+        public static IEnumerable<IGrouping<T, T>> ChunkBy<T>(this IEnumerable<T> source, IEqualityComparer<T> comparer) => source.ChunkBy(Identity<T>.Func, comparer);
 
         /// <summary>
         /// Groups results by contiguous keys
@@ -96,10 +90,7 @@ namespace Endless
         /// <param name="source"></param>
         /// <param name="keySelector"></param>
         /// <returns></returns>
-        public static IEnumerable<IGrouping<TKey, TSource>> ChunkBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector)
-        {
-            return source.ChunkBy(keySelector, EqualityComparer<TKey>.Default);
-        }
+        public static IEnumerable<IGrouping<TKey, TSource>> ChunkBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) => source.ChunkBy(keySelector, EqualityComparer<TKey>.Default);
 
         /// <summary>
         /// Groups results by contiguous keys
@@ -174,10 +165,7 @@ namespace Endless
         /// <summary>
         /// Returns true if this sequence starts with given subsequence
         /// </summary>
-        public static bool StartsWith<T>(this IEnumerable<T> source, params T[] sequence)
-        {
-            return StartsWith(source, sequence.AsEnumerable());
-        }
+        public static bool StartsWith<T>(this IEnumerable<T> source, params T[] sequence) => StartsWith(source, sequence.AsEnumerable());
 
         /// <summary>
         /// Casts dynamically. Alternative to original Cast&lt;&gt; LINQ method, which does not make the use of conversion operators.
@@ -195,9 +183,6 @@ namespace Endless
         /// No value from source enumerator will be enumerated twice. The values once enumerated are stored in internal list.
         /// Warning: The cached enumerable needs to be disposed (since the enumerator of the source is also IDisposable).
         /// </remarks>
-        public static ICachedEnumerable<T> Cached<T>(this IEnumerable<T> source)
-        {
-            return new CachedEnumerable<T>(source);
-        }
+        public static ICachedEnumerable<T> Cached<T>(this IEnumerable<T> source) => new CachedEnumerable<T>(source);
     }
 }

@@ -2,7 +2,7 @@ using System;
 
 namespace Endless.Functional
 {
-    public static partial class Function
+    public static class CurryExtension
     {
         /// <summary>
         /// Curryfication of binary function

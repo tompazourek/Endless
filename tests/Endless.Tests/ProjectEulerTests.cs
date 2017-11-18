@@ -42,14 +42,14 @@ namespace Endless.Tests
         [Fact(Skip = "Takes long to compute.")]
         public void Problem34_DigitFactorials()
         {
-            long Factorial(int n)
+            long factorial(int n)
             {
                 return 1.Yield()
                     .Concat(Natural.Numbers.Scan((x, y) => x * y))
                     .ElementAt(n);
             }
 
-            IEnumerable<int> Digits(int n)
+            IEnumerable<int> digits(int n)
             {
                 return n
                     .Iterate(x => x / 10)
@@ -58,11 +58,11 @@ namespace Endless.Tests
             }
 
             const int lowerBound = 10; // cannot be one digit
-            var upperDigitCount = Enumerate.From(2).First(x => x * Factorial(9) < Math.Pow(10, x));
-            var upperBound = (int)(upperDigitCount * Factorial(9));
+            var upperDigitCount = Enumerate.From(2).First(x => x * factorial(9) < Math.Pow(10, x));
+            var upperBound = (int)(upperDigitCount * factorial(9));
 
             long numbersSum = Enumerate.From(lowerBound).To(upperBound).AsParallel()
-                .Where(x => Digits(x).Sum((Func<int, long>)Factorial) == x) // sum+equals could be optimized
+                .Where(x => digits(x).Sum((Func<int, long>)factorial) == x) // sum+equals could be optimized
                 .Sum();
 
             Assert.Equal(40730, numbersSum);

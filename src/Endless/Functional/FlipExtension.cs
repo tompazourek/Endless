@@ -2,10 +2,7 @@ using System;
 
 namespace Endless.Functional
 {
-    /// <summary>
-    /// Functional extensions
-    /// </summary>
-    public static partial class Function
+    public static class FlipExtension
     {
         /// <summary>
         /// Flips binary function arguments
@@ -23,15 +20,6 @@ namespace Endless.Functional
         {
             if (action == null) throw new ArgumentNullException(nameof(action));
             return (x, y) => action(y, x);
-        }
-
-        /// <summary>
-        /// Applies function to a result, but can be still read from the end (as fluent interfaces do)
-        /// </summary>
-        public static TOut Pipe<TIn, TOut>(this TIn _this, Func<TIn, TOut> func)
-        {
-            if (func == null) throw new ArgumentNullException(nameof(func));
-            return func(_this);
         }
     }
 }

@@ -97,20 +97,11 @@ namespace Endless
 
         object IEnumerator.Current => Current;
 
-        public IFromThenToEnumerator<T> Clone()
-        {
-            return new DynamicFromThenToEnumerator<T>(From, Then, To);
-        }
+        public IFromThenToEnumerator<T> Clone() => new DynamicFromThenToEnumerator<T>(From, Then, To);
 
-        public IFromThenToEnumerator<T> CloneWithThenRestriction(T then)
-        {
-            return new DynamicFromThenToEnumerator<T>(From, then, To);
-        }
+        public IFromThenToEnumerator<T> CloneWithThenRestriction(T then) => new DynamicFromThenToEnumerator<T>(From, then, To);
 
-        public IFromThenToEnumerator<T> CloneWithToRestriction(T to)
-        {
-            return new DynamicFromThenToEnumerator<T>(From, Then, to);
-        }
+        public IFromThenToEnumerator<T> CloneWithToRestriction(T to) => new DynamicFromThenToEnumerator<T>(From, Then, to);
 
         private dynamic Add(dynamic x, dynamic y)
         {

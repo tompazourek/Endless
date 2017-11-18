@@ -88,19 +88,10 @@ namespace Endless
 
         object IEnumerator.Current => Current;
 
-        public IFromThenToEnumerator<DateTimeOffset> Clone()
-        {
-            return new DateTimeOffsetFromThenToEnumerator(From, Then, To);
-        }
+        public IFromThenToEnumerator<DateTimeOffset> Clone() => new DateTimeOffsetFromThenToEnumerator(From, Then, To);
 
-        public IFromThenToEnumerator<DateTimeOffset> CloneWithThenRestriction(DateTimeOffset then)
-        {
-            return new DateTimeOffsetFromThenToEnumerator(From, then, To);
-        }
+        public IFromThenToEnumerator<DateTimeOffset> CloneWithThenRestriction(DateTimeOffset then) => new DateTimeOffsetFromThenToEnumerator(From, then, To);
 
-        public IFromThenToEnumerator<DateTimeOffset> CloneWithToRestriction(DateTimeOffset to)
-        {
-            return new DateTimeOffsetFromThenToEnumerator(From, Then, to);
-        }
+        public IFromThenToEnumerator<DateTimeOffset> CloneWithToRestriction(DateTimeOffset to) => new DateTimeOffsetFromThenToEnumerator(From, Then, to);
     }
 }
