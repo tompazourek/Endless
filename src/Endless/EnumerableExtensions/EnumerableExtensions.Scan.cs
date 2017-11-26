@@ -39,12 +39,23 @@ namespace Endless
         {
             if (sequence == null) throw new ArgumentNullException(nameof(sequence));
             if (func == null) throw new ArgumentNullException(nameof(func));
+            
+            using (var enumerator = sequence.GetEnumerator())
+            {
+                if (!enumerator.MoveNext())
+                    yield break; // empty sequence
 
-            if (sequence.IsEmpty())
-                return Enumerable.Empty<T>();
+                var seed = enumerator.Current;
+                yield return seed;
 
-            var result = Scan(sequence.Tail(), sequence.First(), func);
-            return result;
+                var current = seed;
+                while (enumerator.MoveNext())
+                {
+                    var item = enumerator.Current;
+                    current = func(current, item);
+                    yield return current;
+                }
+            }
         }
 
         /// <summary>
