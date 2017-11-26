@@ -2,6 +2,9 @@
 
 namespace Endless
 {
+    /// <summary>
+    /// <see cref="Cached{T}"/>
+    /// </summary>
     public static class CachedEnumerableExtension
     {
         /// <summary>

@@ -62,14 +62,16 @@ namespace Endless
                     Current = _first.Current;
                     return true;
                 }
+
                 _switched = true;
-                if (_second.MoveNext())
-                {
-                    Current = _second.Current;
-                    _parent._cache.AddLast(Current); // add to cache
-                    return true;
-                }
-                return false;
+
+                if (!_second.MoveNext())
+                    return false;
+
+                Current = _second.Current;
+                _parent._cache.AddLast(Current); // add to cache
+
+                return true;
             }
 
             public void Reset()
