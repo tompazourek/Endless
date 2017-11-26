@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Endless
 {
-    public interface IFromThenEnumerable<T> : IEnumerable<T>
+    public interface IFromStepEnumerable<T> : IEnumerable<T>
     {
         /// <summary>
         /// Bounds the collection of numbers from the right.

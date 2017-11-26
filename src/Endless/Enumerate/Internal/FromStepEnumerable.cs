@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Endless
 {
-    internal class FromThenEnumerable<T> : IFromThenEnumerable<T> where T : struct
+    internal class FromStepEnumerable<T> : IFromStepEnumerable<T>
     {
-        private readonly IFromThenToEnumerator<T> _enumerator;
+        private readonly IFromStepToEnumerator<T> _enumerator;
 
-        public FromThenEnumerable(IFromThenToEnumerator<T> enumerator)
+        public FromStepEnumerable(IFromStepToEnumerator<T> enumerator)
         {
             _enumerator = enumerator;
         }

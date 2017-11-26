@@ -167,6 +167,27 @@ namespace Endless.Tests
             Assert.Equal(new[] { 1, -1, -3, -5, -7, -9 }, numbers);
         }
 
+
+        [Fact]
+        public void EnumerateInt_FromThenTo_Count2()
+        {
+            // act
+            var numbers = Enumerate.From(1).Then(-1).To(-1);
+
+            // assert
+            Assert.Equal(new[] { 1, -1 }, numbers);
+        }
+
+        [Fact]
+        public void EnumerateInt_FromThenTo_Count3()
+        {
+            // act
+            var numbers = Enumerate.From(1).Then(-1).To(-3);
+
+            // assert
+            Assert.Equal(new[] { 1, -1, -3 }, numbers);
+        }
+
         [Fact]
         public void EnumerateLong_FromThenTo()
         {
