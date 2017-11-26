@@ -225,30 +225,6 @@ C# equivalent:
 
 ## Reduce
 
-### Boolean reductions
-
-Boolean reductions are reduce the sequences of `bool` to single `bool` value. There are two kinds of boolean reductions:
-
-* `.And()` - Returns `true` when all values in the sequence are `true`. Stops executing on first `false` and does not evaluate further.
-* `.Or()` - Returns `true` when any value in the sequence is `true`. Stops executing on first `true` and does not evaluate further.
-
-**Trivial samples:**
-
-```csharp
-new[] { true, true, false, true }.And(); // returns false
-new[] { true, true, false, true }.Or(); // returns true
-```
-
-The necessary thing to understand is that the reduced sequences do not need to be constructed using just literal bools.
-
-```csharp
-new[] { 10 > x, sequence.Contains(x), IsThisOrThat(x) }.And();
-```
-
-In this example, all the functions are still evaluated before executing. But the reduced sequence may not be an ordinary array, but it may be any generated `IEnumerable<bool>`, even an infinite one.
-
-Apart from the ordinary **sequence of values** (`IEnumerable<bool>`), the reductions are also implemented on **sequences of predicates** (`IEnumerable<Func<bool>>`). Each item in the sequence of predicates may be evaluated to return a value of type `bool`, but it may not be evaluated at all (according to the rules of `And` and `Or` reductions).
-
 ### Right aggregation
 
 The library provides implementation of `AggregateRight` funciton with both overloads (with or without seed). The difference to original `Aggregate` function is that it is evaluated from the right-hand side.
