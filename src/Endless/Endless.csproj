@@ -1,45 +1,65 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net47;net40;netstandard2.0;netstandard1.1;</TargetFrameworks>
-    <Version>0.0.1</Version>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <FileVersion>0.0.0.1</FileVersion>
-    <Authors>Tomáš Pažourek</Authors>
-    <Company>Tomáš Pažourek</Company>
-    <Product />
-    <Copyright>Tomáš Pažourek</Copyright>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/tompazourek/Endless/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/tompazourek/Endless</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/tompazourek/Endless</RepositoryUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/tompazourek/Endless/master/assets/logo_64.png</PackageIconUrl>
-    <PackageTags>c-sharp collections enumerable enumerator extensions functional generate ienumerable ienumerable-extension infinite infinite-sequences iterate lazy lazy-evaluation random reduce sequences stream</PackageTags>
-    <Description>Extensions that support the C# functional paradigm, focusing mainly on infinite enumerables.</Description>
-    <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>https://github.com/tompazourek/Endless/releases</PackageReleaseNotes>
-    <PackageId>Endless</PackageId>
-    <DocumentationFile>/bin/$(Configuration)/Endless.xml</DocumentationFile>
-    <Deterministic>True</Deterministic>
-  </PropertyGroup>
-  
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <PathMap>$(MSBuildProjectDirectory)=/</PathMap>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  <PropertyGroup Label="Basic build">
+    <TargetFrameworks>net40;netstandard1.1;</TargetFrameworks>
+    <LangVersion>7.3</LangVersion>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net47' ">
-    <Reference Include="Microsoft.CSharp" />
+  <PropertyGroup Label="NuGet package">
+    <Authors>Tomáš Pažourek</Authors>
+    <Company>$(Authors)</Company>
+    <Copyright>$(Copyright)</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/tompazourek/Endless</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>$(RepositoryUrl)</PackageProjectUrl>
+    <PackageReleaseNotes>$(RepositoryUrl)/releases</PackageReleaseNotes>
+    <PackageIcon>logo_64.png</PackageIcon>
+    <PackageTags>c-sharp collections enumerable enumerator extensions functional generate ienumerable ienumerable-extension infinite infinite-sequences iterate lazy lazy-evaluation random reduce sequences stream</PackageTags>
+    <Description>Extensions that support the C# functional paradigm, focusing mainly on infinite enumerables.</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Symbols, docs">
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+
+  <PropertyGroup Label="CI build only" Condition=" '$(CI)' == 'true' ">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer" Version="2.2.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
-  </ItemGroup>
   
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.1' ">
     <PackageReference Include="Microsoft.CSharp" Version="4.0.1" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="*.DotSettings" />
+    <None Include="..\..\assets\logo_64.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+    
+  <Target Name="UpdateAppVeyorBuildVersion" AfterTargets="MinVer" Condition=" '$(APPVEYOR)' == 'true' ">
+    <Exec Command="appveyor UpdateBuild -Version &quot;$(MinVerVersion)&quot;" />
+   </Target>
 </Project>
